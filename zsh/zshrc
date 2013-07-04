@@ -1,0 +1,43 @@
+PROMPT='$%n:%~%% '
+SPROMPT="%r?[n,y,a,e];"
+
+# キーバインドはvimを使う
+bindkey -v
+
+# コマンド履歴
+HISTFILE=~/.zsh_history
+HISTSIZE=600000000
+SAVEHIST=600000000
+setopt hist_ignore_dups     # ignore duplication command history list
+
+# コマンド履歴検索
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+# 補完機能
+autoload -Uz compinit
+compinit
+
+# ディレクトリ名を入力すると移動
+setopt auto_cd
+
+# 移動したディレクトリを記録 cd -[TAB]で異動履歴を一覧表示
+setopt auto_pushd
+
+case "${TERM}" in
+kterm*|xterm-256color)
+    precmd() {
+        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+    }
+;;
+esac
+
+# ベルを鳴らさない
+setopt no_beep
+
+#cd ~
+#. ~/.nvm/nvm.sh
+#nvm use v0.6.9
