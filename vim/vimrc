@@ -1,23 +1,26 @@
+" " Localize
+source ~/foundation/vim/vimrc.d/localize.vimrc
+
 " Neobundle
-source ~/dotfiles/.vimrc.d/neobundle.vimrc
+source ~/foundation/vim/vimrc.d/neobundle.vimrc
 
 " General
-source ~/dotfiles/.vimrc.d/general.vimrc
+source ~/foundation/vim/vimrc.d/general.vimrc
 
 " Apprarance
-source ~/dotfiles/.vimrc.d/appearance.vimrc
+source ~/foundation/vim/vimrc.d/appearance.vimrc
 
 " Search
-source ~/dotfiles/.vimrc.d/search.vimrc
+source ~/foundation/vim/vimrc.d/search.vimrc
 
 " Keys
-source ~/dotfiles/.vimrc.d/keys.vimrc
+source ~/foundation/vim/vimrc.d/keys.vimrc
 
 " Unite
-source ~/dotfiles/.vimrc.d/unite.vimrc
+source ~/foundation/vim/vimrc.d/unite.vimrc
 
 " Vimfiler
-source ~/dotfiles/.vimrc.d/vimfiler.vimrc
+source ~/foundation/vim/vimrc.d/vimfiler.vimrc
 
 " Neocomplcache
-source ~/dotfiles/.vimrc.d/neocomplcache.vimrc
+source ~/foundation/vim/vimrc.d/neocomplcache.vimrc
