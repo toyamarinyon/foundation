@@ -1,4 +1,4 @@
-" " Localize
+" Localize
 source ~/foundation/vim/vimrc.d/localize.vimrc
 
 " Neobundle
@@ -15,12 +15,3 @@ source ~/foundation/vim/vimrc.d/search.vimrc
 
 " Keys
 source ~/foundation/vim/vimrc.d/keys.vimrc
-
-" Unite
-source ~/foundation/vim/vimrc.d/unite.vimrc
-
-" Vimfiler
-source ~/foundation/vim/vimrc.d/vimfiler.vimrc
-
-" Neocomplcache
-source ~/foundation/vim/vimrc.d/neocomplcache.vimrc
