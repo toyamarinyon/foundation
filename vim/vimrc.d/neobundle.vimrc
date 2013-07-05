@@ -24,16 +24,16 @@ NeoBundleLazy 'h1mesuke/unite-outline', {
 \}
 NeoBundleLazy 'kmnk/vim-unite-svn', {
 \ 'autoload' : {
-\   'unite_sources' : "svn"
+\   'unite_sources' : "svn/status"
 \ }
 \}
 NeoBundleLazy 'ujihisa/unite-colorscheme',  { 
 \ 'autoload' : {
-\ '  unite_sources' : 'colorscheme', 
+\ 'unite_sources' : 'colorscheme', 
 \ }
 \}
 
-" Vimfiler
+" Vimfjler
 NeoBundleLazy 'Shougo/vimfiler', {
 \ 'depends' : ["Shougo/unite.vim"],
 \ 'autoload' : {
@@ -50,7 +50,7 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 
 " zencoding
-NeoBundle 'mattn/zencoding-vim', {
+NeoBundleLazy 'mattn/zencoding-vim', {
 \ 'autoload' : {
 \   'filetypes' : ["html","htm","erb","haml","php","cfm"]
 \ }
