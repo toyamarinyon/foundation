@@ -64,21 +64,29 @@ unlet s:bundle
 NeoBundleLazy 'Shougo/vimshell'
 
 " neocomplecache
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 
 " neosnippet
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'Shougo/neosnippet'
 
 " zencoding
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'mattn/zencoding-vim', {
 \ 'autoload' : {
-\   'filetypes' : ["html","htm","erb","haml","php","cfm"]
+\   'filetypes' : ["html","htm","erb","haml","php","cfm","slim"]
 \ }
 \}
 
 " Align
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'Align'
+
+" silm
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'slim-template/vim-slim'
 
 " yuroyoro256
 NeoBundle 'yuroyoro/yuroyoro256.vim'
