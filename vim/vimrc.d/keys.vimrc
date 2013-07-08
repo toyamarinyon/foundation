@@ -30,6 +30,9 @@ nnoremap <silent> k gk
 
 vnoremap v $h
 
+" join selected line remove space
+vnoremap <silent> aj :s/\n\s*//g<CR>
+
 " unite
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap [unite] <Nop>
