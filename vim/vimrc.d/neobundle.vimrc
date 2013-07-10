@@ -72,6 +72,13 @@ let g:neocomplcache_enable_at_startup = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'Shougo/neosnippet'
 
+" html5
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundleLazy 'othree/html5.vim', {
+\ 'autoload' : {
+\   'filetypes' : ["html","htm","erb","haml","php","cfm","slim"]
+\ }
+\}
 " zencoding
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'mattn/zencoding-vim', {
