@@ -1,12 +1,14 @@
 inoremap <silent>, ,<Space>
 inoremap <silent>jj <ESC>
+
+" php
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 inoremap <silent>thb ->
 inoremap <silent><?? <?php ;?><Left><Left><Left>
 inoremap <silent>$$ $this->
 inoremap <silent>ppk $this->util->getPK('?')
-inoremap <silent> <C-CR> <br />
-inoremap <silent> <C-SPACE> &nbsp;
-inoremap <silent> <C-CR> <br />
+
+inoremap <silent> <C-CR> <br>
 inoremap <silent> <C-SPACE> &nbsp;
 inoremap <expr> <C-R><C-R> expand('%:p')
 inoremap <expr> :d strftime('%Y/%m/%d')
@@ -20,7 +22,7 @@ inoremap <C-l> <RIGHT>
 
 nnoremap <silent> ;v :e ~/.vimrc<CR>
 nnoremap <silent> ;s :source  ~/.vimrc<CR>
-nnoremap <silent> <C-m> :set number!<CR>
+"nnoremap <silent> <C-m> :set number!<CR>
 nnoremap <silent> <C-i> i<CR><ESC>
 nnoremap <silent> m<space> :b#<CR>
 nnoremap <silent> mw :set wrap!<CR>
@@ -48,3 +50,10 @@ nnoremap <silent> [unite]p :Unite ref/phpmanual -winheight=10 -hide-source-names
 " VimFiler
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> ,h :VimFilerBufferDir <CR>
+
+" textmanip
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+xmap <C-j> <Plug>(textmanip-move-down)
+xmap <C-k> <Plug>(textmanip-move-up)
+xmap <C-h> <Plug>(textmanip-move-left)
+xmap <C-l> <Plug>(textmanip-move-right)

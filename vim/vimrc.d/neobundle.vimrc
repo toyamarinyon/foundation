@@ -83,17 +83,26 @@ NeoBundleLazy 'othree/html5.vim', {
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'mattn/zencoding-vim', {
 \ 'autoload' : {
-\   'filetypes' : ["html","htm","erb","haml","php","cfm","slim"]
+\   'filetypes' : ["html","htm","eruby","haml","php","cfm","slim"]
 \ }
 \}
 
 " Align
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'Align'
+" textmanip
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 't9md/vim-textmanip'
+" tcomment
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'tomtom/tcomment_vim'
 
 " silm
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'slim-template/vim-slim'
+" CoffeeScript
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'kchmck/vim-coffee-script'
 
 " yuroyoro256
 NeoBundle 'yuroyoro/yuroyoro256.vim'
