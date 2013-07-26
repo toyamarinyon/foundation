@@ -90,6 +90,9 @@ NeoBundleLazy 'mattn/zencoding-vim', {
 " Align
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'Align'
+surround
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'tpope/vim-surround'
 " textmanip
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 't9md/vim-textmanip'
