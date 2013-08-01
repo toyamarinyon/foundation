@@ -19,7 +19,7 @@ if [ -d $NEOBUNDLE_DIR ]; then
 else
 	echo "=> Install Neobundle to $NEOBUNDLE_DIR"
 	mkdir -p $NEOBUNDLE_DIR
-	git clone git@github.com:Shougo/neobundle.vim $NEOBUNDLE_DIR
+	git clone https://github.com/Shougo/neobundle.vim $NEOBUNDLE_DIR
 fi
 
 
