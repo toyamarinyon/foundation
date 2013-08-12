@@ -1,16 +1,20 @@
 # language setting
-export LANG=ja_JP.UTF-8
+export LANG=C
 
 # export PATH for homebrew
 export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
 
 # init rbenv
-eval "$(rbenv init -)"
-
-# phpenv
-if [ -f ~/.phpenv/bin/phpenv ]; then
-	export PATH=$PATH:~/.phpenv/bin
-	eval "$(phpenv init -)"
+if [ -f ~/.rbenv/bin/rbenv ]; then
+	export PATH=~/.rbenv/bin:$PATH
 fi
+
+type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
+
+# init phpenv
+if [ -f ~/.phpenv/bin/phpenv ]; then
+	export PATH=~/.phpenv/bin:$PATH
+fi
+type phpenv > /dev/null 2>&1 && eval "$(phpenv init -)"
 
 export VIM_ROOT=/Users/tamurine/.vim
