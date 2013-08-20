@@ -125,6 +125,9 @@ NeoBundle 'slim-template/vim-slim'
 " CoffeeScript
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'kchmck/vim-coffee-script'
+" vim-javascript
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'pangloss/vim-javascript'
 
 " yuroyoro256
 NeoBundle 'yuroyoro/yuroyoro256.vim'

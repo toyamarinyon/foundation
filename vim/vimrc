@@ -10,6 +10,9 @@ source ~/foundation/vim/vimrc.d/general.vimrc
 " Apprarance
 source ~/foundation/vim/vimrc.d/appearance.vimrc
 
+" Indent
+source ~/foundation/vim/vimrc.d/indent.vimrc
+
 " Search
 source ~/foundation/vim/vimrc.d/search.vimrc
 

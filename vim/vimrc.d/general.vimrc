@@ -10,10 +10,6 @@ set nolist
 set listchars=tab:>.,trail:_,extends:>,precedes:<,eol:$
 set nocursorline
 set ttyfast
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=0
 set backspace=indent,eol,start
 set whichwrap=b,s,<,>,[,],h,l
 set history=1000
