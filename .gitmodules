@@ -1,0 +1,3 @@
+[submodule "font/Ricty"]
+	path = font/Ricty
+	url = git@github.com:yascentur/Ricty

@@ -18,6 +18,22 @@ NeoBundle 'Shougo/vimproc', {
 \  }
 \ }
 
+" lightline
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'itchyny/lightline.vim'
+
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'component': {
+\   'readonly': '%{&readonly?"⭤":""}',
+\ },
+\ 'separator': { 'left': '⮀', 'right': '⮂' },
+\ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+
+" vim-fugitive
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'tpope/vim-fugitive.git'
+
 " unite
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'Shougo/unite.vim', {
