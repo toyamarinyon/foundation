@@ -23,12 +23,48 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'itchyny/lightline.vim'
 
 let g:lightline = {
-\ 'colorscheme': 'wombat',
-\ 'component': {
-\   'readonly': '%{&readonly?"⭤":""}',
-\ },
-\ 'separator': { 'left': '⮀', 'right': '⮂' },
-\ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'readonly': 'MyReadonly',
+      \   'modified': 'MyModified',
+      \   'filename': 'MyFilename'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '|', 'right': '|' }
+      \ }
+
+function! MyModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! MyReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "[ReadOnly]"
+  else
+    return ""
+  endif
+endfunction
+
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+       \ ('' != expand('%t') ? expand('%t') : '[No Name]') .
+       \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
 
 " vim-fugitive
 """"""""""""""""""""""""""""""""""""""""""""""""""""
