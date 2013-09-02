@@ -21,5 +21,5 @@ set clipboard+=unnamed
 set textwidth=0
 set laststatus=2
 set synmaxcol=500
+set autoread
 set vb t_vb=
-inoremap jj <ESC>

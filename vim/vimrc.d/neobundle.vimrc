@@ -180,6 +180,10 @@ NeoBundle 'kchmck/vim-coffee-script'
 " vim-javascript
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'pangloss/vim-javascript'
+" plantUML
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NeoBundle 'aklt/plantuml-syntax'
+" let g:plantuml_executable_script = 'java -jar ./plantuml.jar '.expand('%')
 
 " yuroyoro256
 NeoBundle 'yuroyoro/yuroyoro256.vim'
