@@ -4,7 +4,7 @@ inoremap <silent>jj <ESC>
 " php
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 inoremap <silent>thb ->
-inoremap <silent><?? <?php ;?><Left><Left><Left>
+inoremap <silent><?? <?= ?><Left><Left>
 inoremap <silent>$$ $this->
 inoremap <silent>ppk $this->util->getPK('?')
 
