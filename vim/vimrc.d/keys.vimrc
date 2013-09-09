@@ -4,7 +4,7 @@ inoremap <silent>jj <ESC>
 " php
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 inoremap <silent>thb ->
-inoremap <silent><?? <?php ;?><Left><Left><Left>
+inoremap <silent><?? <?= ?><Left><Left>
 inoremap <silent>$$ $this->
 inoremap <silent>ppk $this->util->getPK('?')
 
@@ -39,14 +39,14 @@ vnoremap <silent> aj :s/\n\s*//g<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap [unite] <Nop>
 nmap <Space>u [unite]
-nnoremap <silent> [unite]u :Unite file_mru -winheight=5 -hide-source-names<CR>
-nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
-nnoremap <silent> [unite]o :Unite outline -vertical -winwidth=40<CR>
-nnoremap <silent> [unite]O :Unite outline -vertical -direction=botright -no-quit<CR>
-nnoremap <silent> [unite]b :Unite bookmark -default-action=vimfiler -no-start-insert<CR>
-nnoremap <silent> [unite]s :Unite svn/status<CR>
-nnoremap <silent> [unite]c :Unite colorscheme -auto-preview<CR>
-nnoremap <silent> [unite]p :Unite ref/phpmanual -winheight=10 -hide-source-names<CR>
+nnoremap <silent> [unite]u :<C-u>Unite file_mru -winheight=5 -hide-source-names<CR>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]o :<C-u>Unite outline -vertical -winwidth=40<CR>
+nnoremap <silent> [unite]b :<C-u>Unite bookmark -default-action=vimfiler -no-start-insert<CR>
+nnoremap <silent> [unite]s :<C-u>Unite svn/status<CR>
+nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
+nnoremap <silent> [unite]p :<C-u>Unite ref/phpmanual -winheight=10 -hide-source-names<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -winheight=8<CR>
 
 " VimFiler
 """"""""""""""""""""""""""""""""""""""""""""""""""""

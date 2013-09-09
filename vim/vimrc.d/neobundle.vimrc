@@ -66,6 +66,10 @@ function! MyFilename()
        \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
+" webapi-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'mattn/webapi-vim'
+
 " vim-fugitive
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'tpope/vim-fugitive.git'
@@ -152,7 +156,7 @@ NeoBundleLazy 'othree/html5.vim', {
 \}
 " zencoding
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundleLazy 'mattn/zencoding-vim', {
+NeoBundleLazy 'mattn/emmet-vim', {
 \ 'autoload' : {
 \   'filetypes' : ["html","htm","eruby","haml","php","cfm","slim"]
 \ }
