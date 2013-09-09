@@ -185,6 +185,13 @@ NeoBundle 'pangloss/vim-javascript'
 " NeoBundle 'aklt/plantuml-syntax'
 " let g:plantuml_executable_script = 'java -jar ./plantuml.jar '.expand('%')
 
+" hatena-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'motemen/hatena-vim'
+" webapi-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'mattn/webapi-vim'
+
 " yuroyoro256
 NeoBundle 'yuroyoro/yuroyoro256.vim'
 

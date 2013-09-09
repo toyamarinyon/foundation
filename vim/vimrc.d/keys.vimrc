@@ -42,6 +42,7 @@ nmap <Space>u [unite]
 nnoremap <silent> [unite]u :Unite file_mru -winheight=5 -hide-source-names<CR>
 nnoremap <silent> [unite]a :UniteBookmarkAdd<CR>
 nnoremap <silent> [unite]o :Unite outline -vertical -winwidth=40<CR>
+nnoremap <silent> [unite]O :Unite outline -vertical -direction=botright -no-quit<CR>
 nnoremap <silent> [unite]b :Unite bookmark -default-action=vimfiler -no-start-insert<CR>
 nnoremap <silent> [unite]s :Unite svn/status<CR>
 nnoremap <silent> [unite]c :Unite colorscheme -auto-preview<CR>
