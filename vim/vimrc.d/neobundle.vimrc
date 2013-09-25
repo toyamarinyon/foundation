@@ -146,6 +146,10 @@ let g:quickrun_config._ = {
 let g:quickrun_config['ruby/bundle_exec'] = {
 \  'exec': 'bundle exec ruby %s'
 \}
+let g:quickrun_config.processing =  {
+\   'command': 'processing-java', 
+\   'exec': '%c --sketch=$PWD/ --output=expand("%:r")."/output" --run --force', 
+\ }
 
 " html5
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -192,9 +196,16 @@ NeoBundle 'pangloss/vim-javascript'
 " hatena-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'motemen/hatena-vim'
+" hatenablog-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'toyamarinyon/hatenablog-vim'
 " webapi-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'mattn/webapi-vim'
+
+" webapi-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'sophacles/vim-processing'
 
 " yuroyoro256
 NeoBundle 'yuroyoro/yuroyoro256.vim'

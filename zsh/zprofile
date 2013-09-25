@@ -23,8 +23,11 @@ fi
 
 export TERM=xterm-256color
 
-if [ -d ~/.env.d ]; then
-	. ~/.env.d/*
-fi
+for local_env in '~/.env.d/*'
+do
+	
+done
+
+source ~/.env.d/aws.env
 
 export VIM_ROOT=/Users/tamurine/.vim
