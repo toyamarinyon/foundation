@@ -26,12 +26,13 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'filename' ] ]
+      \             [ 'filename', 'anzu' ] ]
       \ },
       \ 'component_function': {
       \   'readonly': 'MyReadonly',
       \   'modified': 'MyModified',
-      \   'filename': 'MyFilename'
+      \   'filename': 'MyFilename',
+      \   'anzu'    : 'anzu#search_status'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '|', 'right': '|' }
@@ -58,7 +59,6 @@ function! MyReadonly()
     return ""
   endif
 endfunction
-
 
 function! MyFilename()
   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
@@ -203,7 +203,16 @@ NeoBundle 'toyamarinyon/hatenablog-vim'
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'mattn/webapi-vim'
 
-" webapi-vim
+" vim-anzu
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'osyo-manga/vim-anzu'
+nmap n <Plug>(anzu-n)
+nmap N <Plug>(anzu-N)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
+" vim-processing
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'sophacles/vim-processing'
 

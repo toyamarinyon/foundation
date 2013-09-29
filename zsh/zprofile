@@ -2,7 +2,7 @@
 export LANG=ja_JP.UTF-8
 
 # export PATH for homebrew
-export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
+export PATH=/usr/local/bin/:/usr/local/sbin/:/Users/tamurine/bin:$PATH
 
 # init rbenv
 if [ -f ~/.rbenv/bin/rbenv ]; then
@@ -31,3 +31,8 @@ done
 source ~/.env.d/aws.env
 
 export VIM_ROOT=/Users/tamurine/.vim
+
+# export macvim
+if [[ "$OSTYPE" =~ "darwin" ]] && [ -d /Applications/MacVim.app/Contents/MacOS ];then
+	export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
+fi
