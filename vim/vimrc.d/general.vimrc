@@ -23,3 +23,4 @@ set laststatus=2
 set synmaxcol=500
 set autoread
 set vb t_vb=
+set foldmethod=marker
