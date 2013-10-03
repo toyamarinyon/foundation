@@ -22,7 +22,7 @@ inoremap <C-l> <RIGHT>
 
 nnoremap <silent> ;v :e ~/.vimrc<CR>
 nnoremap <silent> ;s :source  ~/foundation/vim/vimrc.d/plugin_draft.vimrc<CR>
-"nnoremap <silent> <C-m> :set number!<CR>
+nnoremap <silent> <C-n> :<C-u>set number!<CR>
 nnoremap <silent> <C-i> i<CR><ESC>
 nnoremap <silent> m<space> :b#<CR>
 nnoremap <silent> mw :set wrap!<CR>
