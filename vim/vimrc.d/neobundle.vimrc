@@ -216,8 +216,10 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'sophacles/vim-processing'
 
-" yuroyoro256
+" colorscheme
 NeoBundle 'yuroyoro/yuroyoro256.vim'
+NeoBundle 'altercation/vim-colors-solarized'
+let g:solarized_termcolors=256
 
 filetype plugin indent on     " Required!
 
