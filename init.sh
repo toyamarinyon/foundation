@@ -1,15 +1,14 @@
 #!/bin/bash
 
 # create symbolic link from repository
-# --------------------------------------
 SCRIPT_PATH=$(cd $(dirname $0);pwd)
 ln -s $SCRIPT_PATH/zsh/zprofile $HOME/.zprofile
 ln -s $SCRIPT_PATH/zsh/zshrc $HOME/.zshrc
 ln -s $SCRIPT_PATH/vim/vimrc $HOME/.vimrc
 ln -s $SCRIPT_PATH/tmux/tmux.conf $HOME/.tmux.conf
+ln -s $SCRIPT_PATH/git/gitconfig $HOME/.gitconfig
 
 # install neobundle.vim
-# --------------------------------------
 VIM_ROOT="$HOME/.vim"
 NEOBUNDLE_DIR="$VIM_ROOT/bundle/neobundle.vim"
 
@@ -31,14 +30,14 @@ elif [ -f "$HOME/.bash_profile" ]; then
 	PROFILE=$HOME/.bash_profile
 fi
 
-SOURCE_STR="export VIM_ROOT=$VIM_ROOT"
+VIM_ROOT_STR="export VIM_ROOT=$VIM_ROOT"
 
 if ! grep -qc 'export VIM_ROOT' $PROFILE; then
-  echo "=> Appending source string to $PROFILE"
+  echo "=> Appending VIM_ROOT to $PROFILE"
   echo "" >> "$PROFILE"
-  echo $SOURCE_STR >> "$PROFILE"
+  echo $VIM_ROOT_STR >> "$PROFILE"
 else
-  echo "=> Source string already in $PROFILE"
+  echo "=> VIM_ROOT string already in $PROFILE"
 fi
 
 echo "=> Close and reopen your terminal to start using vim"

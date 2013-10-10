@@ -1,0 +1,18 @@
+[alias]
+
+[color]
+    ui          = true
+
+[core]
+    editor      = vim
+    pager       = less -R
+
+[interactive]
+
+[push]
+    default     = current
+
+[user]
+    name        = toyama satoshi
+    email       = toyamarinyon@gmail.com
+
