@@ -8,5 +8,6 @@ set softtabstop=0
 
 augroup set_indent
 	autocmd!
-	autocmd filetype coffee setlocal sw=2 sts=2 ts=2 et
+	autocmd filetype coffee setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+	autocmd filetype task   setlocal shiftwidth=2 softtabstop=0 tabstop=2 expandtab
 augroup END

@@ -37,7 +37,3 @@ esac
 
 # ベルを鳴らさない
 setopt no_beep
-
-#cd ~
-#. ~/.nvm/nvm.sh
-#nvm use v0.6.9
