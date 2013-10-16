@@ -24,3 +24,4 @@ set synmaxcol=500
 set autoread
 set vb t_vb=
 set foldmethod=marker
+set nrformats=

@@ -1,9 +1,8 @@
-inoremap <silent>, ,<Space>
 inoremap <silent>jj <ESC>
+inoremap <silent>thb ->
 
 " php
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap <silent>thb ->
 inoremap <silent><?? <?= ?><Left><Left>
 inoremap <silent>$$ $this->
 inoremap <silent>ppk $this->util->getPK('?')
@@ -24,7 +23,7 @@ nnoremap <silent> ;v :e ~/.vimrc<CR>
 nnoremap <silent> ;s :source  ~/foundation/vim/vimrc.d/plugin_draft.vimrc<CR>
 
 nnoremap [number] <Nop>
-nmap <Space>n [number]
+nmap zn [number]
 nnoremap <silent> [number]n :<C-u>setlocal number!<CR>
 nnoremap <silent> [number]m :<C-u>setlocal relativenumber!<CR>
 nnoremap <silent> <C-i> i<CR><ESC>
