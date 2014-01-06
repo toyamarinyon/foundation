@@ -45,7 +45,7 @@ nmap zu [unite]
 nnoremap <silent> [unite]u :<C-u>Unite file_mru -winheight=5 -hide-source-names<CR>
 nnoremap <silent> [unite]y :<C-u>Unite history/yank -winheight=9 -hide-source-names<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline -vertical -winwidth=40<CR>
-nnoremap <silent> [unite]s :<C-u>Unite svn/status<CR>
+nnoremap <silent> [unite]s :<C-u>Unite svn/status -no-start-insert<CR>
 nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
 nnoremap <silent> [unite]p :<C-u>Unite ref/phpmanual -winheight=10 -hide-source-names<CR>
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -winheight=8<CR>

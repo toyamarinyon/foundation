@@ -234,12 +234,6 @@ nmap * <Plug>(anzu-star)
 nmap # <Plug>(anzu-sharp)
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
-" vim-task
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'samsonw/vim-task'
-noremap  <silent> <buffer> <C-t> :<C-u>call Toggle_task_status()<CR>
-
-
 " vim-processing
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'sophacles/vim-processing'
