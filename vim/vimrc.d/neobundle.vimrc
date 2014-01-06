@@ -158,11 +158,33 @@ NeoBundleLazy 'othree/html5.vim', {
 \   'filetypes' : ["html","htm","erb","haml","php","cfm","slim"]
 \ }
 \}
+" operator-html-escape.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'kana/vim-operator-user'
+
+" operator-html-escape.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundleLazy 'tyru/operator-html-escape.vim', {
+\ 'autoload' : {
+\   'filetypes' : ["html","htm","erb","haml","php","cfm","slim"]
+\ }
+\}
+vmap ;h <Plug>(operator-html-escape) 
+vmap ;H <Plug>(operator-html-unescape) 
+
 " zencoding
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'mattn/emmet-vim', {
 \ 'autoload' : {
 \   'filetypes' : ["html","htm","eruby","haml","php","cfm","slim"]
+\ }
+\}
+
+" colorizer
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundleLazy 'lilydjwg/colorizer', {
+\ 'autoload' : {
+\   'filetypes' : ["css","scss","sass","less"]
 \ }
 \}
 
@@ -215,8 +237,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " vim-task
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'samsonw/vim-task'
-inoremap <silent> <buffer> <C-i> <ESC>:<C-u>call Toggle_task_status()<CR>i
-noremap  <silent> <buffer> <C-l> :<C-u>call Toggle_task_status()<CR>
+noremap  <silent> <buffer> <C-t> :<C-u>call Toggle_task_status()<CR>
 
 
 " vim-processing
