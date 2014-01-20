@@ -207,6 +207,9 @@ NeoBundle 'slim-template/vim-slim'
 " CoffeeScript
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'kchmck/vim-coffee-script'
+" node.js
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'moll/vim-node'
 " vim-javascript
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'pangloss/vim-javascript'

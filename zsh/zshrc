@@ -35,5 +35,8 @@ kterm*|xterm-256color)
 ;;
 esac
 
+# compile coffee scripts and run node.js
+alias node-coffee='coffee --compile --output js coffee && node js/app.js'
+
 # ベルを鳴らさない
 setopt no_beep
