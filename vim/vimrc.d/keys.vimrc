@@ -24,8 +24,7 @@ nnoremap <silent> ;s :source  ~/foundation/vim/vimrc.d/plugin_draft.vimrc<CR>
 
 nnoremap [number] <Nop>
 nmap zn [number]
-nnoremap <silent> [number]n :<C-u>setlocal number!<CR>
-nnoremap <silent> [number]m :<C-u>setlocal relativenumber!<CR>
+nnoremap <silent> [number] :<C-u>setlocal relativenumber! number!<CR>
 nnoremap <silent> <C-i> i<CR><ESC>
 nnoremap <silent> m<space> :b#<CR>
 nnoremap <silent> mw :set wrap!<CR>

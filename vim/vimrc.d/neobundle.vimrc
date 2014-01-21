@@ -212,12 +212,8 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'moll/vim-node'
 " vim-javascript
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'pangloss/vim-javascript'
-" plantUML
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle 'aklt/plantuml-syntax'
-" let g:plantuml_executable_script = 'java -jar ./plantuml.jar '.expand('%')
-
 " hatena-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'motemen/hatena-vim'
@@ -244,6 +240,7 @@ NeoBundle 'sophacles/vim-processing'
 " colorscheme
 NeoBundle 'yuroyoro/yuroyoro256.vim'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'w0ng/vim-hybrid'
 let g:solarized_termcolors=256
 
 filetype plugin indent on     " Required!
