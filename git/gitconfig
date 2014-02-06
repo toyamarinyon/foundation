@@ -1,4 +1,7 @@
 [alias]
+    st          = status
+    br          = branch
+    co          = checkout
 
 [color]
     ui          = true
@@ -15,4 +18,3 @@
 [user]
     name        = toyama satoshi
     email       = toyamarinyon@gmail.com
-
