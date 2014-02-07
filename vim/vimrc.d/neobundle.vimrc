@@ -166,7 +166,7 @@ NeoBundle 'kana/vim-operator-user'
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'tyru/operator-html-escape.vim', {
 \ 'autoload' : {
-\   'filetypes' : ["html","htm","erb","haml","php","cfm","slim"]
+\   'filetypes' : ["html","htm","erb","haml","php","cfm","slim","jade"]
 \ }
 \}
 vmap ;h <Plug>(operator-html-escape) 
@@ -176,7 +176,7 @@ vmap ;H <Plug>(operator-html-unescape)
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundleLazy 'mattn/emmet-vim', {
 \ 'autoload' : {
-\   'filetypes' : ["html","htm","eruby","haml","php","cfm","slim"]
+\   'filetypes' : ["html","htm","eruby","haml","php","cfm","slim","jade"]
 \ }
 \}
 
@@ -214,6 +214,8 @@ NeoBundle 'moll/vim-node'
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'pangloss/vim-javascript'
+" jade
+NeoBundle 'digitaltoad/vim-jade'
 " hatena-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'motemen/hatena-vim'
