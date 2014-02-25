@@ -39,7 +39,7 @@ if [[ "$OSTYPE" =~ "darwin" ]] && [ -d /Applications/MacVim.app/Contents/MacOS ]
 fi
 
 # load local env files
-if [ -e ~/.env.d/*.env ]; then
+if [ -e ~/.env.d ]; then
 	for env in ~/.env.d/*.env ; do
 		source $env
 	done
