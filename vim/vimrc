@@ -39,11 +39,13 @@ augroup END
 " }}}
 
 " Encoding {{{
+
 let &termencoding = &encoding
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set fileformats=unix,dos,mac
+
 " }}}
 
 " Appearance {{{
@@ -81,9 +83,6 @@ set history=10000
 " Folding  {{{
 
 " Use marker to fold
-" e.g. {{{kanari_sugoi_code}}}
-" TODO: [Problem] When I input close marker which is "}" three times,
-"       the all foldings after that will be opened... Kanari fuben.
 set foldmethod=marker
 
 " Open folding when move in to one
@@ -95,10 +94,13 @@ set foldmethod=marker
 " }}}
 
 " Movement  {{{
-" BS can delete newline or indent
+
+" `BS` can delete newline or indent
 set backspace=indent,eol,start
+
 " Can move at eol, bol
 set whichwrap=b,s,h,l,<,>,[,]
+
 " }}}
 
 " Indent  {{{
@@ -229,6 +231,161 @@ NeoBundleLazy "matthewsimo/angular-vim-snippets"
 " Required {{{
 
 filetype plugin indent on
+
+" }}}
+
+" {{{ Configurations
+
+if neobundle#tap('unite.vim') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'commands' : [
+        \       {
+        \         'name' : 'Unite',
+        \         'complete' : 'customlist,unite#complete_source'
+        \       },
+        \       'UniteWithCursorWord',
+        \       'UniteWithInput'
+        \     ]
+        \   }
+        \ })
+
+  function! s:unite_menu_map_func(key, value)
+    let [word, value] = a:value
+    if isdirectory(value)
+      return {
+            \   'word' : '[directory] ' . word,
+            \   'kind' : 'directory',
+            \   'action__directory' : value
+            \ }
+    elseif !empty(glob(value))
+      return {
+            \   'word' : '[file] ' . word,
+            \   'kind' : 'file',
+            \   'default_action' : 'tabdrop',
+            \   'action__path' : value,
+            \ }
+    else
+      return {
+            \   'word' : '[command] ' . word,
+            \   'kind' : 'command',
+            \   'action__command' : value
+            \ }
+    endif
+  endfunction
+
+  function! neobundle#tapped.hooks.on_source(bundle)
+
+    " General
+    let g:unite_force_overwrite_statusline = 0
+    let g:unite_kind_jump_list_after_jump_scroll=0
+    let g:unite_enable_start_insert = 0
+    let g:unite_source_rec_min_cache_files = 1000
+    let g:unite_source_rec_max_cache_files = 5000
+    let g:unite_source_file_mru_long_limit = 100000
+    let g:unite_source_file_mru_limit = 100000
+    let g:unite_source_directory_mru_long_limit = 100000
+    let g:unite_prompt = '❯ '
+
+    " Unite-menu
+    let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
+    let g:unite_source_menu_menus.global = { 'description' : 'global shortcut' }
+    let g:unite_source_menu_menus.unite = { 'description' : 'unite shortcut' }
+    let g:unite_source_menu_menus.global.map = function('s:unite_menu_map_func')
+    let g:unite_source_menu_menus.unite.map = function('s:unite_menu_map_func')
+    let g:unite_source_menu_menus.global.candidates = [
+          \   [ '[edit] vimrc' , $MYVIMRC ],
+          \   [ '[edit] secret_vimrc' , expand('~/.secret_vimrc') ],
+          \   [ '[terminal] VimShell' , ':VimShell' ],
+          \   [ '[twitter] TweetVim' , ':Unite tweetvim' ],
+          \   [ '[lingr] J6uil' , ':J6uil' ],
+          \ ]
+    let g:unite_source_menu_menus.unite.candidates = [
+          \   [ 'neobundle/update' , ':Unite neobundle/update -log' ],
+          \   [ 'neobundle/install' , ':Unite neobundle/install -log' ],
+          \   [ 'J6uil/rooms' , ':Unite J6uil/rooms' ],
+          \   [ 'J6uil/members' , ':Unite J6uil/members' ],
+          \   [ 'Blog/posts' , ':Unite file:~/Sites/blog.supermomonga.com/source/posts/' ],
+          \   [ 'TweetVim' , ':Unite tweetvim' ],
+          \   [ 'files', ':Unite -start-insert -buffer-name=files buffer_tab file file_mru'],
+          \   [ 'function', ':Unite -start-insert -default-action=edit function'],
+          \   [ 'variable', ':Unite -start-insert -default-action=edit variable'],
+          \   [ 'outline', ':Unite -start-insert outline'],
+          \   [ 'help', ':Unite -start-insert help'],
+          \   [ 'buffer', ':Unite -start-insert buffer'],
+          \   [ 'line', ':Unite -start-insert -auto-preview -buffer-name=search line'],
+          \   [ 'quickfix', ':Unite -no-split -no-quit -auto-preview quickfix -buffer-name=unite_qf'],
+          \   [ 'grep', ':Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep'],
+          \   [ 'source', ':Unite -start-insert source'],
+          \   [ 'locate', ':Unite -start-insert locate'],
+          \   [ 'theme', ':Unite -auto-preview colorscheme'],
+          \   [ 'resume grep', ':UniteResume unite_grep'],
+          \   [ 'resume quickfix', ':UniteResume unite_qf'],
+          \ ]
+
+  endfunction
+
+  nnoremap <silent> <Space>u  :<C-u>Unite -start-insert menu:unite<CR>
+  nnoremap <silent> <Space>m  :<C-u>Unite -start-insert menu:global<CR>
+  nnoremap <silent> <Space>f  :<C-u>Unite -start-insert -buffer-name=files buffer_tab file_mru<CR>
+  nnoremap <silent> <Space>b  :<C-u>Unite -start-insert buffer<CR>
+  nnoremap <silent> <Space>s  :<C-u>Unite -start-insert -auto-preview -no-split -buffer-name=search line<CR>
+  nnoremap <silent> <Space>l  :<C-u>Unite -start-insert locate<CR>
+  nnoremap <silent> <Space>g  :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
+  " This <Space>j mapping is to define default behavior. Should be changed by
+  " buffer local setting.
+  nnoremap <silent> <Space>j  :<C-u>Unite -start-insert -buffer-name=files buffer_tab file_mru<CR>
+
+  nnoremap <silent> <Space>p  :<C-u>call Unite_project_files('-start-insert')<CR>
+  function! Unite_project_files(options)
+    if exists('b:projectlocal_root_dir')
+      execute ':Unite file_rec/async:' . b:projectlocal_root_dir . ' ' . a:options
+    else
+      echo "You are not in any project."
+    endif
+  endfunction
+
+  " TODO: Should those mappings be moved to their own setting section?
+  " That seems correct but it provides better look of the Unite-source
+  " mappings list.
+  if neobundle#is_installed('unite-quickfix')
+    nnoremap <silent> <Space>q  :<C-u>Unite -no-quit -auto-preview -no-split quickfix<CR>
+  endif
+  if neobundle#is_installed('unite-help')
+    nnoremap <silent> <Space>o  :<C-u>Unite -start-insert -auto-preview
+          \ -no-split outline<CR>
+  endif
+  if neobundle#is_installed('unite-outline')
+    nnoremap <silent> <Space>h  :<C-u>Unite -start-insert help<CR>
+  endif
+
+endif " }}}
+
+if neobundle#tap('vimfiler.vim') " {{{
+
+  call neobundle#config({
+        \ 'autoload' : {
+        \   'commands' : [
+        \     { 'name' : 'VimFiler', 'complete' : 'customlist,vimfiler#complete' },
+        \     { 'name' : 'VimFilerExplorer', 'complete' : 'customlist,vimfiler#complete' },
+        \     { 'name' : 'Edit', 'complete' : 'customlist,vimfiler#complete' },
+        \     { 'name' : 'Write', 'complete' : 'customlist,vimfiler#complete' },
+        \     'Read',
+        \     'Source'
+        \   ],
+        \   'mappings' : '<Plug>(vimfiler_',
+        \   'explorer' : 1,
+        \ }
+        \ })
+
+  let g:vimfiler_safe_mode_by_default = 0
+  let g:unite_kind_file_use_trashbox = 1
+  let g:vimfiler_as_default_explorer = 1
+
+  nnoremap <Space>e  :<C-u>VimFilerExplorer -winwidth=65<CR>
+
+endif " }}}
 
 " }}}
 
