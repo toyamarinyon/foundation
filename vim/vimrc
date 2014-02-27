@@ -1,29 +1,3 @@
-" Localize
-" source ~/foundation/vim/vimrc.d/localize.vimrc
-
-" Neobundle
-" source ~/foundation/vim/vimrc.d/neobundle.vimrc
-
-" General
-" source ~/foundation/vim/vimrc.d/general.vimrc
-
-" Apprarance
-" source ~/foundation/vim/vimrc.d/appearance.vimrc
-
-" Indent
-" source ~/foundation/vim/vimrc.d/indent.vimrc
-
-" Search
-" source ~/foundation/vim/vimrc.d/search.vimrc
-
-" Keys
-" source ~/foundation/vim/vimrc.d/keys.vimrc
-
-" plugin draft
-" if ( filereadable(expand('~/foundation/vim/vimrc.d/plugin_draft.vimrc')) )
-" 	source ~/foundation/vim/vimrc.d/plugin_draft.vimrc
-" endif
-
 " .vimrc
 
 " Concepts {{{
@@ -31,11 +5,31 @@
 "
 " }}}
 
+" General {{{
 
-" General {{{ 
-
-" Use vim defaults option. (Don't use vi defaults option.)
+" Use vim defaults option. (Don"t use vi defaults option.)
 set nocompatible
+
+" Reset Autocmd group
+augroup autocmds
+  autocmd!
+augroup END
+
+" }}}
+
+" Directory {{{
+
+let $DOTVIM = expand("~/.vim")
+let g:path = {
+      \ "bundle"   : $DOTVIM . "/bundle",
+      \ "neobundle": $DOTVIM . "/bundle/neobundle",
+      \ "swap"     : $DOTVIM . "/tmp/swap",
+      \ "bak"      : $DOTVIM . "/tmp/bak",
+      \ "undo"     : $DOTVIM . "/tmp/undo"
+      \}
+
+" .vim directory
+let g:path.dotvim = expand("~/.vim")
 
 " Reset Autocmd group
 augroup autocmds
@@ -54,16 +48,188 @@ set fileformats=unix,dos,mac
 
 " Appearance {{{
 
-" Don't ring a bell and flash
+" Don"t ring a bell and flash
 set vb t_vb=
 
 " Show invisible chars
 set list
+" Symbols to use indent or other
+" NOTE: kakkoii unicode moji
+" - http://unicode-table.com/en/sections/dingbats/
+" - http://unicode-table.com/en/sections/spacing-modifier-letters/
+" 		test   
+set listchars=tab:❯\ ,trail:˼,extends:»,precedes:«,nbsp:%
+
 
 " When input close bracket, highlight start bracket.
 set showmatch
 
 " Use twice the width of ASCII characters.
 set ambiwidth=double
+
+colorscheme desert
+
+" }}}
+
+" History  {{{
+
+" Command history
+set history=10000
+
+" }}}
+
+" Folding  {{{
+
+" Use marker to fold
+" e.g. {{{kanari_sugoi_code}}}
+" TODO: [Problem] When I input close marker which is "}" three times,
+"       the all foldings after that will be opened... Kanari fuben.
+set foldmethod=marker
+
+" Open folding when move in to one
+" set foldopen=all
+
+" Close folding when move out of one
+" set foldclose=all
+
+" }}}
+
+" Movement  {{{
+" BS can delete newline or indent
+set backspace=indent,eol,start
+" Can move at eol, bol
+set whichwrap=b,s,h,l,<,>,[,]
+" }}}
+
+" Indent  {{{
+
+" Use Space instead of Tab to make indent
+set expandtab
+
+set tabstop=2
+
+" Hoe many spaces to each indent level
+set shiftwidth=2
+
+" Automatically adjust indent
+set autoindent
+
+" Automatically indent when insert a new line
+set smartindent
+
+" Insert an indent when keydown <Tab> in indent spaces
+set smarttab
+
+" }}}
+
+" Plugins  {{{
+
+" NeoBundle {{{
+
+if has("vim_starting")
+  let &runtimepath .= ",".g:path.neobundle
+endif
+
+if !isdirectory(g:path.neobundle)
+  echo "Could not locate neobundle."
+  let download_neobundle = confirm("Do you want to download `neobundle`?", "&Yes\n&No")
+  if ( download_neobundle == 1 )
+    echo 'start download neobundle.vim'
+    echo 'git clone https://github.com/Shougo/neobundle.vim ' . g:path.neobundle
+    call system("git clone https://github.com/Shougo/neobundle.vim " . g:path.neobundle)
+    echo 'git clone success.'
+  endif
+endif
+
+" To load remote plugin
+call neobundle#rc(g:path.bundle)
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch "Shougo/neobundle.vim"
+
+" }}}
+
+" Dependencies {{{
+
+" {{{ common plugins (vimproc & vital)
+
+NeoBundle "Shougo/vimproc.vim", { "build" : {
+      \   "windows" : "mingw32-make -f make_mingw32.mak",
+      \   "cygwin"  : "make -f make_cygwin.mak",
+      \   "mac"     : "make -f make_mac.mak",
+      \   "unix"    : "make -f make_unix.mak",
+      \ }}
+
+NeoBundle "vim-jp/vital.vim"
+
+" }}}
+
+" Text object {{{
+
+NeoBundle "kana/vim-textobj-user"
+NeoBundle "kana/vim-textobj-entire", { "depends" : "kana/vim-textobj-user" }
+NeoBundle "kana/vim-textobj-function", { "depends" : "kana/vim-textobj-user" }
+NeoBundle "kana/vim-textobj-indent", { "depends" : "kana/vim-textobj-user" }
+NeoBundle "rhysd/vim-textobj-ruby", { "depends" : "kana/vim-textobj-user" }
+NeoBundle "osyo-manga/vim-textobj-multiblock", { "depends" : "kana/vim-textobj-user" }
+NeoBundle "osyo-manga/vim-textobj-multitextobj", { "depends" : "kana/vim-textobj-user" }
+
+" }}}
+
+" Operator {{{
+
+NeoBundle "kana/vim-operator-user"
+NeoBundle "tyru/operator-html-escape.vim", { "depends" : "kana/vim-operator-user" }
+
+" }}}
+
+" {{{ Unite
+
+NeoBundleLazy "Shougo/unite.vim", { "depends" : [ "Shougo/vimproc.vim" ] }
+NeoBundleLazy "rhysd/unite-ruby-require.vim", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy "Shougo/unite-help", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy "Shougo/unite-outline", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy "ujihisa/unite-colorscheme", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy "ujihisa/unite-locate", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy "osyo-manga/unite-quickfix", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy "Shougo/unite-ssh", { "depends" : [ "Shougo/unite.vim" ] }
+
+" }}}
+
+" {{{ vimshell
+
+NeoBundleLazy "Shougo/vimshell.vim", { "depends" : [ "Shougo/vimproc.vim" ] }
+NeoBundleLazy "ujihisa/vimshell-ssh", { "depends" : [ "Shougo/vimshell.vim" ] }
+
+" }}}
+
+" {{{ vimfiler
+
+NeoBundleLazy "Shougo/vimfiler.vim", { "depends" : [ "Shougo/unite.vim" ] }
+
+"}}}
+
+" {{{ neocomplete
+
+NeoBundleLazy "Shougo/neocomplete.vim"
+
+" }}}
+
+" {{{ snippets
+
+NeoBundleLazy "Shougo/neosnippet.vim"
+NeoBundleLazy "Shougo/neosnippet-snippets", { "depends" : [ "Shougo/neosnippet.vim" ] }
+NeoBundleLazy "honza/vim-snippets"
+NeoBundleLazy "matthewsimo/angular-vim-snippets"
+
+" }}}
+
+" }}}
+
+" Required {{{
+
+filetype plugin indent on
+
+" }}}
 
 " }}}
