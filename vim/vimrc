@@ -1,25 +1,69 @@
 " Localize
-source ~/foundation/vim/vimrc.d/localize.vimrc
+" source ~/foundation/vim/vimrc.d/localize.vimrc
 
 " Neobundle
-source ~/foundation/vim/vimrc.d/neobundle.vimrc
+" source ~/foundation/vim/vimrc.d/neobundle.vimrc
 
 " General
-source ~/foundation/vim/vimrc.d/general.vimrc
+" source ~/foundation/vim/vimrc.d/general.vimrc
 
 " Apprarance
-source ~/foundation/vim/vimrc.d/appearance.vimrc
+" source ~/foundation/vim/vimrc.d/appearance.vimrc
 
 " Indent
-source ~/foundation/vim/vimrc.d/indent.vimrc
+" source ~/foundation/vim/vimrc.d/indent.vimrc
 
 " Search
-source ~/foundation/vim/vimrc.d/search.vimrc
+" source ~/foundation/vim/vimrc.d/search.vimrc
 
 " Keys
-source ~/foundation/vim/vimrc.d/keys.vimrc
+" source ~/foundation/vim/vimrc.d/keys.vimrc
 
 " plugin draft
-if ( filereadable(expand('~/foundation/vim/vimrc.d/plugin_draft.vimrc')) )
-	source ~/foundation/vim/vimrc.d/plugin_draft.vimrc
-endif
+" if ( filereadable(expand('~/foundation/vim/vimrc.d/plugin_draft.vimrc')) )
+" 	source ~/foundation/vim/vimrc.d/plugin_draft.vimrc
+" endif
+
+" .vimrc
+
+" Concepts {{{
+"
+"
+" }}}
+
+
+" General {{{ 
+
+" Use vim defaults option. (Don't use vi defaults option.)
+set nocompatible
+
+" Reset Autocmd group
+augroup autocmds
+  autocmd!
+augroup END
+
+" }}}
+
+" Encoding {{{
+let &termencoding = &encoding
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+set fileformats=unix,dos,mac
+" }}}
+
+" Appearance {{{
+
+" Don't ring a bell and flash
+set vb t_vb=
+
+" Show invisible chars
+set list
+
+" When input close bracket, highlight start bracket.
+set showmatch
+
+" Use twice the width of ASCII characters.
+set ambiwidth=double
+
+" }}}
