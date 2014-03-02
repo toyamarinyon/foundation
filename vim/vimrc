@@ -323,7 +323,7 @@ set ambiwidth=double
 syntax enable
 
 colorscheme hybrid
-" hi Normal       ctermfg=252 ctermbg=none
+highlight normal ctermbg=none
 
 " }}}
 
