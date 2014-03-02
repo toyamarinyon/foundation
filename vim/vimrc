@@ -7,7 +7,7 @@
 
 " General {{{
 
-" Use vim defaults option. (Don"t use vi defaults option.)
+" Use vim defaults option. (Don't use vi defaults option.)
 set nocompatible
 
 " Reset Autocmd group
@@ -19,13 +19,13 @@ augroup END
 
 " Directory {{{
 
-let $DOTVIM = expand("~/.vim")
+let $DOTVIM = expand('~/.vim')
 let g:path = {
-      \ "bundle"   : $DOTVIM . "/bundle",
-      \ "neobundle": $DOTVIM . "/bundle/neobundle",
-      \ "swap"     : $DOTVIM . "/tmp/swap",
-      \ "bak"      : $DOTVIM . "/tmp/bak",
-      \ "undo"     : $DOTVIM . "/tmp/undo"
+      \ 'bundle'   : $DOTVIM . '/bundle',
+      \ 'neobundle': $DOTVIM . '/bundle/neobundle',
+      \ 'swap'     : $DOTVIM . '/tmp/swap',
+      \ 'bak'      : $DOTVIM . '/tmp/bak',
+      \ 'undo'     : $DOTVIM . '/tmp/undo'
       \}
 
 " }}}
@@ -44,15 +44,15 @@ set fileformats=unix,dos,mac
 
 " NeoBundle {{{
 
-if has("vim_starting")
-  let &runtimepath .= ",".g:path.neobundle
+if has('vim_starting')
+  let &runtimepath .= ','.g:path.neobundle
 endif
 
 if !isdirectory(g:path.neobundle)
-  echo "Could not locate neobundle.\n"
-  let download_neobundle = confirm("Do you want to download `neobundle`?", "&Yes\n&No")
+  echo 'Could not locate neobundle.\n'
+  let download_neobundle = confirm('Do you want to download `neobundle`?', '&Yes\n&No')
   if ( download_neobundle == 1 )
-    silent execute "!git clone https://github.com/Shougo/neobundle.vim ". g:path.neobundle
+    silent execute '!git clone https://github.com/Shougo/neobundle.vim '. g:path.neobundle
   endif
 endif
 
@@ -60,7 +60,7 @@ endif
 call neobundle#rc(g:path.bundle)
 
 " Let NeoBundle manage NeoBundle
-NeoBundleFetch "Shougo/neobundle.vim"
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " }}}
 
@@ -68,74 +68,82 @@ NeoBundleFetch "Shougo/neobundle.vim"
 
 " {{{ common plugins (vimproc & vital)
 
-NeoBundle "Shougo/vimproc.vim", { "build" : {
-      \   "windows" : "mingw32-make -f make_mingw32.mak",
-      \   "cygwin"  : "make -f make_cygwin.mak",
-      \   "mac"     : "make -f make_mac.mak",
-      \   "unix"    : "make -f make_unix.mak",
+NeoBundle 'Shougo/vimproc.vim', { 'build' : {
+      \   'windows' : 'mingw32-make -f make_mingw32.mak',
+      \   'cygwin'  : 'make -f make_cygwin.mak',
+      \   'mac'     : 'make -f make_mac.mak',
+      \   'unix'    : 'make -f make_unix.mak',
       \ }}
 
-NeoBundle "vim-jp/vital.vim"
+NeoBundle 'vim-jp/vital.vim'
 
 " }}}
 
 " Text object {{{
 
-NeoBundle "kana/vim-textobj-user"
-NeoBundle "kana/vim-textobj-entire", { "depends" : "kana/vim-textobj-user" }
-NeoBundle "kana/vim-textobj-function", { "depends" : "kana/vim-textobj-user" }
-NeoBundle "kana/vim-textobj-indent", { "depends" : "kana/vim-textobj-user" }
-NeoBundle "rhysd/vim-textobj-ruby", { "depends" : "kana/vim-textobj-user" }
-NeoBundle "osyo-manga/vim-textobj-multiblock", { "depends" : "kana/vim-textobj-user" }
-NeoBundle "osyo-manga/vim-textobj-multitextobj", { "depends" : "kana/vim-textobj-user" }
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-entire', { 'depends' : 'kana/vim-textobj-user' }
+NeoBundle 'kana/vim-textobj-function', { 'depends' : 'kana/vim-textobj-user' }
+NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
+NeoBundle 'rhysd/vim-textobj-ruby', { 'depends' : 'kana/vim-textobj-user' }
+NeoBundle 'osyo-manga/vim-textobj-multiblock', { 'depends' : 'kana/vim-textobj-user' }
+NeoBundle 'osyo-manga/vim-textobj-multitextobj', { 'depends' : 'kana/vim-textobj-user' }
 
 " }}}
 
 " Operator {{{
 
-NeoBundle "kana/vim-operator-user"
-NeoBundle "tyru/operator-html-escape.vim", { "depends" : "kana/vim-operator-user" }
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'tyru/operator-html-escape.vim', { 'depends' : 'kana/vim-operator-user' }
 
 " }}}
 
 " {{{ Unite
 
-NeoBundleLazy "Shougo/unite.vim", { "depends" : [ "Shougo/vimproc.vim" ] }
-NeoBundleLazy "rhysd/unite-ruby-require.vim", { "depends" : [ "Shougo/unite.vim" ] }
-NeoBundleLazy "Shougo/unite-help", { "depends" : [ "Shougo/unite.vim" ] }
-NeoBundleLazy "Shougo/unite-outline", { "depends" : [ "Shougo/unite.vim" ] }
-NeoBundleLazy "ujihisa/unite-colorscheme", { "depends" : [ "Shougo/unite.vim" ] }
-NeoBundleLazy "ujihisa/unite-locate", { "depends" : [ "Shougo/unite.vim" ] }
-NeoBundleLazy "osyo-manga/unite-quickfix", { "depends" : [ "Shougo/unite.vim" ] }
-NeoBundleLazy "Shougo/unite-ssh", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy 'Shougo/unite.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
+NeoBundleLazy 'rhysd/unite-ruby-require.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'Shougo/unite-help', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'kmnk/vim-unite-svn', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'ujihisa/unite-locate', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'osyo-manga/unite-quickfix', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'Shougo/unite-ssh', { 'depends' : [ 'Shougo/unite.vim' ] }
 
 " }}}
 
 " {{{ vimshell
 
-NeoBundleLazy "Shougo/vimshell.vim", { "depends" : [ "Shougo/vimproc.vim" ] }
-NeoBundleLazy "ujihisa/vimshell-ssh", { "depends" : [ "Shougo/vimshell.vim" ] }
+NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
+NeoBundleLazy 'ujihisa/vimshell-ssh', { 'depends' : [ 'Shougo/vimshell.vim' ] }
 
 " }}}
 
 " {{{ vimfiler
 
-NeoBundleLazy "Shougo/vimfiler.vim", { "depends" : [ "Shougo/unite.vim" ] }
+NeoBundleLazy 'Shougo/vimfiler.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
 "}}}
 
 " {{{ neocomplete
 
-NeoBundleLazy "Shougo/neocomplete.vim"
+NeoBundleLazy 'Shougo/neocomplete.vim'
 
 " }}}
 
 " {{{ snippets
 
-NeoBundleLazy "Shougo/neosnippet.vim"
-NeoBundleLazy "Shougo/neosnippet-snippets", { "depends" : [ "Shougo/neosnippet.vim" ] }
-NeoBundleLazy "honza/vim-snippets"
-NeoBundleLazy "matthewsimo/angular-vim-snippets"
+NeoBundleLazy 'Shougo/neosnippet.vim'
+NeoBundleLazy 'Shougo/neosnippet-snippets', { 'depends' : [ 'Shougo/neosnippet.vim' ] }
+NeoBundleLazy 'honza/vim-snippets'
+NeoBundleLazy 'matthewsimo/angular-vim-snippets'
+
+" }}}
+
+" {{{ lightline
+
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'cocopon/lightline-hybrid.vim'
 
 " }}}
 
@@ -143,6 +151,27 @@ NeoBundleLazy "matthewsimo/angular-vim-snippets"
 
 NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'w0ng/vim-hybrid'
+
+" }}}
+
+" {{{ Softwere Configuration Management (git)
+
+NeoBundle 'pope/vim-fugitive'
+
+" }}}
+
+" {{{ Communication
+
+NeoBundleLazy 'basyura/TweetVim', 'dev', { 'depends' : [
+      \   'tyru/open-browser.vim',
+      \   'basyura/twibill.vim',
+      \   'basyura/bitly.vim',
+      \   'Shougo/unite.vim',
+      \   'Shougo/unite-outline',
+      \   'Shougo/vimproc.vim',
+      \   'mattn/favstar-vim',
+      \   'mattn/webapi-vim'
+      \ ] }
 
 " }}}
 
@@ -249,24 +278,23 @@ if neobundle#tap('unite.vim') " {{{
   nnoremap <silent> <Space>u  :<C-u>Unite -start-insert menu:unite<CR>
   nnoremap <silent> <Space>m  :<C-u>Unite -start-insert menu:global<CR>
   nnoremap <silent> <Space>f  :<C-u>Unite -start-insert -buffer-name=files buffer_tab file_mru<CR>
+
   nnoremap [unite] <Nop>
   nmap zu [unite]
-
   nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files buffer_tab file_mru<CR>
   nnoremap <silent> [unite]y :<C-u>Unite history/yank -winheight=9 -hide-source-names<CR>
   nnoremap <silent> [unite]s :<C-u>Unite svn/status -no-start-insert<CR>
   nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
 
+  if neobundle#is_installed('unite-svn')
+    nnoremap <silent> [unite]s :<C-u>Unite svn/status -no-start-insert<CR>
+  endif
   if neobundle#is_installed('unite-quickfix')
     nnoremap <silent> <Space>q  :<C-u>Unite -no-quit -auto-preview -no-split quickfix<CR>
   endif
-  if neobundle#is_installed('unite-help')
-    nnoremap <silent> <Space>o  :<C-u>Unite -start-insert -auto-preview
-          \ -no-split outline<CR>
-  endif
   if neobundle#is_installed('unite-outline')
-    nnoremap <silent> <Space>h  :<C-u>Unite -start-insert help<CR>
+    nnoremap <silent> <Space>h  :<C-u>Unite outline -vertical -winwidth=40<CR>
   endif
 
 endif " }}}
@@ -296,26 +324,159 @@ if neobundle#tap('vimfiler.vim') " {{{
 
 endif " }}}
 
+if neobundle#tap('lightline.vim') " {{{
+  let g:lightline = {
+        \ 'colorscheme' : 'jellybeans',
+        \ 'active' : {
+        \   'left' : [ [ 'mode', 'paste' ],
+        \              [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+        \ },
+        \ 'component' : {
+        \   'readonly' : '%{&readonly?"x":""}',
+        \   'modified' : '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+        \   'fugitive': '%{exists("*fugitive#head")?"\u2b60 ".fugitive#head():""}'
+        \ },
+        \ 'component_visible_condition': {
+        \   'readonly': '(&filetype!="help"&& &readonly)',
+        \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
+        \ }
+        \ }
+endif " }}}
+
+if neobundle#tap('lightline-hybrid.vim') " {{{
+  call neobundle#config({
+        \   'autoload' : {
+        \     'on_source' : [ 'lightline.vim' ]
+        \   }
+        \ })
+endif " }}}
+
+if neobundle#tap('neocomplete.vim') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'insert' : 1,
+        \   }
+        \ })
+
+  " Enable at startup
+  let g:neocomplete#enable_at_startup = 1
+
+  " Smartcase
+  let g:neocomplete#enable_smart_case = 1
+
+  " Enable _ separated completion
+  let g:neocomplete_enable_underbar_completion = 1
+
+  " Minimum length to cache
+  let g:neocomplete_min_syntax_length = 3
+
+  " Max size of candidates to show
+  let g:neocomplete#max_list = 1000
+
+  " How many length to need to start completion
+  let g:neocomplete_auto_completion_start_length = 2
+
+  " Auto select the first candidate
+  " let g:neocomplete_enable_auto_select = 1
+
+  " Force to overwrite complete func
+  let g:neocomplete_force_overwrite_completefunc = 1
+
+  " let g:neocomplete_enable_camel_case_completion = 1
+  let g:neocomplete#skip_auto_completion_time = '0.2'
+
+  " Cancel and close popup
+  " imap <expr><C-g> neocomplete#cancel_popup()
+
+  " Omni completion patterns
+  let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_input_patterns', {})
+
+  " Omni completion functions
+  let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
+
+endif " }}}
+
+if neobundle#tap('TweetVim') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'commands' : [
+        \       'TweetVimVersion',
+        \       'TweetVimAddAccount',
+        \       'TweetVimSwitchAccount',
+        \       'TweetVimHomeTimeline',
+        \       'TweetVimMentions',
+        \       'TweetVimListStatuses',
+        \       'TweetVimUserTimeline',
+        \       'TweetVimSay',
+        \       'TweetVimUserStream',
+        \       'TweetVimCommandSay',
+        \       'TweetVimCurrentLineSay',
+        \       'TweetVimSearch'
+        \     ],
+        \     'unite_sources' : [ 'tweetvim/account', 'tweetvim' ],
+        \   }
+        \ })
+
+  function! s:my_tweetvim_mappings()
+    nmap <buffer> j  <Plug>(tweetvim_action_cursor_down)
+    nmap <buffer> k  <Plug>(tweetvim_action_cursor_up)
+    nmap <buffer> f  <Plug>(tweetvim_action_favorite)
+    nmap <buffer> m  <Plug>(tweetvim_action_reply)
+    nmap <buffer> i  <Plug>(tweetvim_action_in_reply_to)
+    nmap <buffer> r  <Plug>(tweetvim_action_retweet)
+    nmap <buffer> q  <Plug>(tweetvim_action_qt)
+    nmap <buffer> gg  <Plug>(tweetvim_action_reload)
+    nmap <buffer> u  <Plug>(tweetvim_action_user_timeline)
+    nnoremap <buffer> s  :<C-u>TweetVimSay<CR>
+    nmap <buffer> <CR>  <Plug>(tweetvim_action_enter)
+    nmap <buffer> <C-h>  <Plug>(tweetvim_action_page_previous)
+    nmap <buffer> <C-l>  <Plug>(tweetvim_action_page_next)
+    nnoremap <buffer> <Space>cu  :<C-u>Unite tweetvim<CR>
+  endfunction
+  function! s:my_tweetvim_say_mappings()
+    nmap <buffer> <silent> <C-s>       <Plug>(tweetvim_say_show_history)
+    imap <buffer> <silent> <C-s>  <ESC><Plug>(tweetvim_say_show_history)
+    nmap <buffer> <silent> <CR>        <Plug>(tweetvim_say_post_buffer)
+    imap <buffer> <silent> <C-CR> <ESC><Plug>(tweetvim_say_post_buffer)
+  endfunction
+  autocmd autocmds FileType tweetvim call s:my_tweetvim_mappings()
+  autocmd autocmds FileType tweetvim_say call s:my_tweetvim_say_mappings()
+
+  " TODO: Make macvim shows graphical sign.
+  let g:tweetvim_display_icon = 1
+  let g:tweetvim_display_source = 1
+  let g:tweetvim_no_default_key_mappings = 1
+  let g:tweetvim_display_username = 1
+
+endif " }}}
+
 " }}}
 
 " }}}
 
 " Appearance {{{
 
-" Don"t ring a bell and flash
+" Don't ring a bell and flash
 set vb t_vb=
 
 " Show invisible chars
 set list
 " Symbols to use indent or other
-" NOTE: kakkoii unicode moji
 " - http://unicode-table.com/en/sections/dingbats/
 " - http://unicode-table.com/en/sections/spacing-modifier-letters/
 " 		test   
-set listchars=tab:❯\ ,trail:˼,extends:»,precedes:«,nbsp:%
+set listchars=tab:▸\ ,trail:˼,extends:»,precedes:«,nbsp:%
+
+" Always a status line
+set laststatus=2
 
 " When input close bracket, highlight start bracket.
 set showmatch
+
+" Nowrap
+set nowrap
 
 " Use twice the width of ASCII characters.
 set ambiwidth=double
