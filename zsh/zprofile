@@ -31,7 +31,7 @@ export SVN_EDITOR=vim
 export TERM=xterm-256color
 
 # vim
-export VIM_ROOT=/Users/tamurine/.vim
+export COLORFGBG='15;0'
 
 # export macvim
 if [[ "$OSTYPE" =~ "darwin" ]] && [ -d /Applications/MacVim.app/Contents/MacOS ];then
