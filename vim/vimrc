@@ -100,7 +100,7 @@ NeoBundle 'tyru/operator-html-escape.vim', { 'depends' : 'kana/vim-operator-user
 
 " {{{ Unite
 
-NeoBundleLazy 'Shougo/unite.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
+NeoBundleLazy 'Shougo/unite.vim', { 'depends' : [ 'Shougo/vimproc.vim', 'Shougo/neomru.vim' ] }
 NeoBundleLazy 'rhysd/unite-ruby-require.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundleLazy 'Shougo/unite-help', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundleLazy 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -193,6 +193,27 @@ filetype plugin indent on
 " }}}
 
 " {{{ Configurations
+
+if neobundle#tap('vital.vim') " {{{
+
+  function! neobundle#tapped.hooks.on_source(bundle)
+    let g:V = vital#of('vital')
+    let g:S = g:V.import("Web.HTTP")
+
+    function! DecodeURI(uri)
+      return g:S.decodeURI(a:uri)
+    endfunction
+
+    function! EncodeURI(uri)
+      return g:S.encodeURI(a:uri)
+    endfunction
+
+    command -nargs=1 DecodeURI echo DecodeURI(<args>)
+    command -nargs=1 EncodeURI echo EncodeURI(<args>)
+
+  endfunction
+
+endif " }}}
 
 if neobundle#tap('unite.vim') " {{{
 
@@ -313,10 +334,7 @@ if neobundle#tap('vimfiler.vim') " {{{
   call neobundle#config({
         \ 'autoload' : {
         \   'commands' : [
-        \     { 'name' : 'VimFiler', 'complete' : 'customlist,vimfiler#complete' },
-        \     { 'name' : 'VimFilerExplorer', 'complete' : 'customlist,vimfiler#complete' },
-        \     { 'name' : 'Edit', 'complete' : 'customlist,vimfiler#complete' },
-        \     { 'name' : 'Write', 'complete' : 'customlist,vimfiler#complete' },
+        \     { 'name' : 'VimFilerBufferDir', 'complete' : 'customlist,vimfiler#complete' },
         \     'Read',
         \     'Source'
         \   ],
@@ -332,34 +350,33 @@ if neobundle#tap('vimfiler.vim') " {{{
   " let g:vimfiler_tree_opened_icon = 'v'
   " let g:vimfiler_tree_leaf_icon   = ''
 
-  nnoremap ,h  :<C-u>VimFiler<CR>
+  nnoremap ,h  :<C-u>VimFilerBufferDir<CR>
 
 endif " }}}
 
 if neobundle#tap('lightline.vim') " {{{
   let g:lightline = {
-        \ 'colorscheme' : 'jellybeans',
+        \ 'colorscheme' : 'wombat',
         \ 'active' : {
-        \   'left' : [ [ 'mode', 'paste' ],
-        \              [ 'readonly', 'filename', 'modified' ],
+        \   'left' : [ [],
+        \              [ 'readonly', 'relativepath', 'modified' ],
         \              [ 'lineinfo' ] ,
-        \              [ 'filetype', 'fileformat', 'fileencoding'  ] ],
-        \   'right': [ [ 'fugitive' ] ]
+        \              [ 'fileinfo' ] ],
+        \   'right': [ [],
+        \              [],
+        \              [ 'fugitive' ] ]
         \ },
         \ 'component' : {
         \   'readonly' : '%{&readonly?"x":""}',
         \   'modified' : '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-        \   'filename' : &ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \                &ft == 'unite' ? unite#get_status_string() :
-        \                &ft == 'vimshell' ? vimshell#get_status_string() :
-        \                '' != expand('%') ? expand('%') : '[No Name]',
+        \   'fileinfo' : '%{strlen(&filetype)?&filetype:"no ft"} %{&fileformat} %{strlen(&fenc)?&fenc:&enc}' ,
         \   'fugitive': '%{exists("*fugitive#head")?"\u2b60 branch: ".fugitive#head():""}'
         \ },
         \ 'component_visible_condition': {
         \   'readonly': '(&filetype!="help"&& &readonly)',
         \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
         \ },
-        \ 'subseparator': { 'left': '/' }
+        \ 'subseparator': { 'left': '' , 'right': ''}
         \ }
 endif " }}}
 

@@ -30,9 +30,6 @@ export SVN_EDITOR=vim
 # appearance
 export TERM=xterm-256color
 
-# vim
-export COLORFGBG='15;0'
-
 # export macvim
 if [[ "$OSTYPE" =~ "darwin" ]] && [ -d /Applications/MacVim.app/Contents/MacOS ];then
 	export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
