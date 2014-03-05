@@ -452,19 +452,12 @@ if neobundle#tap('neosnippet.vim') " {{{
 
   let g:neosnippet#enable_snipmate_compatibility = 1
 
-  " let g:neosnippet#snippets_directory = g:path.bundle.'/neosnippet-snippets/neosnippets'
-
   " <CR> to expand snippet if can
   imap <expr><CR> !pumvisible() ? "\<CR>" :
         \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
         \ neocomplete#close_popup()
-  " supertab.
-  imap <expr><TAB> pumvisible() ? "\<C-n>" :
-        \ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" :
-        \ "\<TAB>"
-  smap <expr><TAB> pumvisible() ? "\<C-n>" :
-        \ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" :
-        \ "\<TAB>"
+  imap <expr><C-n> neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" : "\<C-n>"
+  smap <expr><C-n> neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" : "\<C-n>"
 
 endif " }}}
 
