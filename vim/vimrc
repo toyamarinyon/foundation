@@ -181,6 +181,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Align'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 't9md/vim-textmanip'
+NeoBundle 'fuenor/JpFormat.vim'
 
 " }}}
 
@@ -490,14 +491,21 @@ if neobundle#tap('TweetVim') " {{{
 
 endif " }}}
 
-" {{{ textmanip
+if neobundle#tap('vim-textmanip') " {{{
 
-xmap <C-j> <Plug>(textmanip-move-down)
-xmap <C-k> <Plug>(textmanip-move-up)
-xmap <C-h> <Plug>(textmanip-move-left)
-xmap <C-l> <Plug>(textmanip-move-right)
+  xmap <C-j> <Plug>(textmanip-move-down)
+  xmap <C-k> <Plug>(textmanip-move-up)
+  xmap <C-h> <Plug>(textmanip-move-left)
+  xmap <C-l> <Plug>(textmanip-move-right)
 
-" }}}
+endif " }}}
+
+if neobundle#tap('JpFormat.vim') " {{{
+
+  " let JpFormatCursorMovedI = 1
+  " let JpCountChars = 60
+
+endif " }}}
 
 " }}}
 
