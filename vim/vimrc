@@ -182,6 +182,7 @@ NeoBundle 'Align'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 't9md/vim-textmanip'
 NeoBundle 'fuenor/JpFormat.vim'
+NeoBundle 'Shougo/context_filetype.vim'
 
 " }}}
 
@@ -414,7 +415,7 @@ if neobundle#tap('neocomplete.vim') " {{{
   let g:neocomplete#max_list = 1000
 
   " How many length to need to start completion
-  let g:neocomplete_auto_completion_start_length = 2
+  let g:neocomplete#auto_completion_start_length = 2
 
   " Auto select the first candidate
   " let g:neocomplete_enable_auto_select = 1
@@ -433,6 +434,47 @@ if neobundle#tap('neocomplete.vim') " {{{
 
   " Omni completion functions
   let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
+
+endif " }}}
+
+if neobundle#tap('neosnippet.vim') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'insert' : 1,
+        \     'filetype' : 'snippet',
+        \     'commands' : [ 'NeoSnippetEdit', 'NeoSnippetSource' ],
+        \     'filetypes' : [ 'nsnippet' ],
+        \     'unite_sources' :
+        \       ['snippet', 'neosnippet/user', 'neosnippet/runtime']
+        \   }
+        \ })
+
+  let g:neosnippet#enable_snipmate_compatibility = 1
+
+  " let g:neosnippet#snippets_directory = g:path.bundle.'/neosnippet-snippets/neosnippets'
+
+  " <CR> to expand snippet if can
+  imap <expr><CR> !pumvisible() ? "\<CR>" :
+        \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+        \ neocomplete#close_popup()
+  " supertab.
+  imap <expr><TAB> pumvisible() ? "\<C-n>" :
+        \ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" :
+        \ "\<TAB>"
+  smap <expr><TAB> pumvisible() ? "\<C-n>" :
+        \ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" :
+        \ "\<TAB>"
+
+endif " }}}
+
+if neobundle#tap('neosnippet-snippets') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'on_source' : [ 'neosnippet.vim' ]
+        \   }
+        \ })
 
 endif " }}}
 
