@@ -319,7 +319,6 @@ if neobundle#tap('unite.vim') " {{{
   nnoremap <silent> [unite]y :<C-u>Unite history/yank -winheight=9 -hide-source-names<CR>
   nnoremap <silent> [unite]s :<C-u>Unite svn/status -no-start-insert<CR>
   nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
-  nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=40<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
 
   if neobundle#is_installed('unite-svn')
@@ -331,6 +330,16 @@ if neobundle#tap('unite.vim') " {{{
   if neobundle#is_installed('unite-outline')
     nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=40<CR>
   endif
+
+endif " }}}
+
+if neobundle#tap('vim-unite-svn') " {{{
+
+  call neobundle#config({
+        \ 'autoload' : {
+        \   'unite_sources' : 'svn/status'
+        \ }
+        \ })
 
 endif " }}}
 
