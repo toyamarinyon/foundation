@@ -66,7 +66,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Dependencies {{{
 
-" {{{ common plugins (vimproc & vital)
+" {{{ common plugins (vimproc & vital & webapi)
 
 NeoBundle 'Shougo/vimproc.vim', { 'build' : {
       \   'windows' : 'mingw32-make -f make_mingw32.mak',
@@ -76,6 +76,8 @@ NeoBundle 'Shougo/vimproc.vim', { 'build' : {
       \ }}
 
 NeoBundle 'vim-jp/vital.vim'
+
+NeoBundle 'mattn/webapi-vim'
 
 " }}}
 
@@ -183,6 +185,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 't9md/vim-textmanip'
 NeoBundle 'fuenor/JpFormat.vim'
 NeoBundle 'Shougo/context_filetype.vim'
+NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 
 " }}}
 
@@ -309,15 +312,14 @@ if neobundle#tap('unite.vim') " {{{
 
   nnoremap <silent> <Space>u  :<C-u>Unite -start-insert menu:unite<CR>
   nnoremap <silent> <Space>m  :<C-u>Unite -start-insert menu:global<CR>
-  nnoremap <silent> <Space>f  :<C-u>Unite -start-insert -buffer-name=files buffer_tab file_mru<CR>
 
   nnoremap [unite] <Nop>
   nmap zu [unite]
-  nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files buffer_tab file_mru<CR>
+  nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files file_mru file_rec<CR>
   nnoremap <silent> [unite]y :<C-u>Unite history/yank -winheight=9 -hide-source-names<CR>
   nnoremap <silent> [unite]s :<C-u>Unite svn/status -no-start-insert<CR>
   nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
-  nnoremap <silent> [unite]o :<C-u>Unite outline -vertical -winwidth=40<CR>
+  nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=40<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
 
   if neobundle#is_installed('unite-svn')
@@ -327,7 +329,7 @@ if neobundle#tap('unite.vim') " {{{
     nnoremap <silent> <Space>q  :<C-u>Unite -no-quit -auto-preview -no-split quickfix<CR>
   endif
   if neobundle#is_installed('unite-outline')
-    nnoremap <silent> <Space>h  :<C-u>Unite outline -vertical -winwidth=40<CR>
+    nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=40<CR>
   endif
 
 endif " }}}
@@ -612,6 +614,10 @@ set whichwrap=b,s,h,l,<,>,[,]
 
 " Use Space instead of Tab to make indent
 set expandtab
+augroup setExpandTab
+  autocmd!
+  autocmd FileType php let &expandtab=0
+augroup END
 
 set tabstop=2
 
