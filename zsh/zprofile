@@ -30,16 +30,13 @@ export SVN_EDITOR=vim
 # appearance
 export TERM=xterm-256color
 
-# vim
-export VIM_ROOT=/Users/tamurine/.vim
-
 # export macvim
 if [[ "$OSTYPE" =~ "darwin" ]] && [ -d /Applications/MacVim.app/Contents/MacOS ];then
 	export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 fi
 
 # load local env files
-if [ -e ~/.env.d/*.env ]; then
+if [ -e ~/.env.d ]; then
 	for env in ~/.env.d/*.env ; do
 		source $env
 	done
