@@ -2,6 +2,7 @@
     st          = status
     br          = branch
     co          = checkout
+    ci          = commit
 
 [color]
     ui          = true
