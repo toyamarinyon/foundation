@@ -184,6 +184,7 @@ NeoBundle 'Align'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 't9md/vim-textmanip'
 NeoBundle 'fuenor/JpFormat.vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 
