@@ -49,3 +49,7 @@ set guifont=Ricty:h16
 colorscheme hybrid
 
 " }}}
+
+" {{{
+set clipboard+=unnamed
+" }}}
