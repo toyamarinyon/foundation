@@ -319,7 +319,7 @@ if neobundle#tap('unite.vim') " {{{
   nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
 	nnoremap <silent> [unite]<Space> :<C-u>Unite -buffer-name=search line -start-insert -no-quit -winheight=9<CR>
 
-  if neobundle#is_installed('unite-svn')
+  if neobundle#is_installed('vim-unite-svn')
     nnoremap <silent> [unite]s :<C-u>Unite svn/status -no-start-insert<CR>
   endif
   if neobundle#is_installed('unite-outline')
