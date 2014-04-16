@@ -15,6 +15,10 @@ augroup autocmds
   autocmd!
 augroup END
 
+" Set the language
+language en_US.UTF-8
+language messages en_US.UTF-8
+
 " }}}
 
 " Directory {{{
