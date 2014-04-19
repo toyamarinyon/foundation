@@ -4,7 +4,7 @@
 SCRIPT_PATH=$(cd $(dirname $0);pwd)
 ln -s $SCRIPT_PATH/zsh/zprofile $HOME/.zprofile
 ln -s $SCRIPT_PATH/zsh/zshrc $HOME/.zshrc
-ln -s $SCRIPT_PATH/fish/config.fish $HOME/.config/fish/config.fish
+ln -s $SCRIPT_PATH/fish $HOME/.config/fish
 ln -s $SCRIPT_PATH/vim/vimrc $HOME/.vimrc
 ln -s $SCRIPT_PATH/tmux/tmux.conf $HOME/.tmux.conf
 ln -s $SCRIPT_PATH/git/gitconfig $HOME/.gitconfig
