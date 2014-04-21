@@ -158,6 +158,12 @@ NeoBundle 'cocopon/lightline-hybrid.vim'
 
 " }}}
 
+" {{{ fish scripts
+
+NeoBundle 'dag/vim-fish'
+
+" }}}
+
 " {{{ colorschemes
 
 NeoBundle 'cocopon/iceberg.vim'
