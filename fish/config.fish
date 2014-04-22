@@ -1,6 +1,7 @@
 # {{{ Basic
 set --export LANG en_US.UTF-8
 set --export TERM xterm-256color
+set --export EDITOR vim
 # }}}
 
 # {{{ Bootstrap Development Tools
