@@ -10,6 +10,9 @@
 " Use vim defaults option. (Don't use vi defaults option.)
 set nocompatible
 
+" Dont't make a backup before overwriting a file
+set nobackup
+
 " Reset Autocmd group
 augroup autocmds
   autocmd!
