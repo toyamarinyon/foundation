@@ -3,6 +3,7 @@
     br          = branch
     co          = checkout
     ci          = commit
+    mergenf     = merge --no-ff
 
 [color]
     ui          = true
