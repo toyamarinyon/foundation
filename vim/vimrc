@@ -340,7 +340,7 @@ if neobundle#tap('unite.vim') " {{{
 
   nnoremap [unite] <Nop>
   nmap zu [unite]
-  nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files file_mru file_rec<CR>
+  nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files file_mru<CR>
   nnoremap <silent> [unite]y :<C-u>Unite history/yank -winheight=9 -hide-source-names<CR>
   nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
