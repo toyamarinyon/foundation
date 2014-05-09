@@ -184,7 +184,7 @@ NeoBundle 'w0ng/vim-hybrid'
 
 " {{{ Softwere Configuration Management (git)
 
-NeoBundle 'pope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive'
 
 " }}}
 
