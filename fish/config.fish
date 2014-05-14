@@ -10,10 +10,7 @@ set --export EDITOR vim
 set --export PATH /usr/local/sbin /usr/local/bin $PATH
 
 # rbenv
-if test -f $HOME/.rbenv/bin/rbenv
-  set -export PATH $HOME/.rbenv/bin $PATH
-  status --is-interactive; and . (rbenv init -|psub)
-end
+which rbenv > /dev/null; and status --is-interactive; and . (rbenv init -|psub)
 
 # nvm
 test -s $HOME/.nvm-fish/nvm.fish; and source $HOME/.nvm-fish/nvm.fish
