@@ -13,19 +13,20 @@ function parse_git_branch
 end
 
 function funcy_status
-  if test $argv -eq 0
-    echo (set_color normal)" >"
+
+  if test (count $argv) -gt 0 -a $argv[1] -ne 0
+    echo (set_color red)"(*;-;) < "(set_color normal)
   else
-    echo (set_color red)"!>"(set_color normal)
+    echo (set_color normal)"(*'-') < "
   end
 end
 
 function fish_prompt
-  set -l last_command_status $status
+  set last_command_status $status
   if test -d .git
-    printf '%s%s%s:%s\n%s ' (set_color $fish_color_cwd) (pwd) (set_color normal) (parse_git_branch) (funcy_status $last_command_status)
+    printf '\n%s%s%s:%s\n%s ' (set_color $fish_color_cwd) (pwd) (set_color normal) (parse_git_branch) (funcy_status $last_command_status)
   else
-    printf '%s%s%s\n%s ' (set_color $fish_color_cwd) (pwd) (set_color normal) (funcy_status)
+    printf '\n%s%s%s\n%s ' (set_color $fish_color_cwd) (pwd) (set_color normal) (funcy_status $last_command_status)
   end
 end
 
