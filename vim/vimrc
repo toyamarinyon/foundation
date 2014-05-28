@@ -176,6 +176,10 @@ NeoBundle 'dag/vim-fish'
 
 " }}}
 
+" {{{ coffee script
+NeoBundle 'kchmck/vim-coffee-script'
+" }}}
+
 " {{{ colorschemes
 
 NeoBundle 'cocopon/iceberg.vim'
