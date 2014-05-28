@@ -108,6 +108,7 @@ NeoBundle 'kana/vim-textobj-entire', { 'depends' : 'kana/vim-textobj-user' }
 NeoBundle 'kana/vim-textobj-function', { 'depends' : 'kana/vim-textobj-user' }
 NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
 NeoBundle 'rhysd/vim-textobj-ruby', { 'depends' : 'kana/vim-textobj-user' }
+NeoBundle 'akiyan/vim-textobj-php', { 'depends' : 'kana/vim-textobj-user' }
 NeoBundle 'osyo-manga/vim-textobj-multiblock', { 'depends' : 'kana/vim-textobj-user' }
 NeoBundle 'osyo-manga/vim-textobj-multitextobj', { 'depends' : 'kana/vim-textobj-user' }
 
