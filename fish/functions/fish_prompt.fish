@@ -1,10 +1,6 @@
 
 function parse_cwd_git
   set -l branch (git branch 2> /dev/null | grep -e '\* ' | sed 's/^..\(.*\)/\1/')
-  # set -l uncommitted (git diff --quiet --ignore-submodules --cached)
-  set -l unstaged (git diff-files --quiet --ignore-submodules --)
-  set -l untracked (test -n (git ls-files --others --exclude-standard))
-  set -l stashed (git rev-parse --verify refs/stash 2>/dev/null)
 
   set -l cwd_git_status
 
@@ -23,8 +19,9 @@ function parse_cwd_git
     set cwd_git_status $cwd_git_status '?'
   end
 
-  if git rev-parse --verify refs/stash 2>/dev/null
-    set cwd_git_status $cwd_git_status '\$'
+  if git rev-parse --verify refs/stash > /dev/null ^&1
+
+    set cwd_git_status $cwd_git_status '$'
   end
 
   if test (count $cwd_git_status) -gt 0
@@ -35,25 +32,6 @@ function parse_cwd_git
     echo -n ]
   end
 
-
-  #
-  # if $untracked
-  #   set -l status $status?
-  # end
-  #
-  # if $stashed
-  #   set -l status $status\$
-  # end
-  #
-  # set -l git_diff (git diff)
-  #
-  # if test -n "$git_diff"
-  #   echo (set_color $fish_git_dirty_color)$branch(set_color normal)
-  # else
-  #   echo (set_color $fish_git_not_dirty_color)$branch(set_color normal)
-  # end
-
-  # echo $branch[$status]
   set_color normal
 end
 
