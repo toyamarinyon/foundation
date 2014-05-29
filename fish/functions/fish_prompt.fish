@@ -46,9 +46,9 @@ end
 function fish_prompt
   set last_command_status $status
   if test -d .git
-    printf '\n%s%s%s: %s%s%s on %s\n%s ' (set_color green) (who | awk '{print $1}') (set_color normal) (set_color brown) (pwd) (set_color normal) (parse_cwd_git) (funcy_status $last_command_status)
+    printf '\n%s%s%s: %s%s%s on %s\n%s ' (set_color green) (who am i | awk '{print $1}') (set_color normal) (set_color brown) (pwd) (set_color normal) (parse_cwd_git) (funcy_status $last_command_status)
   else
-    printf '\n%s%s%s: %s%s%s\n%s' (set_color green) (who | awk '{print $1}') (set_color normal) (set_color brown) (pwd) (set_color normal) (funcy_status $last_command_status)
+    printf '\n%s%s%s: %s%s%s\n%s' (set_color green) (who am i | awk '{print $1}') (set_color normal) (set_color brown) (pwd) (set_color normal) (funcy_status $last_command_status)
   end
 end
 
