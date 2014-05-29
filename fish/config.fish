@@ -3,6 +3,8 @@ set --export LANG en_US.UTF-8
 set --export TERM xterm-256color
 set --export EDITOR vim
 
+set --export PATH $HOME/bin $PATH
+
 test -f $HOME/.config/fish/private_environments.fish; and source $HOME/.config/fish/private_environments.fish
 # }}}
 
