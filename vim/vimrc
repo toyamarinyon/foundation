@@ -180,6 +180,10 @@ NeoBundle 'dag/vim-fish'
 NeoBundle 'kchmck/vim-coffee-script'
 " }}}
 
+" {{{
+NeoBundle 'toyamarinyon/vim-swift'
+" }}}
+
 " {{{ colorschemes
 
 NeoBundle 'cocopon/iceberg.vim'
