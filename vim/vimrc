@@ -693,10 +693,10 @@ inoremap <silent>ppk $this->util->getPK('?')
 " emacs like keymap
 inoremap <C-e> <END>
 inoremap <C-a> <HOME>
-inoremap <C-h> <LEFT>
-inoremap <C-j> <DOWN>
-inoremap <C-k> <UP>
-inoremap <C-l> <RIGHT>
+inoremap <C-f> <RIGHT>
+inoremap <C-b> <LEFT>
+inoremap <C-h> <BS>
+inoremap <C-k> <ESC>lc$
 
 " display lines downward, uoward
 nnoremap <silent> j gj
