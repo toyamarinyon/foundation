@@ -221,6 +221,10 @@ NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 
 " }}}
 
+" {{{ Quickrun
+NeoBundle 'thinca/vim-quickrun'
+" }}}
+
 " }}}
 
 " Required {{{
