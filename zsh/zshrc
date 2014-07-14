@@ -1,42 +1,18 @@
-PROMPT='$%n:%~%% '
-SPROMPT="%r?[n,y,a,e];"
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/src/github.com/robbyrussell/oh-my-zsh
 
-# キーバインドはvimを使う
-bindkey -v
+ZSH_THEME="ys"
 
-# コマンド履歴
-HISTFILE=~/.zsh_history
-HISTSIZE=600000000
-SAVEHIST=600000000
-setopt hist_ignore_dups     # ignore duplication command history list
+ Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# コマンド履歴検索
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# history
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
-
-# 補完機能
-autoload -Uz compinit
-compinit
-
-# ディレクトリ名を入力すると移動
-setopt auto_cd
-
-# 移動したディレクトリを記録 cd -[TAB]で異動履歴を一覧表示
-setopt auto_pushd
-
-case "${TERM}" in
-kterm*|xterm-256color)
-    precmd() {
-        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-    }
-;;
-esac
-
-# compile coffee scripts and run node.js
-alias node-coffee='coffee --compile --output js coffee && node js/app.js'
-
-# ベルを鳴らさない
-setopt no_beep

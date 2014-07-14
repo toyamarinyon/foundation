@@ -3,7 +3,7 @@
     br          = branch
     co          = checkout
     ci          = commit
-    mergenf     = merge --no-ff
+    mn          = merge --no-ff
 
 [color]
     ui          = true
@@ -20,3 +20,5 @@
 [user]
     name        = toyama satoshi
     email       = toyamarinyon@gmail.com
+[ghq]
+	root = ~/src
