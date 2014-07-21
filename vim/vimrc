@@ -48,6 +48,11 @@ let g:path = {
       \ 'undo'     : $DOTVIM . '/tmp/undo'
       \}
 
+" set runtimepath for go
+let s:goroot=$GOROOT.'/misc/vim'
+if isdirectory(s:goroot)
+  let &runtimepath .= ','.s:goroot
+endif
 " }}}
 
 " Encoding {{{
@@ -176,12 +181,10 @@ NeoBundle 'dag/vim-fish'
 
 " }}}
 
-" {{{ coffee script
-NeoBundle 'kchmck/vim-coffee-script'
-" }}}
-
-" {{{
+" {{{ Languages
 NeoBundle 'toyamarinyon/vim-swift'
+NeoBundle 'jnwhiteh/vim-golang'
+NeoBundle 'kchmck/vim-coffee-script'
 " }}}
 
 " {{{ colorschemes
