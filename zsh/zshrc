@@ -3,7 +3,7 @@ export ZSH=$HOME/src/github.com/robbyrussell/oh-my-zsh
 
 ZSH_THEME="ys"
 
-ZSH_CUSTOM=$HOME/.zcustom
+ZSH_CUSTOM=$HOME/.zcustom.d
 
 plugins=(git)
 
