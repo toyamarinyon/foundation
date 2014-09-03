@@ -222,6 +222,7 @@ NeoBundle 'fuenor/JpFormat.vim'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
+NeoBundle 'thinca/vim-qfreplace'
 
 " }}}
 
