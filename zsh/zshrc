@@ -3,8 +3,7 @@ export ZSH=$HOME/src/github.com/robbyrussell/oh-my-zsh
 
 ZSH_THEME="ys"
 
- Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=$HOME/.zcustom.d
 
 plugins=(git)
 

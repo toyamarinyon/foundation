@@ -20,7 +20,7 @@ type phpenv > /dev/null 2>&1 && eval "$(phpenv init -)"
 
 # nvm
 if [ -f ~/.nvm/nvm.sh ]; then
-	alias shasum='sha1sum'
+# alias shasum='sha1sum'
 	. ~/.nvm/nvm.sh
 fi
 
@@ -29,6 +29,15 @@ export SVN_EDITOR=vim
 
 # appearance
 export TERM=xterm-256color
+
+# Go
+export GOPATH=$HOME
+if [[ "$OSTYPE" =~ "darwin" ]]; then
+  export GOROOT=/usr/local/opt/go/libexec
+  export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+else
+  # TODO export GOROOT for linux
+fi
 
 # export macvim
 if [[ "$OSTYPE" =~ "darwin" ]] && [ -d /Applications/MacVim.app/Contents/MacOS ];then

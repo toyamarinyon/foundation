@@ -8,6 +8,7 @@ ln -s $SCRIPT_PATH/fish $HOME/.config/fish
 ln -s $SCRIPT_PATH/vim/vimrc $HOME/.vimrc
 ln -s $SCRIPT_PATH/tmux/tmux.conf $HOME/.tmux.conf
 ln -s $SCRIPT_PATH/git/gitconfig $HOME/.gitconfig
+ln -s $SCRIPT_PATH/zsh/zcustom.d $HOME/.zcustom.d
 
 # Detect profile file, .zprofile has precedance over .profile 
 # PROFILE=

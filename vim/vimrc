@@ -48,6 +48,15 @@ let g:path = {
       \ 'undo'     : $DOTVIM . '/tmp/undo'
       \}
 
+" set runtimepath for go
+let s:goroot=$GOROOT.'/misc/vim'
+if isdirectory(s:goroot)
+  let &runtimepath .= ','.s:goroot
+endif
+let s:gocode=$GOPATH."/src/github.com/nsf/gocode/vim"
+if isdirectory(s:gocode)
+  let &runtimepath .= ','.s:gocode
+endif
 " }}}
 
 " Encoding {{{
@@ -176,12 +185,10 @@ NeoBundle 'dag/vim-fish'
 
 " }}}
 
-" {{{ coffee script
-NeoBundle 'kchmck/vim-coffee-script'
-" }}}
-
-" {{{
+" {{{ Languages
 NeoBundle 'toyamarinyon/vim-swift'
+NeoBundle 'jnwhiteh/vim-golang'
+NeoBundle 'kchmck/vim-coffee-script'
 " }}}
 
 " {{{ colorschemes
@@ -497,15 +504,11 @@ if neobundle#tap('neosnippet.vim') " {{{
         \   }
         \ })
 
-  let g:neosnippet#enable_snipmate_compatibility = 1
-
-  " <CR> to expand snippet if can
-  imap <expr><CR> !pumvisible() ? "\<CR>" :
-        \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-        \ neocomplete#close_popup()
-  imap <expr><C-n> neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" : "\<C-n>"
-  smap <expr><C-n> neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" : "\<C-n>"
-
+  let g:neosnippet#enable_snipmate_compatibility = 0
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+  xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 endif " }}}
 
 if neobundle#tap('neosnippet-snippets') " {{{
@@ -701,7 +704,7 @@ inoremap <C-a> <HOME>
 inoremap <C-f> <RIGHT>
 inoremap <C-b> <LEFT>
 inoremap <C-h> <BS>
-inoremap <C-k> <ESC>lc$
+" inoremap <C-k> <ESC>lc$
 
 " display lines downward, uoward
 nnoremap <silent> j gj
