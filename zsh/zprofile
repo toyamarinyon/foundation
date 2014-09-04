@@ -2,7 +2,7 @@
 export LANG=en_US.UTF-8
 
 # homebrew
-export PATH=/usr/local/bin/:/usr/local/sbin/:/Users/tamurine/bin:$PATH
+export PATH=/usr/local/bin/:/usr/local/sbin/:$HOME/bin:$PATH
 # heroku
 export PATH=$PATH:/usr/local/heroku/bin
 
