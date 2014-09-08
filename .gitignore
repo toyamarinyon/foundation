@@ -2,3 +2,4 @@ fish/fishd.*
 fish/fish_history
 fish/fish
 fish/private_environments.fish
+.DS_Store
