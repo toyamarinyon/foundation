@@ -108,6 +108,8 @@ NeoBundle 'vim-jp/vital.vim'
 
 NeoBundle 'mattn/webapi-vim'
 
+NeoBundle 'tyru/open-browser.vim'
+
 " }}}
 
 " Text object {{{
@@ -230,6 +232,7 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'thinca/vim-qfreplace'
+NeoBundle 'kannokanno/previm'
 
 " }}}
 
@@ -265,6 +268,14 @@ if neobundle#tap('vital.vim') " {{{
     command -nargs=1 EncodeURI echo EncodeURI(<args>)
 
   endfunction
+
+endif " }}}
+
+if neobundle#tap('open-browser') " {{{
+
+  let g:netrw_nogx = 1 " disable netrw's gx mapping.
+  nmap gx <Plug>(openbrowser-smart-search)
+  vmap gx <Plug>(openbrowser-smart-search)
 
 endif " }}}
 
@@ -582,6 +593,13 @@ if neobundle#tap('vim-textmanip') " {{{
   xmap <C-k> <Plug>(textmanip-move-up)
   xmap <C-h> <Plug>(textmanip-move-left)
   xmap <C-l> <Plug>(textmanip-move-right)
+
+endif " }}}
+
+if neobundle#tap('previm') " {{{
+
+  autocmd!
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 endif " }}}
 
