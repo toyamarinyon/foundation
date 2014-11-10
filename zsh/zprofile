@@ -2,19 +2,19 @@
 export LANG=en_US.UTF-8
 
 # homebrew
-export PATH=/usr/local/bin/:/usr/local/sbin/:$HOME/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 # heroku
 export PATH=$PATH:/usr/local/heroku/bin
 
 # rbenv
 if [ -f ~/.rbenv/bin/rbenv ]; then
-	export PATH=~/.rbenv/bin:$PATH
+	export PATH=$PATH:~/.rbenv/bin
 fi
 type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 
 # phpenv
 if [ -f ~/.phpenv/bin/phpenv ]; then
-	export PATH=~/.phpenv/bin:$PATH
+	export PATH=$PATH:~/.phpenv/bin
 fi
 type phpenv > /dev/null 2>&1 && eval "$(phpenv init -)"
 
