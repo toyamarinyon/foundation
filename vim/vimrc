@@ -237,6 +237,10 @@ NeoBundle 'kannokanno/previm'
 
 " }}}
 
+" {{{ Reference
+NeoBundle 'thinca/vim-ref'
+" }}} Reference
+
 " {{{ Quickrun
 NeoBundle 'thinca/vim-quickrun'
 " }}}
