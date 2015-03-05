@@ -5,10 +5,16 @@
 "
 " }}}
 
+if !1 | finish | endif
+
 " General {{{
 
 " Use vim defaults option. (Don't use vi defaults option.)
-set nocompatible
+if has('vim_starting')
+  if &compatible
+    set nocompatible
+  endif
+endif
 
 " Dont't make a backup before overwriting a file
 set nobackup
@@ -42,7 +48,7 @@ endif
 let $DOTVIM = expand('~/.vim')
 let g:path = {
       \ 'bundle'   : $DOTVIM . '/bundle',
-      \ 'neobundle': $DOTVIM . '/bundle/neobundle',
+      \ 'neobundle': $DOTVIM . '/bundle/neobundle.vim',
       \ 'swap'     : $DOTVIM . '/tmp/swap',
       \ 'bak'      : $DOTVIM . '/tmp/bak',
       \ 'undo'     : $DOTVIM . '/tmp/undo'
@@ -86,7 +92,7 @@ if !isdirectory(g:path.neobundle)
 endif
 
 " To load remote plugin
-call neobundle#rc(g:path.bundle)
+call neobundle#begin(g:path.bundle)
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -249,6 +255,8 @@ NeoBundle 'thinca/vim-quickrun'
 " }}}
 
 " Required {{{
+
+call neobundle#end()
 
 filetype plugin indent on
 
