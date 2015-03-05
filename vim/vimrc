@@ -234,6 +234,7 @@ NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'kannokanno/previm'
+NeoBundle 'inotom/str2htmlentity'
 
 " }}}
 
@@ -613,6 +614,10 @@ if neobundle#tap('JpFormat.vim') " {{{
   " let JpFormatCursorMovedI = 1
   " let JpCountChars = 60
 
+endif " }}}
+
+if neobundle#tap('vim-ref') " {{{
+  let g:ref_phpmanual_path = $HOME . '/.vim/ref/php-chunked-xhtml'
 endif " }}}
 
 " }}}
