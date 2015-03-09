@@ -2,7 +2,11 @@
 export LANG=en_US.UTF-8
 
 # homebrew
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
+homebrewPath="/usr/local/bin:/usr/local/sbin:$HOME/bin"
+if [ ! `echo $PATH | grep $homebrewPath` ]; then
+  echo $homebrewPath
+  export PATH=$homebrewPath:$PATH
+fi
 # heroku
 export PATH=$PATH:/usr/local/heroku/bin
 
