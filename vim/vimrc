@@ -197,6 +197,7 @@ NeoBundle 'dag/vim-fish'
 NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'jnwhiteh/vim-golang'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'derekwyatt/vim-scala'
 " }}}
 
 " {{{ colorschemes
