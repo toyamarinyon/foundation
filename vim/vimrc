@@ -438,27 +438,28 @@ if neobundle#tap('lightline.vim') " {{{
         \ 'colorscheme' : 'wombat',
         \ 'active' : {
         \   'left' : [ [],
+        \              [ 'fugitive' ],
         \              [ 'readonly', 'relativepath', 'modified' ],
-        \              [ 'lineinfo' ] ,
-        \              [ 'fileinfo' ] ],
-        \   'right': [ [],
-        \              [],
-        \              [ 'fugitive' ] ]
+        \              [ ] ],
+        \   'right': [ [ 'lineinfo' ],
+        \              [ 'fileinfo' ],
+        \              [ ] ]
         \ },
         \ 'component' : {
         \   'readonly' : '%{&readonly?"x":""}',
         \   'modified' : '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
         \   'fileinfo' : '%{strlen(&filetype)?&filetype:"no ft"} %{&fileformat} %{strlen(&fenc)?&fenc:&enc}' ,
-        \   'fugitive': '%{exists("*fugitive#head")?"\u2b60 branch: ".fugitive#head():""}'
+        \   'fugitive': '%{exists("*fugitive#head") && ""!=fugitive#head()?"\u2b60 ".fugitive#head():""}'
         \ },
         \ 'component_visible_condition': {
         \   'readonly': '(&filetype!="help"&& &readonly)',
-        \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
+        \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
         \ },
         \ 'subseparator': { 'left': '' , 'right': ''}
         \ }
 endif " }}}
 
+"        \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
 if neobundle#tap('lightline-hybrid.vim') " {{{
   call neobundle#config({
         \   'autoload' : {
