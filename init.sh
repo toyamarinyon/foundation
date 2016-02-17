@@ -2,6 +2,13 @@
 
 # create symbolic link from repository
 SCRIPT_PATH=$(cd $(dirname $0);pwd)
+rm -f $HOME/.zprofile
+rm -f $HOME/.zshrc
+rm -f $HOME/.config/fish
+rm -f $HOME/.vimrc
+rm -f $HOME/.tmux.conf
+rm -f $HOME/.gitconfig
+rm -f $HOME/.zcustom.d
 ln -s $SCRIPT_PATH/zsh/zprofile $HOME/.zprofile
 ln -s $SCRIPT_PATH/zsh/zshrc $HOME/.zshrc
 ln -s $SCRIPT_PATH/fish $HOME/.config/fish
