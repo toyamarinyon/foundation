@@ -253,6 +253,10 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 " }}}
 
+" {{{ ctrl-p
+NeoBundle 'ctrlpvim/ctrlp.vim'
+" }}}
+
 " }}}
 
 " {{{ Configurations
@@ -459,7 +463,6 @@ if neobundle#tap('lightline.vim') " {{{
         \ }
 endif " }}}
 
-"        \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
 if neobundle#tap('lightline-hybrid.vim') " {{{
   call neobundle#config({
         \   'autoload' : {
@@ -624,6 +627,27 @@ endif " }}}
 
 if neobundle#tap('vim-ref') " {{{
   let g:ref_phpmanual_path = $HOME . '/.vim/ref/php-chunked-xhtml'
+endif " }}}
+
+if neobundle#tap('ctrlp') " {{{
+  nnoremap zk :<C-u>CtrlP<Space>
+  " nnoremap sb :<C-u>CtrlPBuffer<CR>
+  " nnoremap sd :<C-u>CtrlPDir<CR>
+  " nnoremap sf :<C-u>CtrlP<CR>
+  " nnoremap sl :<C-u>CtrlPLine<CR>
+  " nnoremap sm :<C-u>CtrlPMRUFiles<CR>
+  " nnoremap sq :<C-u>CtrlPQuickfix<CR>
+  " nnoremap ss :<C-u>CtrlPMixed<CR>
+  " nnoremap st :<C-u>CtrlPTag<CR>
+
+  let g:ctrlp_map = '<Nop>'
+  echo g:ctrlp_map
+  " Guess vcs root dir
+  let g:ctrlp_working_path_mode = 'ra'
+  " Open new file in current window
+  let g:ctrlp_open_new_file = 'r'
+  let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
+  let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
 endif " }}}
 
 " }}}
