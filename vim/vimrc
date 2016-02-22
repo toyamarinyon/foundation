@@ -264,36 +264,29 @@ NeoBundle 'ctrlpvim/ctrlp.vim'
 " {{{ Configurations
 
 if neobundle#tap('vital.vim') " {{{
-
   function! neobundle#tapped.hooks.on_source(bundle)
     let g:V = vital#of('vital')
     let g:S = g:V.import("Web.HTTP")
-
     function! DecodeURI(uri)
       return g:S.decodeURI(a:uri)
     endfunction
-
     function! EncodeURI(uri)
       return g:S.encodeURI(a:uri)
     endfunction
-
     command -nargs=1 DecodeURI echo DecodeURI(<args>)
     command -nargs=1 EncodeURI echo EncodeURI(<args>)
-
   endfunction
-
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('open-browser') " {{{
-
   let g:netrw_nogx = 1 " disable netrw's gx mapping.
   nmap gx <Plug>(openbrowser-smart-search)
   vmap gx <Plug>(openbrowser-smart-search)
-
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('unite.vim') " {{{
-
   call neobundle#config({
         \   'autoload' : {
         \     'commands' : [
@@ -306,34 +299,7 @@ if neobundle#tap('unite.vim') " {{{
         \     ]
         \   }
         \ })
-
-  function! s:unite_menu_map_func(key, value)
-    let [word, value] = a:value
-    if isdirectory(value)
-      return {
-            \   'word' : '[directory] ' . word,
-            \   'kind' : 'directory',
-            \   'action__directory' : value
-            \ }
-    elseif !empty(glob(value))
-      return {
-            \   'word' : '[file] ' . word,
-            \   'kind' : 'file',
-            \   'default_action' : 'tabdrop',
-            \   'action__path' : value,
-            \ }
-    else
-      return {
-            \   'word' : '[command] ' . word,
-            \   'kind' : 'command',
-            \   'action__command' : value
-            \ }
-    endif
-  endfunction
-
   function! neobundle#tapped.hooks.on_source(bundle)
-
-    " General
     let g:unite_force_overwrite_statusline = 0
     let g:unite_kind_jump_list_after_jump_scroll=0
     let g:unite_enable_start_insert = 0
@@ -344,45 +310,7 @@ if neobundle#tap('unite.vim') " {{{
     let g:unite_source_directory_mru_long_limit = 100000
 	  let g:unite_source_history_yank_enable = 1
     let g:unite_prompt = '❯ '
-
-    " Unite-menu
-    let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
-    let g:unite_source_menu_menus.global = { 'description' : 'global shortcut' }
-    let g:unite_source_menu_menus.unite = { 'description' : 'unite shortcut' }
-    let g:unite_source_menu_menus.global.map = function('s:unite_menu_map_func')
-    let g:unite_source_menu_menus.unite.map = function('s:unite_menu_map_func')
-    let g:unite_source_menu_menus.global.candidates = [
-          \   [ '[edit] vimrc' , $MYVIMRC ],
-          \   [ '[edit] secret_vimrc' , expand('~/.secret_vimrc') ],
-          \   [ '[terminal] VimShell' , ':VimShell' ],
-          \   [ '[twitter] TweetVim' , ':Unite tweetvim' ],
-          \   [ '[lingr] J6uil' , ':J6uil' ],
-          \ ]
-    let g:unite_source_menu_menus.unite.candidates = [
-          \   [ 'neobundle/update' , ':Unite neobundle/update -log' ],
-          \   [ 'neobundle/install' , ':Unite neobundle/install -log' ],
-          \   [ 'J6uil/rooms' , ':Unite J6uil/rooms' ],
-          \   [ 'J6uil/members' , ':Unite J6uil/members' ],
-          \   [ 'Blog/posts' , ':Unite file:~/Sites/blog.supermomonga.com/source/posts/' ],
-          \   [ 'TweetVim' , ':Unite tweetvim' ],
-          \   [ 'files', ':Unite -start-insert -buffer-name=files buffer_tab file file_mru'],
-          \   [ 'function', ':Unite -start-insert -default-action=edit function'],
-          \   [ 'variable', ':Unite -start-insert -default-action=edit variable'],
-          \   [ 'outline', ':Unite -start-insert outline'],
-          \   [ 'help', ':Unite -start-insert help'],
-          \   [ 'buffer', ':Unite -start-insert buffer'],
-          \   [ 'line', ':Unite -start-insert -auto-preview -buffer-name=search line'],
-          \   [ 'quickfix', ':Unite -no-split -no-quit -auto-preview quickfix -buffer-name=unite_qf'],
-          \   [ 'grep', ':Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep'],
-          \   [ 'source', ':Unite -start-insert source'],
-          \   [ 'locate', ':Unite -start-insert locate'],
-          \   [ 'theme', ':Unite -auto-preview colorscheme'],
-          \   [ 'resume grep', ':UniteResume unite_grep'],
-          \   [ 'resume quickfix', ':UniteResume unite_qf'],
-          \ ]
-
   endfunction
-
   nnoremap [unite] <Nop>
   nmap zu [unite]
   nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files file_mru<CR>
@@ -390,28 +318,22 @@ if neobundle#tap('unite.vim') " {{{
   nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
 	nnoremap <silent> [unite]<Space> :<C-u>Unite -buffer-name=search line -start-insert -no-quit -winheight=9<CR>
-
-  if neobundle#is_installed('vim-unite-svn')
-    nnoremap <silent> [unite]s :<C-u>Unite svn/status -no-start-insert<CR>
-  endif
   if neobundle#is_installed('unite-outline')
     nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=40<CR>
   endif
-
+  call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('vim-unite-svn') " {{{
-
+if neobundle#tap('unite-outline') " {{{
   call neobundle#config({
-        \ 'autoload' : {
-        \   'unite_sources' : 'svn/status'
-        \ }
-        \ })
-
+          \ 'autoload' : {
+          \   'unite_sources' : 'outline'
+          \ }
+          \ })
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('vimfiler.vim') " {{{
-
   call neobundle#config({
         \ 'autoload' : {
         \   'commands' : [
@@ -423,16 +345,14 @@ if neobundle#tap('vimfiler.vim') " {{{
         \   'explorer' : 1,
         \ }
         \ })
-
   let g:vimfiler_safe_mode_by_default = 0
   let g:unite_kind_file_use_trashbox = 1
   let g:vimfiler_as_default_explorer = 1
   " let g:vimfiler_tree_closed_icon = '>'
   " let g:vimfiler_tree_opened_icon = 'v'
   " let g:vimfiler_tree_leaf_icon   = ''
-
   nnoremap ,h  :<C-u>VimFilerBufferDir<CR>
-
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('lightline.vim') " {{{
@@ -463,6 +383,7 @@ if neobundle#tap('lightline.vim') " {{{
         \ },
         \ 'subseparator': { 'left': '' , 'right': ''}
         \ }
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('lightline-hybrid.vim') " {{{
@@ -471,6 +392,7 @@ if neobundle#tap('lightline-hybrid.vim') " {{{
         \     'on_source' : [ 'lightline.vim' ]
         \   }
         \ })
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('neocomplete.vim') " {{{
@@ -516,6 +438,7 @@ if neobundle#tap('neocomplete.vim') " {{{
 
   " Omni completion functions
   let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
+  call neobundle#untap()
 
 endif " }}}
 
@@ -537,6 +460,7 @@ if neobundle#tap('neosnippet.vim') " {{{
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
   xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('neosnippet-snippets') " {{{
@@ -546,6 +470,7 @@ if neobundle#tap('neosnippet-snippets') " {{{
         \     'on_source' : [ 'neosnippet.vim' ]
         \   }
         \ })
+  call neobundle#untap()
 
 endif " }}}
 
@@ -601,6 +526,7 @@ if neobundle#tap('TweetVim') " {{{
   let g:tweetvim_display_source = 1
   let g:tweetvim_no_default_key_mappings = 1
   let g:tweetvim_display_username = 1
+  call neobundle#untap()
 
 endif " }}}
 
@@ -611,6 +537,7 @@ if neobundle#tap('vim-textmanip') " {{{
   xmap <C-h> <Plug>(textmanip-move-left)
   xmap <C-l> <Plug>(textmanip-move-right)
 
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('previm') " {{{
@@ -618,6 +545,7 @@ if neobundle#tap('previm') " {{{
   autocmd!
   autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('JpFormat.vim') " {{{
@@ -625,10 +553,12 @@ if neobundle#tap('JpFormat.vim') " {{{
   " let JpFormatCursorMovedI = 1
   " let JpCountChars = 60
 
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('vim-ref') " {{{
   let g:ref_phpmanual_path = $HOME . '/.vim/ref/php-chunked-xhtml'
+  call neobundle#untap()
 endif " }}}
 
 if neobundle#tap('ctrlp.vim') " {{{
@@ -649,6 +579,7 @@ if neobundle#tap('ctrlp.vim') " {{{
   let g:ctrlp_open_new_file = 'r'
   let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
   let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
+  call neobundle#untap()
 endif " }}}
 
 " }}}
