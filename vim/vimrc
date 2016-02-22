@@ -198,6 +198,7 @@ NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'jnwhiteh/vim-golang'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'plasticboy/vim-markdown'
 " }}}
 
 " {{{ colorschemes
@@ -242,6 +243,7 @@ NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'inotom/str2htmlentity'
+NeoBundle 'Yggdroot/indentLine'
 
 " }}}
 
@@ -629,8 +631,8 @@ if neobundle#tap('vim-ref') " {{{
   let g:ref_phpmanual_path = $HOME . '/.vim/ref/php-chunked-xhtml'
 endif " }}}
 
-if neobundle#tap('ctrlp') " {{{
-  nnoremap zk :<C-u>CtrlP<Space>
+if neobundle#tap('ctrlp.vim') " {{{
+  nnoremap zk :<C-u>CtrlP<CR>
   " nnoremap sb :<C-u>CtrlPBuffer<CR>
   " nnoremap sd :<C-u>CtrlPDir<CR>
   " nnoremap sf :<C-u>CtrlP<CR>
@@ -641,7 +643,6 @@ if neobundle#tap('ctrlp') " {{{
   " nnoremap st :<C-u>CtrlPTag<CR>
 
   let g:ctrlp_map = '<Nop>'
-  echo g:ctrlp_map
   " Guess vcs root dir
   let g:ctrlp_working_path_mode = 'ra'
   " Open new file in current window
@@ -673,7 +674,7 @@ set list
 " - http://unicode-table.com/en/sections/dingbats/
 " - http://unicode-table.com/en/sections/spacing-modifier-letters/
 " 		test   
-set listchars=tab:▸\ ,trail:˼,extends:»,precedes:«,nbsp:%
+set listchars=tab:\ \ ,trail:˼,extends:»,precedes:«,nbsp:%
 
 " Always a status line
 set laststatus=2
