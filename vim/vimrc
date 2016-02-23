@@ -36,23 +36,18 @@ else
   language messages en_US.UTF-8
 endif
 
-" Change the shell when I used fish
-if $SHELL =~ 'fish'
-  set shell=/bin/sh
-endif
-
 " }}}
 
 " Directory {{{
 
 let $DOTVIM = expand('~/.vim')
 let g:path = {
-      \ 'bundle'   : $DOTVIM . '/bundle',
-      \ 'neobundle': $DOTVIM . '/bundle/neobundle.vim',
-      \ 'swap'     : $DOTVIM . '/tmp/swap',
-      \ 'bak'      : $DOTVIM . '/tmp/bak',
-      \ 'undo'     : $DOTVIM . '/tmp/undo'
-      \}
+    \ 'bundle'   : $DOTVIM . '/bundle',
+    \ 'neobundle': $DOTVIM . '/bundle/neobundle.vim',
+    \ 'swap'     : $DOTVIM . '/tmp/swap',
+    \ 'bak'      : $DOTVIM . '/tmp/bak',
+    \ 'undo'     : $DOTVIM . '/tmp/undo'
+    \}
 
 " set runtimepath for go
 let s:goroot=$GOROOT.'/misc/vim'
@@ -120,42 +115,36 @@ NeoBundle 'tyru/open-browser.vim'
 
 " Text object {{{
 
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'kana/vim-textobj-entire', { 'depends' : 'kana/vim-textobj-user' }
-NeoBundle 'kana/vim-textobj-function', { 'depends' : 'kana/vim-textobj-user' }
-NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
-NeoBundle 'rhysd/vim-textobj-ruby', { 'depends' : 'kana/vim-textobj-user' }
-NeoBundle 'akiyan/vim-textobj-php', { 'depends' : 'kana/vim-textobj-user' }
-NeoBundle 'osyo-manga/vim-textobj-multiblock', { 'depends' : 'kana/vim-textobj-user' }
-NeoBundle 'osyo-manga/vim-textobj-multitextobj', { 'depends' : 'kana/vim-textobj-user' }
+" NeoBundle 'kana/vim-textobj-user'
+" NeoBundle 'kana/vim-textobj-entire', { 'depends' : 'kana/vim-textobj-user' }
+" NeoBundle 'kana/vim-textobj-function', { 'depends' : 'kana/vim-textobj-user' }
+" NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
+" NeoBundle 'rhysd/vim-textobj-ruby', { 'depends' : 'kana/vim-textobj-user' }
+" NeoBundle 'akiyan/vim-textobj-php', { 'depends' : 'kana/vim-textobj-user' }
+" NeoBundle 'osyo-manga/vim-textobj-multiblock', { 'depends' : 'kana/vim-textobj-user' }
+" NeoBundle 'osyo-manga/vim-textobj-multitextobj', { 'depends' : 'kana/vim-textobj-user' }
 
 " }}}
 
 " Operator {{{
 
-NeoBundle 'kana/vim-operator-user'
-NeoBundle 'tyru/operator-html-escape.vim', { 'depends' : 'kana/vim-operator-user' }
+" NeoBundle 'kana/vim-operator-user'
+" NeoBundle 'tyru/operator-html-escape.vim', { 'depends' : 'kana/vim-operator-user' }
 
 " }}}
 
 " {{{ Unite
 
 NeoBundleLazy 'Shougo/unite.vim', { 'depends' : [ 'Shougo/vimproc.vim', 'Shougo/neomru.vim' ] }
-NeoBundleLazy 'rhysd/unite-ruby-require.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundleLazy 'Shougo/unite-help', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundleLazy 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundleLazy 'kmnk/vim-unite-svn', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundleLazy 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundleLazy 'ujihisa/unite-locate', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundleLazy 'osyo-manga/unite-quickfix', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundleLazy 'Shougo/unite-ssh', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'Shougo/unite-outline', { 'depends' :
+      \ ['Shougo/unite.vim'],
+      \  'on_source' : 'unite.vim' }
 
 " }}}
 
 " {{{ vimshell
 
-NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
-NeoBundleLazy 'ujihisa/vimshell-ssh', { 'depends' : [ 'Shougo/vimshell.vim' ] }
+" NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
 
 " }}}
 
@@ -175,8 +164,8 @@ NeoBundleLazy 'Shougo/neocomplete.vim'
 
 NeoBundleLazy 'Shougo/neosnippet.vim'
 NeoBundleLazy 'Shougo/neosnippet-snippets', { 'depends' : [ 'Shougo/neosnippet.vim' ] }
-NeoBundleLazy 'honza/vim-snippets'
-NeoBundleLazy 'matthewsimo/angular-vim-snippets'
+" NeoBundleLazy 'honza/vim-snippets'
+" NeoBundleLazy 'matthewsimo/angular-vim-snippets'
 
 " }}}
 
@@ -187,13 +176,8 @@ NeoBundle 'cocopon/lightline-hybrid.vim'
 
 " }}}
 
-" {{{ fish scripts
-
-NeoBundle 'dag/vim-fish'
-
-" }}}
-
 " {{{ Languages
+NeoBundle 'dag/vim-fish'
 NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'jnwhiteh/vim-golang'
 NeoBundle 'kchmck/vim-coffee-script'
@@ -214,21 +198,6 @@ NeoBundle 'tpope/vim-fugitive'
 
 " }}}
 
-" {{{ Communication
-
-NeoBundleLazy 'basyura/TweetVim', 'dev', { 'depends' : [
-      \   'tyru/open-browser.vim',
-      \   'basyura/twibill.vim',
-      \   'basyura/bitly.vim',
-      \   'Shougo/unite.vim',
-      \   'Shougo/unite-outline',
-      \   'Shougo/vimproc.vim',
-      \   'mattn/favstar-vim',
-      \   'mattn/webapi-vim'
-      \ ] }
-
-" }}}
-
 " {{{ Edit
 
 NeoBundle 'tomtom/tcomment_vim'
@@ -240,9 +209,7 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'thinca/vim-qfreplace'
-NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'kannokanno/previm'
-NeoBundle 'inotom/str2htmlentity'
 NeoBundle 'Yggdroot/indentLine'
 
 " }}}
@@ -299,6 +266,16 @@ if neobundle#tap('unite.vim') " {{{
         \     ]
         \   }
         \ })
+  nnoremap [unite] <Nop>
+  nmap zu [unite]
+  nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files file_mru<CR>
+  nnoremap <silent> [unite]y :<C-u>Unite history/yank -winheight=9 -hide-source-names<CR>
+  nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
+  nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
+	nnoremap <silent> [unite]<Space> :<C-u>Unite -buffer-name=search line -start-insert -no-quit -winheight=9<CR>
+  if neobundle#is_installed('unite-outline')
+    nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=40<CR>
+  endif
   function! neobundle#tapped.hooks.on_source(bundle)
     let g:unite_force_overwrite_statusline = 0
     let g:unite_kind_jump_list_after_jump_scroll=0
@@ -311,25 +288,6 @@ if neobundle#tap('unite.vim') " {{{
 	  let g:unite_source_history_yank_enable = 1
     let g:unite_prompt = '❯ '
   endfunction
-  nnoremap [unite] <Nop>
-  nmap zu [unite]
-  nnoremap <silent> [unite]u :<C-u>Unite -start-insert -buffer-name=files file_mru<CR>
-  nnoremap <silent> [unite]y :<C-u>Unite history/yank -winheight=9 -hide-source-names<CR>
-  nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
-  nnoremap <silent> [unite]g :<C-u>Unite grep -max-multi-lines=1 -truncate -default-action=tabopen -buffer-name=unite_grep<CR>
-	nnoremap <silent> [unite]<Space> :<C-u>Unite -buffer-name=search line -start-insert -no-quit -winheight=9<CR>
-  if neobundle#is_installed('unite-outline')
-    nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=40<CR>
-  endif
-  call neobundle#untap()
-endif " }}}
-
-if neobundle#tap('unite-outline') " {{{
-  call neobundle#config({
-          \ 'autoload' : {
-          \   'unite_sources' : 'outline'
-          \ }
-          \ })
   call neobundle#untap()
 endif " }}}
 
@@ -621,7 +579,6 @@ set nowrap
 set ambiwidth=double
 
 syntax enable
-
 set background=dark
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
@@ -757,6 +714,11 @@ inoremap <C-f> <RIGHT>
 inoremap <C-b> <LEFT>
 inoremap <C-h> <BS>
 " inoremap <C-k> <ESC>lc$
+cnoremap <C-e> <END>
+cnoremap <C-a> <HOME>
+cnoremap <C-f> <RIGHT>
+cnoremap <C-b> <LEFT>
+cnoremap <C-h> <BS>
 
 " display lines downward, uoward
 nnoremap <silent> j gj
