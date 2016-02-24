@@ -211,6 +211,7 @@ NeoBundle 'mattn/excitetranslate-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'scrooloose/syntastic'
 
 " }}}
 
