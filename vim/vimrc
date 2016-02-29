@@ -336,7 +336,7 @@ if neobundle#tap('lightline.vim') " {{{
     if s:errorNo < 1
       return ''
     endif
-    return 'X '.s:errorNo
+    return '✖'.s:errorNo
   endfunction
   let g:lightline = {
         \ 'enable' : {
