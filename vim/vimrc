@@ -541,6 +541,16 @@ if neobundle#tap('ctrlp.vim') " {{{
   call neobundle#untap()
 endif " }}}
 
+if neobundle#tap('syntastic') " {{{
+  if &filetype == 'javascript' && filereadable(getcwd().'/node_modules/.bin/eslint')
+    let b:syntastic_checkers = ['eslint'] 
+  endif
+  call neobundle#untap()
+endif " }}}
+
+" TODO: refactoring
+let g:vim_json_syntax_conceal = 0
+
 " }}}
 
 " Required {{{
@@ -719,6 +729,8 @@ cnoremap <C-e> <END>
 cnoremap <C-a> <HOME>
 cnoremap <C-f> <RIGHT>
 cnoremap <C-b> <LEFT>
+cnoremap <C-p> <UP>
+cnoremap <C-n> <DOWN>
 cnoremap <C-h> <BS>
 
 " display lines downward, uoward
