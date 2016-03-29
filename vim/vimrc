@@ -139,7 +139,9 @@ NeoBundleLazy 'Shougo/unite.vim', { 'depends' : [ 'Shougo/vimproc.vim', 'Shougo/
 NeoBundleLazy 'Shougo/unite-outline', { 'depends' :
       \ ['Shougo/unite.vim'],
       \  'on_source' : 'unite.vim' }
-
+NeoBundleLazy 'kmnk/vim-unite-giti', { 'depends' :
+      \ ['Shougo/unite.vim'],
+      \  'on_source' : 'unite.vim' }
 " }}}
 
 " {{{ vimshell
