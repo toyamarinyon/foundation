@@ -1,0 +1,24 @@
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+let s:vim_dir = expand('~/.vim')
+let s:dein_repo_dir = s:vim_dir . '/bundle/repos/github.com/Shougo/dein.vim'
+
+if !isdirectory(s:dein_repo_dir)
+  echo 'This vimrc required dein.vim. Please execute apply.sh before.'
+  exit
+endif
+
+let &runtimepath = s:dein_repo_dir .','. &runtimepath
+
+if dein#load_state(s:vim_dir)
+  call dein#begin(s:vim_dir)
+  call dein#load_toml(s:vim_dir . '/plugins.toml')
+  call dein#end()
+  call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
