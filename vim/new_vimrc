@@ -69,7 +69,6 @@ set showmatch
 set wrap
 set ambiwidth=double
 
-" WIP tabpage
 highlight normal ctermbg=none
 highlight TabLine ctermbg=250 ctermfg=246
 highlight TabLineFill ctermbg=250 ctermfg=246

@@ -18,13 +18,15 @@ hook_post_update = '''
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+hook_add = '''
+  nnoremap [unite] <Nop>
+  nmap zu [unite]
+  nnoremap <silent> [unite]o :<C-u>Unite outline -start-insert -vertical -winwidth=30<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
-on_source = ['unite.vim']
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
 on_source = ['unite.vim']
 
 [[plugins]]
