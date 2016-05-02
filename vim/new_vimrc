@@ -1,5 +1,9 @@
+
+" ---------------------------------------------------------
+" Initialize:
+
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible
 endif
 
 let s:is_win = has('win32') || has('win64')
@@ -11,11 +15,17 @@ else
   language messages en_US.UTF-8
 endif
 
+" ---------------------------------------------------------
+" Encoding:
+
 let &termencoding = &encoding
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set fileformats=unix,dos,mac
+
+" ---------------------------------------------------------
+" PluginManagement:
 
 let s:vim_dir = expand('~/.vim')
 let s:dein_repo_dir = s:vim_dir . '/bundle/repos/github.com/Shougo/dein.vim'
@@ -41,9 +51,13 @@ endif
 filetype plugin indent on
 syntax enable
 
+" ---------------------------------------------------------
+" Appearance:
+
+
 set background=dark
 let g:hybrid_custom_term_colors = 1
-let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+let g:hybrid_reduced_contrast = 1
 colorscheme hybrid
 
 set laststatus=2
@@ -61,13 +75,11 @@ highlight TabLine ctermbg=250 ctermfg=246
 highlight TabLineFill ctermbg=250 ctermfg=246
 highlight TabLineSel ctermbg=none ctermfg=15 cterm=bold
 
-" Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
-" Set tabline.
-function! s:my_tabline()  "{{{
+function! s:my_tabline()
   let s = ''
   for i in range(1, tabpagenr('$'))
     let bufnrs = tabpagebuflist(i)
@@ -84,93 +96,32 @@ function! s:my_tabline()  "{{{
   endfor
   let s .= '%#TabLineFill#%T%=%#TabLine#'
   return s
-endfunction "}}}
+endfunction
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
-set showtabline=2 " 常にタブラインを表示
+set showtabline=2
 
-" The prefix key.
-nnoremap    [Tag]   <Nop>
-nmap    t [Tag]
-" Tab jump
-for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
-endfor
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
+" ---------------------------------------------------------
+" Edit:
 
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tc 新しいタブを一番右に作る
-map <silent> [Tag]x :tabclose<CR>
-" tx タブを閉じる
-map <silent> [Tag]n :tabnext<CR>
-" tn 次のタブ
-map <silent> [Tag]p :tabprevious<CR>
-" tp 前のタブ
-
-" }}}
-
-" History  {{{
-
-" Command history
 set history=10000
-
-" }}}
-
-" Folding  {{{
-
-" Use marker to fold
 set foldmethod=marker
-
-" Open folding when move in to one
-" set foldopen=all
-
-" Close folding when move out of one
-" set foldclose=all
-
-" }}}
-
-" Movement  {{{
-
-" `BS` can delete newline or indent
 set backspace=indent,eol,start
-
-" Can move at eol, bol
 set whichwrap=b,s,h,l,<,>,[,]
-
-" }}}
-
-" Indent  {{{
-
-" Use Space instead of Tab to make indent
 set expandtab
 augroup setExpandTab
   autocmd!
   autocmd FileType php let &expandtab=0
 augroup END
-
 set tabstop=2
-
-" Hoe many spaces to each indent level
 set shiftwidth=2
-
-" Automatically adjust indent
 set autoindent
-
-" Automatically indent when insert a new line
 set smartindent
-
-" Insert an indent when keydown <Tab> in indent spaces
 set smarttab
 
-" }}}
 
-" {{{ Key mapping
+" ---------------------------------------------------------
+" Keymap:
 
-"   This section is common key mapping.
-"
-"     ex. inoremap <silent>thb ->
-"
-"   Plugin key mapping is Plugin section.
-"
 inoremap <silent>thb ->
 inoremap <expr> <C-R><C-R> expand('%:p')
 inoremap <expr> :d strftime('%Y/%m/%d')
@@ -178,13 +129,11 @@ inoremap <silent><?? <?= ?><Left><Left>
 inoremap <silent>$$ $this->
 inoremap <silent>ppk $this->util->getPK('?')
 
-" emacs like keymap
 inoremap <C-e> <END>
 inoremap <C-a> <HOME>
 inoremap <C-f> <RIGHT>
 inoremap <C-b> <LEFT>
 inoremap <C-h> <BS>
-" inoremap <C-k> <ESC>lc$
 cnoremap <C-e> <END>
 cnoremap <C-a> <HOME>
 cnoremap <C-f> <RIGHT>
@@ -193,8 +142,12 @@ cnoremap <C-p> <UP>
 cnoremap <C-n> <DOWN>
 cnoremap <C-h> <BS>
 
-" display lines downward, uoward
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
-" }}}
+nnoremap    [Tab]   <Nop>
+nmap    t [Tab]
+map <silent> [Tab]c :tablast <bar> tabnew<CR>
+map <silent> [Tab]x :tabclose<CR>
+map <silent> [Tab]n :tabnext<CR>
+map <silent> [Tab]p :tabprevious<CR>
