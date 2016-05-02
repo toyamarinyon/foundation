@@ -20,16 +20,81 @@ hook_post_update = '''
 repo = 'Shougo/unite.vim'
 
 [[plugins]]
-repo      = 'Shougo/neomru.vim'
+repo = 'Shougo/neomru.vim'
 on_source = ['unite.vim']
 
 [[plugins]]
-repo =  'Shougo/unite-outline'
+repo = 'Shougo/unite-outline'
 on_source = ['unite.vim']
 
 [[plugins]]
-repo =  'Shougo/unite-outline'
+repo = 'Shougo/unite-outline'
 on_source = ['unite.vim']
 
 [[plugins]]
-repo =  'ctrlpvim/ctrlp.vim'
+repo = 'ctrlpvim/ctrlp.vim'
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  let g:syntastic_mode_map = { 'mode': 'passive' }
+  augroup AutoSyntastic
+    autocmd!
+    autocmd BufWritePost *.js call s:syntastic()
+  augroup END
+  function! s:syntastic()
+    SyntasticCheck
+    call lightline#update()
+  endfunction
+  function! HasSyntasticWarnings()
+    let s:warningNo = len(g:SyntasticLoclist.current().warnings())
+    if s:warningNo < 1
+      return ''
+    endif
+    return '! '.s:warningNo
+  endfunction
+  function! HasSyntasticErrors()
+    let s:errorNo = len(g:SyntasticLoclist.current().errors())
+    if s:errorNo < 1
+      return ''
+    endif
+    return '✖'.s:errorNo
+  endfunction
+  let g:lightline = {
+        \ 'enable' : {
+        \   'statusline': 1,
+        \   'tabline' : 0
+        \ },
+        \ 'colorscheme' : 'wombat',
+        \ 'active' : {
+        \   'left' : [ [],
+        \              [ 'fugitive' ],
+        \              [ 'readonly', 'relativepath', 'modified' ],
+        \              [ ] ],
+        \   'right': [ [ 'syntasticErrors','syntasticWarnings','lineinfo' ],
+        \              [ 'fileinfo' ],
+        \              [ ] ]
+        \ },
+        \ 'component' : {
+        \   'readonly' : '%{&readonly?"x":""}',
+        \   'modified' : '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+        \   'fileinfo' : '%{strlen(&filetype)?&filetype:"no ft"} %{&fileformat} %{strlen(&fenc)?&fenc:&enc}' ,
+        \   'fugitive': '%{exists("*fugitive#head") && ""!=fugitive#head()?"\u2b60 ".fugitive#head():""}'
+        \ },
+        \ 'component_visible_condition': {
+        \   'readonly': '(&filetype!="help"&& &readonly)',
+        \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+        \ },
+        \ 'component_expand': {
+        \   'syntasticWarnings': 'HasSyntasticWarnings',
+        \   'syntasticErrors': 'HasSyntasticErrors',
+        \ },
+        \ 'component_type': {
+        \   'syntasticWarnings': 'warning',
+        \   'syntasticErrors': 'error',
+        \ },
+        \ 'subseparator': { 'left': '' , 'right': ''}
+        \ }'''
