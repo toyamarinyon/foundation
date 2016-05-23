@@ -331,14 +331,20 @@ if neobundle#tap('lightline.vim') " {{{
     if s:warningNo < 1
       return ''
     endif
-    return '! '.s:warningNo
+    if s:warningNo == 1
+    return s:warningNo.' warning'
+    endif
+    return s:warningNo.' warnings'
   endfunction
   function! HasSyntasticErrors()
     let s:errorNo = len(g:SyntasticLoclist.current().errors())
     if s:errorNo < 1
       return ''
     endif
-    return '✖'.s:errorNo
+    if s:errorNo == 1
+    return s:errorNo.' error'
+    endif
+    return s:errorNo.' errors'
   endfunction
   let g:lightline = {
         \ 'enable' : {
