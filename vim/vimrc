@@ -601,6 +601,14 @@ endif " }}}
 " TODO: refactoring
 let g:vim_json_syntax_conceal = 0
 
+if neobundle#tap('emmet-vim') " {{{
+  let g:user_emmet_settings = {
+  \  'javascript' : {
+  \      'extends' : 'jsx',
+  \  },
+  \}
+endif " }}}
+
 " }}}
 
 " Required {{{
