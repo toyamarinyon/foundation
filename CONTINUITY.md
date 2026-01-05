@@ -1,29 +1,33 @@
 ## CONTINUITY.md
 
 ### Goal (incl. success criteria):
-- Create setup script that creates symlinks: `~/.zshrc` → `foundation/zsh/.zshrc` and `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
-- Success: repository clone → script execution → symlinks are set up automatically
+- Create setup script that creates symlink: `~/.zshrc` → `foundation/zsh/.zshrc`
+- Success: repository clone → script execution → symlink is set up automatically
 - Maintain a compaction-safe session briefing for this repo.
 - Keep repo guidance aligned with the user's "use mise full power" direction (tool versions/env/tasks).
+- Simplify zsh configuration to a single `.zshrc` file that relies on mise for tool management.
 
 ### Constraints/Assumptions:
 - Repo is personal shell dotfiles, mainly zsh.
 - Source of truth is `zsh/`.
 - Avoid embedding absolute paths; prefer `$HOME`, `command -v`, etc.
-- Zsh config is split into fragments under `zsh/.zshrc.d/` and sourced in order by `zsh/.zshrc`.
+- Zsh config is consolidated into a single `zsh/.zshrc` file (no fragment system).
 - Do not write outside this repository (no direct edits in the user's home dir).
+- Mise handles tool versions, environments, and PATH management.
 
 ### Key decisions:
 - Represent "current state" from on-repo files only; mark anything about the user's machine/symlinks as `UNCONFIRMED` unless observed in-repo.
 - Treat `mise` as first-class for tool versions/env/tasks.
+- Removed fragment-based `.zshrc.d` system in favor of single-file configuration.
+- Removed PATH management (mise handles it).
 
 ### State:
-- `zsh/.zshrc` is a thin loader that sources `$HOME/.zshrc.d/*.zsh`.
-- `zsh/.zshrc.d/00-secret.zsh.example` exists in-repo (legacy template), but the current direction is to manage secrets via `mise` (redaction + CI masking) instead of zsh secret fragments.
-- `zsh/.zshrc.d/01-env.zsh` sets `GOPATH` and `ULTRAHOPE_LLM_API_KEY` (derived from `MINIMAX_CP_KEY`).
-- `zsh/.zshrc.d/02-path.zsh` defines `addpath` and prepends several `$HOME`-based paths (incl. `$GOPATH/bin`).
-- `zsh/.zshrc.d/10-mise.zsh` enables `mise` if installed.
-- `zsh/.zshrc.d/90-prompt.zsh` runs `compinit`, loads `colors`, and sets `PROMPT`.
+- `zsh/.zshrc` is a self-contained configuration file that:
+  - Detects mise installation (`$HOME/.local/bin/mise` or `command -v mise`)
+  - Initializes mise if found, or displays installation link if not
+  - Sets up completion (`compinit`) and colors
+  - Configures PROMPT (minimal prompt: `%F{239}>%f `)
+- Fragment system (`zsh/.zshrc.d/`) has been removed.
 
 ### Done:
 - Created `CONTINUITY.md`.
@@ -35,14 +39,15 @@
 - Updated `README.md`: removed `00-secret.zsh` reference; clarified that secrets are managed via mise, not zsh fragments.
 - Deleted deprecated `v1/` directory.
 - Updated `README.md`: removed `v1/` reference from structure diagram.
+- Simplified zsh configuration: consolidated into single `zsh/.zshrc` file.
+- Removed fragment system: deleted `zsh/.zshrc.d/` directory and all fragment files.
+- Updated `zsh/.zshrc` to include mise detection, initialization, completion, colors, and PROMPT directly.
+- Updated `setup.sh` to remove `.zshrc.d` symlink creation and checks (now only creates `~/.zshrc` symlink).
 
 ### Now:
-- `setup.sh` created and ready for use. Script handles:
-  - Detecting repository root from script location
-  - Checking required files/directories exist
-  - Backing up existing files before creating symlinks
-  - Creating symlinks: `~/.zshrc` → `foundation/zsh/.zshrc` and `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
-- `AGENTS.md` updated to document that `setup.sh` is included in the repository and how to use it.
+- `zsh/.zshrc` is a self-contained configuration file with mise initialization and basic zsh setup.
+- Fragment system has been removed; all configuration is in `.zshrc`.
+- `setup.sh` creates symlink: `~/.zshrc` → `foundation/zsh/.zshrc` (no longer needs `.zshrc.d` symlink).
 
 ### Next:
 - Keep `CONTINUITY.md` updated at the start of each assistant turn.
@@ -61,7 +66,3 @@
   - `AGENTS.md`
   - `CONTINUITY.md`
   - `zsh/.zshrc`
-  - `zsh/.zshrc.d/01-env.zsh`
-  - `zsh/.zshrc.d/02-path.zsh`
-  - `zsh/.zshrc.d/10-mise.zsh`
-  - `zsh/.zshrc.d/90-prompt.zsh`

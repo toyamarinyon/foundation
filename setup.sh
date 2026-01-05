@@ -1,7 +1,6 @@
 #!/bin/bash
 # Setup script for foundation dotfiles
-# Creates symlinks: ~/.zshrc → foundation/zsh/.zshrc
-#                   ~/.zshrc.d/ → foundation/zsh/.zshrc.d/
+# Creates symlink: ~/.zshrc → foundation/zsh/.zshrc
 
 set -euo pipefail
 
@@ -35,11 +34,6 @@ fi
 
 if [[ ! -f "$REPO_ROOT/zsh/.zshrc" ]]; then
     error "zsh/.zshrc not found in repository"
-    exit 1
-fi
-
-if [[ ! -d "$REPO_ROOT/zsh/.zshrc.d" ]]; then
-    error "zsh/.zshrc.d directory not found in repository"
     exit 1
 fi
 
@@ -79,14 +73,11 @@ create_symlink() {
     info "Created symlink: $link_name → $target"
 }
 
-# Create symlinks
-info "Setting up symlinks..."
+# Create symlink
+info "Setting up symlink..."
 
 # ~/.zshrc → foundation/zsh/.zshrc
 create_symlink "$REPO_ROOT/zsh/.zshrc" "$HOME/.zshrc"
-
-# ~/.zshrc.d/ → foundation/zsh/.zshrc.d/
-create_symlink "$REPO_ROOT/zsh/.zshrc.d" "$HOME/.zshrc.d"
 
 info "Setup complete!"
 info "You may need to restart your shell or run: source ~/.zshrc"
