@@ -9,7 +9,6 @@
 ### Constraints/Assumptions:
 - Repo is personal shell dotfiles, mainly zsh.
 - Source of truth is `zsh/`.
-- `v1/` is deprecated; do not read or modify `v1/` unless explicitly instructed.
 - Avoid embedding absolute paths; prefer `$HOME`, `command -v`, etc.
 - Zsh config is split into fragments under `zsh/.zshrc.d/` and sourced in order by `zsh/.zshrc`.
 - Do not write outside this repository (no direct edits in the user's home dir).
@@ -34,6 +33,8 @@
 - Updated `AGENTS.md` "Setup assumptions" section to reflect that `setup.sh` is included in the repository.
 - Created `README.md`: user-facing documentation covering quick start, structure, mise tooling, and how to add configuration.
 - Updated `README.md`: removed `00-secret.zsh` reference; clarified that secrets are managed via mise, not zsh fragments.
+- Deleted deprecated `v1/` directory.
+- Updated `README.md`: removed `v1/` reference from structure diagram.
 
 ### Now:
 - `setup.sh` created and ready for use. Script handles:

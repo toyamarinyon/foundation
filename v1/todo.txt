@@ -1,5 +1,0 @@
-### TODO
-
-# init.sh
-
-	neobundleのインストール(冪等性)

@@ -22,14 +22,13 @@ Existing files are automatically backed up before creating symlinks.
 ```
 foundation/
 ├── setup.sh              # Symlink setup script
-├── zsh/
-│   ├── .zshrc            # Thin loader that sources fragments
-│   └── .zshrc.d/         # Configuration fragments (sourced in order)
-│       ├── 01-env.zsh    # Environment variables
-│       ├── 02-path.zsh   # PATH configuration
-│       ├── 10-mise.zsh   # mise activation
-│       └── 90-prompt.zsh # Prompt and completion
-└── v1/                   # Deprecated (legacy config)
+└── zsh/
+    ├── .zshrc            # Thin loader that sources fragments
+    └── .zshrc.d/         # Configuration fragments (sourced in order)
+        ├── 01-env.zsh    # Environment variables
+        ├── 02-path.zsh   # PATH configuration
+        ├── 10-mise.zsh   # mise activation
+        └── 90-prompt.zsh # Prompt and completion
 ```
 
 ### Fragment Ordering

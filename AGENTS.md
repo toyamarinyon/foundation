@@ -3,7 +3,6 @@
 This repository contains **personal shell dotfiles (mainly zsh)**.
 
 - **Current source of truth**: `zsh/`
-- **`v1/` is deprecated**: an old structure from ~10+ years ago. Unless explicitly instructed, **do not read or modify `v1/`**.
 
 ## Important rules
 
@@ -40,8 +39,7 @@ This script will:
 - **Do**
   - Improve `zsh/.zshrc` and `zsh/.zshrc.d/*.zsh` (portability, readability, safety)
 - **Do not**
-  - Modify `v1/` unless explicitly requested
-  - Write directly into the user’s home directory (i.e., do not change files outside this repository)
+  - Write directly into the user's home directory (i.e., do not change files outside this repository)
 
 ## Quick smoke tests
 
