@@ -1,0 +1,2 @@
+export GOPATH="$HOME/.go"
+export ULTRAHOPE_LLM_API_KEY="$MINIMAX_CP_KEY"

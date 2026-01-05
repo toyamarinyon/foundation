@@ -1,6 +1,2 @@
-fish/fishd.*
-fish/fish_history
-fish/fish
-fish/private_environments.fish
-zsh/zcustom.d/private_aliases.zsh
+# macOS
 .DS_Store
