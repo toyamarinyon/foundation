@@ -32,6 +32,8 @@
 - Removed "Never commit secrets" section from `AGENTS.md` (human-facing guidance, not agent rules).
 - Created `setup.sh`: setup script that creates symlinks with backup handling for existing files.
 - Updated `AGENTS.md` "Setup assumptions" section to reflect that `setup.sh` is included in the repository.
+- Created `README.md`: user-facing documentation covering quick start, structure, mise tooling, and how to add configuration.
+- Updated `README.md`: removed `00-secret.zsh` reference; clarified that secrets are managed via mise, not zsh fragments.
 
 ### Now:
 - `setup.sh` created and ready for use. Script handles:
@@ -53,7 +55,8 @@
 
 ### Working set (files/ids/commands):
 - Files:
-  - `setup.sh` (new)
+  - `README.md`
+  - `setup.sh`
   - `AGENTS.md`
   - `CONTINUITY.md`
   - `zsh/.zshrc`
