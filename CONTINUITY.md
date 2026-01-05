@@ -1,8 +1,9 @@
 ## CONTINUITY.md
 
 ### Goal (incl. success criteria):
+- Create setup script that creates symlinks: `~/.zshrc` → `foundation/zsh/.zshrc` and `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
+- Success: repository clone → script execution → symlinks are set up automatically
 - Maintain a compaction-safe session briefing for this repo.
-- Success: this file accurately reflects the current goal/constraints/state, and gets updated at the start of each assistant turn and after each file edit.
 - Keep repo guidance aligned with the user's "use mise full power" direction (tool versions/env/tasks).
 
 ### Constraints/Assumptions:
@@ -29,9 +30,16 @@
 - Created `CONTINUITY.md`.
 - Updated `AGENTS.md` to assume "use mise full power".
 - Removed "Never commit secrets" section from `AGENTS.md` (human-facing guidance, not agent rules).
+- Created `setup.sh`: setup script that creates symlinks with backup handling for existing files.
+- Updated `AGENTS.md` "Setup assumptions" section to reflect that `setup.sh` is included in the repository.
 
 ### Now:
-- `AGENTS.md` / `CONTINUITY.md` updated to treat `mise` as first-class.
+- `setup.sh` created and ready for use. Script handles:
+  - Detecting repository root from script location
+  - Checking required files/directories exist
+  - Backing up existing files before creating symlinks
+  - Creating symlinks: `~/.zshrc` → `foundation/zsh/.zshrc` and `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
+- `AGENTS.md` updated to document that `setup.sh` is included in the repository and how to use it.
 
 ### Next:
 - Keep `CONTINUITY.md` updated at the start of each assistant turn.
@@ -41,10 +49,11 @@
   - Ensure no startup errors (esp. around `compinit`)
 
 ### Open questions (UNCONFIRMED if needed):
-- UNCONFIRMED: User has symlinked `~/.zshrc` → `zsh/.zshrc` and `~/.zshrc.d/` → `zsh/.zshrc.d/` as described in `AGENTS.md`.
+- None.
 
 ### Working set (files/ids/commands):
 - Files:
+  - `setup.sh` (new)
   - `AGENTS.md`
   - `CONTINUITY.md`
   - `zsh/.zshrc`

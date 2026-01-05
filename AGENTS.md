@@ -22,10 +22,18 @@ This repository contains **personal shell dotfiles (mainly zsh)**.
 
 ## Setup assumptions
 
-An external setup script (not necessarily included in this repo) is expected to:
+A setup script `setup.sh` is included in this repository. After cloning the repository, run:
+
+```bash
+./setup.sh
+```
+
+This script will:
 
 - Symlink `~/.zshrc` → `foundation/zsh/.zshrc`
 - Symlink `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
+- Back up any existing files before creating symlinks
+- Skip creation if symlinks already point to the correct location
 
 ## What agents should / should not do
 
