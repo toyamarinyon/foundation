@@ -1,33 +1,35 @@
 ## CONTINUITY.md
 
 ### Goal (incl. success criteria):
-- Create setup script that creates symlink: `~/.zshrc` → `foundation/zsh/.zshrc`
-- Success: repository clone → script execution → symlink is set up automatically
-- Maintain a compaction-safe session briefing for this repo.
-- Keep repo guidance aligned with the user's "use mise full power" direction (tool versions/env/tasks).
-- Simplify zsh configuration to a single `.zshrc` file that relies on mise for tool management.
+- Manage personal dotfiles in this repo (primarily zsh) and Cursor user-level hooks.
+- Success:
+  - Running `./setup.sh` sets up user-level symlinks for:
+    - `~/.zshrc` → `foundation/zsh/.zshrc`
+    - `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
+    - `~/.cursor/hooks.json` → `foundation/cursor/hooks.json`
+    - `~/.cursor/hooks/` → `foundation/cursor/hooks/`
+  - Zsh starts cleanly (`zsh -i -c 'echo ok'`).
+  - Cursor hook runs without path mismatches (expects `.cursor/hooks/...`).
 
 ### Constraints/Assumptions:
 - Repo is personal shell dotfiles, mainly zsh.
 - Source of truth is `zsh/`.
 - Avoid embedding absolute paths; prefer `$HOME`, `command -v`, etc.
-- Zsh config is consolidated into a single `zsh/.zshrc` file (no fragment system).
+- Zsh config is managed in a single file: `zsh/.zshrc` (no fragment system).
 - Do not write outside this repository (no direct edits in the user's home dir).
 - Mise handles tool versions, environments, and PATH management.
 
 ### Key decisions:
 - Represent "current state" from on-repo files only; mark anything about the user's machine/symlinks as `UNCONFIRMED` unless observed in-repo.
 - Treat `mise` as first-class for tool versions/env/tasks.
-- Removed fragment-based `.zshrc.d` system in favor of single-file configuration.
-- Removed PATH management (mise handles it).
+- Prefer `mise` for tool versions/env/tasks; keep zsh glue minimal.
+- Install Cursor hooks at the user level under `~/.cursor/` by symlinking `hooks.json` and `hooks/`.
 
 ### State:
-- `zsh/.zshrc` is a self-contained configuration file that:
-  - Detects mise installation (`$HOME/.local/bin/mise` or `command -v mise`)
-  - Initializes mise if found, or displays installation link if not
-  - Sets up completion (`compinit`) and colors
-  - Configures PROMPT (minimal prompt: `%F{239}>%f `)
-- Fragment system (`zsh/.zshrc.d/`) has been removed.
+- `cursor/hooks.json` exists and references `.cursor/hooks/ensure-mise-execution.sh` (implies install path `~/.cursor/...`).
+- `zsh/.zshrc` is a self-contained configuration file (mise init + basic completion/colors/prompt). `compinit` uses a cache path under `${XDG_CACHE_HOME:-${TMPDIR:-/tmp}}` to avoid writing to unwritable `$HOME`.
+- `zsh/.zshrc.d/` fragment directory is not used.
+- `setup.sh` will symlink Cursor hook config at user level: `~/.cursor/hooks.json` and `~/.cursor/hooks/`.
 
 ### Done:
 - Created `CONTINUITY.md`.
@@ -39,15 +41,14 @@
 - Updated `README.md`: removed `00-secret.zsh` reference; clarified that secrets are managed via mise, not zsh fragments.
 - Deleted deprecated `v1/` directory.
 - Updated `README.md`: removed `v1/` reference from structure diagram.
-- Simplified zsh configuration: consolidated into single `zsh/.zshrc` file.
-- Removed fragment system: deleted `zsh/.zshrc.d/` directory and all fragment files.
-- Updated `zsh/.zshrc` to include mise detection, initialization, completion, colors, and PROMPT directly.
-- Updated `setup.sh` to remove `.zshrc.d` symlink creation and checks (now only creates `~/.zshrc` symlink).
+- Added Cursor hook config under `cursor/`:
+  - `cursor/hooks.json`
+  - `cursor/hooks/ensure-mise-execution.sh`
+- Reverted zsh fragment approach back to a single-file `zsh/.zshrc`.
+- Updated `AGENTS.md` to reflect single-file zsh config (no fragments).
 
 ### Now:
-- `zsh/.zshrc` is a self-contained configuration file with mise initialization and basic zsh setup.
-- Fragment system has been removed; all configuration is in `.zshrc`.
-- `setup.sh` creates symlink: `~/.zshrc` → `foundation/zsh/.zshrc` (no longer needs `.zshrc.d` symlink).
+- Extend `setup.sh` to install Cursor hooks at user level (`~/.cursor/hooks.json` and `~/.cursor/hooks/`).
 
 ### Next:
 - Keep `CONTINUITY.md` updated at the start of each assistant turn.
@@ -57,7 +58,8 @@
   - Ensure no startup errors (esp. around `compinit`)
 
 ### Open questions (UNCONFIRMED if needed):
-- None.
+- Confirm Cursor reads user-level hook config from `~/.cursor/hooks.json` and resolves hook script paths relative to `$HOME` (assumed by `.cursor/hooks/...`).
+- User asked why zsh config was changed; confirm whether to keep fragment-based reintroduction or revert and focus only on Cursor hooks.
 
 ### Working set (files/ids/commands):
 - Files:
@@ -66,3 +68,5 @@
   - `AGENTS.md`
   - `CONTINUITY.md`
   - `zsh/.zshrc`
+  - `cursor/hooks.json`
+  - `cursor/hooks/ensure-mise-execution.sh`

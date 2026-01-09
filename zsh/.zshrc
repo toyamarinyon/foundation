@@ -10,7 +10,6 @@ fi
 
 # Completion setup
 autoload -Uz compinit
-compinit
 
 # Color support
 autoload -Uz colors && colors

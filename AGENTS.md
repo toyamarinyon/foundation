@@ -8,10 +8,9 @@ This repository contains **personal shell dotfiles (mainly zsh)**.
 
 - **Do not embed absolute paths**
   - Avoid user-specific paths (e.g. `/Users/...`). Prefer `command -v`, `$HOME`, or other environment-based resolution.
-- **Add zsh config as “fragments”**
-  - `zsh/.zshrc` is a thin loader that sources `~/.zshrc.d/*.zsh` in order.
-  - Changes should usually be done by adding/editing files under `zsh/.zshrc.d/`.
-  - Do not break the existing ordering conventions (`00-`, `01-`, `10-`, `90-`, etc.).
+- **Keep zsh config single-file**
+  - `zsh/.zshrc` is the source of truth.
+  - Prefer editing `zsh/.zshrc` directly (no fragment system).
 - **Use mise “full power” as the default**
   - Assume `mise` is the standard tool for:
     - dev tool versions (replacing `asdf`, `nvm`, `pyenv`, etc.)
@@ -30,14 +29,13 @@ A setup script `setup.sh` is included in this repository. After cloning the repo
 This script will:
 
 - Symlink `~/.zshrc` → `foundation/zsh/.zshrc`
-- Symlink `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
 - Back up any existing files before creating symlinks
 - Skip creation if symlinks already point to the correct location
 
 ## What agents should / should not do
 
 - **Do**
-  - Improve `zsh/.zshrc` and `zsh/.zshrc.d/*.zsh` (portability, readability, safety)
+  - Improve `zsh/.zshrc` (portability, readability, safety)
 - **Do not**
   - Write directly into the user's home directory (i.e., do not change files outside this repository)
 

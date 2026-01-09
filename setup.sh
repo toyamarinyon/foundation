@@ -79,5 +79,16 @@ info "Setting up symlink..."
 # ~/.zshrc → foundation/zsh/.zshrc
 create_symlink "$REPO_ROOT/zsh/.zshrc" "$HOME/.zshrc"
 
+# Cursor user-level hooks:
+# ~/.cursor/hooks.json → foundation/cursor/hooks.json
+# ~/.cursor/hooks/     → foundation/cursor/hooks/
+if [[ -f "$REPO_ROOT/cursor/hooks.json" ]]; then
+    create_symlink "$REPO_ROOT/cursor/hooks.json" "$HOME/.cursor/hooks.json"
+fi
+
+if [[ -d "$REPO_ROOT/cursor/hooks" ]]; then
+    create_symlink "$REPO_ROOT/cursor/hooks" "$HOME/.cursor/hooks"
+fi
+
 info "Setup complete!"
 info "You may need to restart your shell or run: source ~/.zshrc"
