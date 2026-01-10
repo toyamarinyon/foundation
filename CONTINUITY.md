@@ -27,7 +27,11 @@
 
 ### State:
 - `cursor/hooks.json` exists and references `.cursor/hooks/ensure-mise-execution.sh` (implies install path `~/.cursor/...`).
-- `zsh/.zshrc` is a self-contained configuration file (mise init + basic completion/colors/prompt). `compinit` uses a cache path under `${XDG_CACHE_HOME:-${TMPDIR:-/tmp}}` to avoid writing to unwritable `$HOME`.
+- `zsh/.zshrc` is a self-contained configuration file (mise init + basic completion/colors/prompt).
+- `zsh/.zshrc` initializes mise quietly:
+  - If `mise` is on `PATH`, it runs `eval "$(mise activate zsh)"`.
+  - Else, if `$HOME/.local/bin/mise` exists and is executable, it activates via that path.
+- `zsh/.zshrc` currently autoloads `compinit` but does not call it (so completion may not be initialized).
 - `zsh/.zshrc.d/` fragment directory is not used.
 - `setup.sh` will symlink Cursor hook config at user level: `~/.cursor/hooks.json` and `~/.cursor/hooks/`.
 
@@ -48,7 +52,7 @@
 - Updated `AGENTS.md` to reflect single-file zsh config (no fragments).
 
 ### Now:
-- Extend `setup.sh` to install Cursor hooks at user level (`~/.cursor/hooks.json` and `~/.cursor/hooks/`).
+- Verify zsh starts cleanly after the mise init simplification.
 
 ### Next:
 - Keep `CONTINUITY.md` updated at the start of each assistant turn.

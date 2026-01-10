@@ -3,7 +3,7 @@
   "hooks": {
     "beforeShellExecution": [
       {
-        "command": ".cursor/hooks/ensure-mise-execution.sh"
+        "command": "~/.cursor/hooks/ensure-mise-execution.sh"
       }
     ]
   }
