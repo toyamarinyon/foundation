@@ -1,10 +1,30 @@
 {
   "version": 1,
   "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "~/.cursor/hooks/reflog.sh"
+      }
+    ],
     "beforeShellExecution": [
       {
         "command": "~/.cursor/hooks/ensure-mise-execution.sh"
       }
-    ]
+    ],
+   "afterFileEdit" : [
+     {
+       "command": "~/.cursor/hooks/reflog.sh"
+     }
+   ],
+   "afterAgentResponse":[
+     {
+       "command": "~/.cursor/hooks/reflog.sh"
+     }
+   ],
+   "stop" : [
+     {
+       "command": "~/.cursor/hooks/reflog.sh"
+     }
+   ]
   }
 }
