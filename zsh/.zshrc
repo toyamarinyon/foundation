@@ -9,6 +9,8 @@ fi
 autoload -Uz compinit
 compinit -i
 
+source <(jj util completion zsh)
+
 # Color support
 autoload -Uz colors && colors
 
