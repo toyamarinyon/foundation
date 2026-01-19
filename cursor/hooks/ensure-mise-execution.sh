@@ -79,6 +79,20 @@ if [[ -n "${safe_conversation_id}" ]]; then
   STATE_FILE_FS="${STATE_DIR_FS}/${safe_conversation_id}"
   STATE_FILE_MSG="${STATE_DIR_MSG}/${safe_conversation_id}"
 fi
+# If the command chains mise bootstrap and another command, deny and guide 2-step execution.
+if [[ "${command}" =~ ^[[:space:]]*eval[[:space:]]+['\"]\$\([[:space:]]*mise[[:space:]]+activate[[:space:]]+zsh[[:space:]]+--shims[[:space:]]*\)['\"][[:space:]]*(\&\&|;)[[:space:]]*(.+)$ ]]; then
+  bootstrap_cmd='eval "$(mise activate zsh --shims)"'
+  rest_cmd="${BASH_REMATCH[3]}"
+  if [[ -n "${STATE_FILE_FS}" && -f "${STATE_FILE_FS}" ]]; then
+    user_message="mise is already initialized for this conversation."
+    agent_message="Initialization is not needed. Run only this command:\n${rest_cmd}"
+  else
+    user_message="Initializing mise for this conversation (one-time)."
+    agent_message="Run this command first:\n${bootstrap_cmd}\nThen run this command:\n${rest_cmd}"
+  fi
+  emit_deny "$user_message" "$agent_message"
+  exit 0
+fi
 if [[ -n "${STATE_FILE_FS}" && -f "${STATE_FILE_FS}" ]]; then
   emit_allow
   exit 0
@@ -129,15 +143,6 @@ if [[ -z "$hit_cmd" ]]; then
   emit_allow
   exit 0
 fi
-# Allow if the command itself bootstraps mise shims before running the guarded command.
-# Why: `eval "$(mise activate ... --shims)" && node ...` won't affect `command -v node`
-# until the eval is executed, but we still want to allow this usage.
-if printf '%s' "$command" | grep -Eiq \
-  "mise[[:space:]]+activate[[:space:]].*--shims.*(^|[[:space:];&|()])${hit_cmd}([[:space:]]|$)"; then
-  emit_allow
-  exit 0
-fi
-
 # Also allow mise subcommands that execute the guarded command inside mise-managed env.
 # Examples:
 # - mise x -- node -v

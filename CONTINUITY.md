@@ -37,6 +37,7 @@
 - `zsh/.zshrc.d/` fragment directory is not used.
 - `setup.sh` will symlink Cursor hook config at user level: `~/.cursor/hooks.json` and `~/.cursor/hooks/`.
 - User added `agent-browser` to guarded command list in `cursor/hooks/ensure-mise-execution.sh`.
+- `cursor/hooks/ensure-mise-execution.sh` denies combined `eval "$(mise activate zsh --shims)" && <cmd>` and provides English 2-step guidance; if already initialized, it denies with "init not needed, run only the remaining command."
 
 ### Done:
 - Created `CONTINUITY.md`.
@@ -61,17 +62,14 @@
 - Sanity-tested marker creation via eval command (marker created, hook returned allow).
 - Reverted zsh fragment approach back to a single-file `zsh/.zshrc`.
 - Updated `AGENTS.md` to reflect single-file zsh config (no fragments).
+- Updated `cursor/hooks/ensure-mise-execution.sh` to detect combined mise-init commands and deny with English 2-step guidance (init/no-init depending on marker).
 
 ### Now:
-- Ready for user review.
+- Ready for review; hook messages are now in English (manual verification not run to avoid writing outside repo).
 
 ### Next:
-- Keep `CONTINUITY.md` updated at the start of each assistant turn.
 - After each file edit in this repo, update `CONTINUITY.md` immediately with what changed.
-- If zsh changes are made, run minimum smoke tests:
-  - `zsh -i -c 'echo ok'`
-  - Ensure no startup errors (esp. around `compinit`)
- - After hook changes, sanity-test by piping representative JSON into the hook script and confirming JSON output (`allow` vs `deny`) is correct.
+- If desired, sanity-test by piping representative JSON into the hook script and confirming JSON output (`allow` vs `deny`) is correct.
 
 ### Open questions (UNCONFIRMED if needed):
 - Confirm Cursor reads user-level hook config from `~/.cursor/hooks.json` and resolves hook script paths relative to `$HOME` (assumed by `.cursor/hooks/...`).
