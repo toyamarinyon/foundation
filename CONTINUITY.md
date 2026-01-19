@@ -2,6 +2,8 @@
 
 ### Goal (incl. success criteria):
 - Manage personal dotfiles in this repo (primarily zsh) and Cursor user-level hooks.
+- Improve Cursor `beforeShellExecution` hook so mise shims are initialized once per conversation (via marker file), avoiding repeated manual `eval "$(mise activate zsh --shims)"` prefixes.
+- Update hook so marker creation happens inside the hook when the command itself is `eval "$(mise activate zsh --shims)"` (marker not in response).
 - Success:
   - Running `./setup.sh` sets up user-level symlinks for:
     - `~/.zshrc` → `foundation/zsh/.zshrc`
@@ -34,6 +36,7 @@
 - `zsh/.zshrc` currently autoloads `compinit` but does not call it (so completion may not be initialized).
 - `zsh/.zshrc.d/` fragment directory is not used.
 - `setup.sh` will symlink Cursor hook config at user level: `~/.cursor/hooks.json` and `~/.cursor/hooks/`.
+- User added `agent-browser` to guarded command list in `cursor/hooks/ensure-mise-execution.sh`.
 
 ### Done:
 - Created `CONTINUITY.md`.
@@ -48,11 +51,19 @@
 - Added Cursor hook config under `cursor/`:
   - `cursor/hooks.json`
   - `cursor/hooks/ensure-mise-execution.sh`
+- Updated `cursor/hooks/ensure-mise-execution.sh` to gate mise initialization per conversation:
+  - Extracts `conversation_id` from hook input and uses marker file under `$HOME/.local/state/cursor/init-mise/<conversation_id>`.
+  - If marker is missing, denies guarded commands and instructs a one-time bootstrap command: `eval "$(mise activate zsh --shims)"` then re-run the original command.
+  - If marker exists, allows immediately (no need to prefix every time).
+  - Fixed hook JSON output to always emit a single valid JSON object (no multi-line / trailing comma output).
+  - Ensured the suggested bootstrap command uses `$HOME/...` (not an expanded absolute path) to avoid embedding user-specific paths.
+- Updated hook so marker creation is done only when the command itself is `eval "$(mise activate zsh --shims)"` (not via deny response).
+- Sanity-tested marker creation via eval command (marker created, hook returned allow).
 - Reverted zsh fragment approach back to a single-file `zsh/.zshrc`.
 - Updated `AGENTS.md` to reflect single-file zsh config (no fragments).
 
 ### Now:
-- Verify zsh starts cleanly after the mise init simplification.
+- Ready for user review.
 
 ### Next:
 - Keep `CONTINUITY.md` updated at the start of each assistant turn.
@@ -60,6 +71,7 @@
 - If zsh changes are made, run minimum smoke tests:
   - `zsh -i -c 'echo ok'`
   - Ensure no startup errors (esp. around `compinit`)
+ - After hook changes, sanity-test by piping representative JSON into the hook script and confirming JSON output (`allow` vs `deny`) is correct.
 
 ### Open questions (UNCONFIRMED if needed):
 - Confirm Cursor reads user-level hook config from `~/.cursor/hooks.json` and resolves hook script paths relative to `$HOME` (assumed by `.cursor/hooks/...`).

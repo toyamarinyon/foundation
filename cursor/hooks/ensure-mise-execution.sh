@@ -1,9 +1,32 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Minimal JSON escaping (so jq is optional for output)
+json_escape() {
+  # Escapes backslash, double-quote, and newlines for embedding in JSON strings.
+  local s="${1-}"
+  s="${s//\\/\\\\}"
+  s="${s//\"/\\\"}"
+  s="${s//$'\n'/\\n}"
+  printf '%s' "$s"
+}
+
+emit_allow() {
+  printf '%s\n' '{"permission":"allow"}'
+}
+
+emit_deny() {
+  local user_message="${1-}"
+  local agent_message="${2-}"
+  printf '{"permission":"deny","user_message":"%s","agent_message":"%s"}\n' \
+    "$(json_escape "$user_message")" \
+    "$(json_escape "$agent_message")"
+}
+
 # Read hook input
 input="$(cat)"
 command=""
+conversation_id=""
 if command -v jq >/dev/null 2>&1; then
   command="$(
     echo "$input" | jq -r '
@@ -14,6 +37,9 @@ if command -v jq >/dev/null 2>&1; then
         end
     ' 2>/dev/null || true
   )"
+  conversation_id="$(
+    echo "$input" | jq -r '(.conversation_id // empty)' 2>/dev/null || true
+  )"
 fi
 if [[ -z "${command}" ]]; then
   command="$(
@@ -22,13 +48,50 @@ if [[ -z "${command}" ]]; then
       | head -n 1
   )"
 fi
+if [[ -z "${conversation_id}" ]]; then
+  conversation_id="$(
+    printf '%s' "$input" | sed -nE \
+      's/.*"conversation_id"[[:space:]]*:[[:space:]]*"([^"]*)".*/\1/p' \
+      | head -n 1
+  )"
+fi
+
+# Sanitize conversation_id to a safe filename component (defense-in-depth)
+safe_conversation_id="$(
+  printf '%s' "${conversation_id}" | tr -cd 'A-Za-z0-9._-'
+)"
 
 # If we still can't extract a command, fail closed (avoid accidental allow-bypass)
 if [[ -z "${command}" ]]; then
   user_message="Unable to extract command from Cursor hook input."
   agent_message="This hook could not extract a command from the provided JSON input. Ensure Cursor is sending a 'command' field, or install jq for reliable parsing."
-  jq -n --arg user_message "$user_message" --arg agent_message "$agent_message" \
-    '{permission:"deny", user_message:$user_message, agent_message:$agent_message}'
+  emit_deny "$user_message" "$agent_message"
+  exit 0
+fi
+
+# Per-conversation mise bootstrap marker.
+# If marker exists, we allow without further checks (you've already initialized mise in this conversation).
+STATE_DIR_FS="${HOME}/.local/state/cursor/init-mise"
+STATE_DIR_MSG='$HOME/.local/state/cursor/init-mise'
+STATE_FILE_FS=""
+STATE_FILE_MSG=""
+if [[ -n "${safe_conversation_id}" ]]; then
+  STATE_FILE_FS="${STATE_DIR_FS}/${safe_conversation_id}"
+  STATE_FILE_MSG="${STATE_DIR_MSG}/${safe_conversation_id}"
+fi
+if [[ -n "${STATE_FILE_FS}" && -f "${STATE_FILE_FS}" ]]; then
+  emit_allow
+  exit 0
+fi
+
+# If the command is the one-time mise bootstrap, create the marker here.
+if printf '%s' "$command" | grep -Eiq \
+  "^[[:space:]]*eval[[:space:]]+['\"]\\$\\([[:space:]]*mise[[:space:]]+activate[[:space:]]+zsh[[:space:]]+--shims[[:space:]]*\\)['\"][[:space:]]*$"; then
+  if [[ -n "${STATE_FILE_FS}" ]]; then
+    mkdir -p "${STATE_DIR_FS}" 2>/dev/null || true
+    : >"${STATE_FILE_FS}" 2>/dev/null || true
+  fi
+  emit_allow
   exit 0
 fi
 
@@ -39,6 +102,7 @@ GUARDED_COMMANDS=(
   npm
   pnpm
   npx
+  agent-browser
 )
 
 # Best-effort log (stdout must remain pure JSON for Cursor)
@@ -62,16 +126,15 @@ done
 
 # Not a guarded command → allow
 if [[ -z "$hit_cmd" ]]; then
-  jq -n '{"permission":"allow"}'
+  emit_allow
   exit 0
 fi
-
 # Allow if the command itself bootstraps mise shims before running the guarded command.
 # Why: `eval "$(mise activate ... --shims)" && node ...` won't affect `command -v node`
 # until the eval is executed, but we still want to allow this usage.
 if printf '%s' "$command" | grep -Eiq \
   "mise[[:space:]]+activate[[:space:]].*--shims.*(^|[[:space:];&|()])${hit_cmd}([[:space:]]|$)"; then
-  jq -n '{"permission":"allow"}'
+  emit_allow
   exit 0
 fi
 
@@ -81,7 +144,7 @@ fi
 # - mise exec -- node -v
 if printf '%s' "$command" | grep -Eiq \
   "(^|[[:space:];&|()])mise[[:space:]]+(x|exec)[[:space:]].*--[[:space:]]*${hit_cmd}([[:space:]]|$)"; then
-  jq -n '{"permission":"allow"}'
+  emit_allow
   exit 0
 fi
 
@@ -90,7 +153,17 @@ BIN_PATH="$(command -v "$hit_cmd" 2>/dev/null || true)"
 
 # Allow if the command is executed via mise shims
 if [[ "$BIN_PATH" == *"/mise/shims/"* ]]; then
-  jq -n '{"permission":"allow"}'
+  emit_allow
+  exit 0
+fi
+
+# If we have a conversation id but no marker yet, deny and instruct a one-time bootstrap:
+# 1) eval mise shims, 2) run the original command.
+if [[ -n "${STATE_FILE_FS}" && -n "${STATE_FILE_MSG}" ]]; then
+  user_message="Initializing mise shims for this conversation (one-time)."
+  bootstrap_cmd="eval \"\$(mise activate zsh --shims)\""
+  agent_message="Run once to initialize mise shims:\n${bootstrap_cmd}\nThen re-run your original command."
+  emit_deny "$user_message" "$agent_message"
   exit 0
 fi
 
@@ -104,5 +177,4 @@ user_message="This project requires Node.js tooling to be executed via mise."
 prefix='eval "$(mise activate zsh --shims)" && '
 agent_message="The command '$command' is not running under mise. Prefix the command with: ${prefix}${command}"
 
-jq -n --arg user_message "$user_message" --arg agent_message "$agent_message" \
-  '{permission:"deny", user_message:$user_message, agent_message:$agent_message}'
+emit_deny "$user_message" "$agent_message"
