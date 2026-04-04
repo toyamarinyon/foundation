@@ -42,7 +42,7 @@ create_symlink() {
     local target="$1"
     local link_path="$2"
     local link_name="$(basename "$link_path")"
-    
+
     if [[ -e "$link_path" ]] || [[ -L "$link_path" ]]; then
         if [[ -L "$link_path" ]]; then
             local current_target="$(readlink "$link_path")"
@@ -55,19 +55,19 @@ create_symlink() {
         else
             warn "$link_name already exists (not a symlink)"
         fi
-        
+
         local backup="${link_path}.backup.$(date +%Y%m%d_%H%M%S)"
         warn "Backing up existing $link_name to $backup"
         mv "$link_path" "$backup"
     fi
-    
+
     # Create parent directory if needed
     local parent_dir="$(dirname "$link_path")"
     if [[ ! -d "$parent_dir" ]]; then
         mkdir -p "$parent_dir"
         info "Created directory: $parent_dir"
     fi
-    
+
     # Create symlink
     ln -s "$target" "$link_path"
     info "Created symlink: $link_name → $target"
@@ -78,6 +78,7 @@ info "Setting up symlink..."
 
 # ~/.zshrc → foundation/zsh/.zshrc
 create_symlink "$REPO_ROOT/zsh/.zshrc" "$HOME/.zshrc"
+create_symlink "$REPO_ROOT/zsh/.zprofile" "$HOME/.zprofile"
 
 # Cursor user-level hooks:
 # ~/.cursor/hooks.json → foundation/cursor/hooks.json
