@@ -1,6 +1,6 @@
 # foundation
 
-Personal shell dotfiles for zsh.
+Personal dotfiles for shell, terminal, and editor configuration.
 
 ## Quick Start
 
@@ -10,21 +10,28 @@ cd foundation
 ./setup.sh
 ```
 
-This will create symlinks in your home directory:
+This sets up links in your home directory:
 
-- `~/.zshrc` → `foundation/zsh/.zshrc`
-- `~/.zprofile` → `foundation/zsh/.zprofile`
-
-Existing files are automatically backed up before creating symlinks.
+- `~/.zshrc` -> `foundation/zsh/.zshrc`
+- `~/.zprofile` -> `foundation/zsh/.zprofile`
+- `~/.config/ghostty/config.ghostty` -> `foundation/ghostty/config.ghostty`
+- `~/.cursor/hooks.json` -> `foundation/cursor/hooks.json`
+- `~/.cursor/hooks/` -> `foundation/cursor/hooks/`
 
 ## Structure
 
-```
+```text
 foundation/
-├── setup.sh              # Symlink setup script
+├── archive/
+├── cursor/
+│   ├── hooks.json
+│   └── hooks/
+├── ghostty/
+│   └── config.ghostty
+├── setup.sh
 └── zsh/
-    ├── .zprofile         # Login shell setup
-    └── .zshrc            # Interactive shell setup
+    ├── .zprofile
+    └── .zshrc
 ```
 
 ## Local Environment
@@ -58,19 +65,22 @@ if [[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]]; then
 fi
 ```
 
-## Tooling: mise
+## Tooling
 
-This configuration uses [mise](https://mise.jdx.dev/) for:
+This repo assumes [mise](https://mise.jdx.dev/) is the primary tool for:
 
-- **Dev tool versions** – replaces `asdf`, `nvm`, `pyenv`, etc.
-- **Environment switching** – can replace `direnv`
-- **Task running** – can replace `make` or npm scripts
+- Dev tool versions
+- Environment switching
+- Task running
 
-If mise is installed, it's automatically activated from `zsh/.zprofile`.
+If mise is installed, it is activated from `zsh/.zprofile`.
 
-## Adding Configuration
+## Notes
 
-Edit `zsh/.zshrc` for shared interactive shell configuration. For machine-specific setup, use `~/.zprofile.local` or `~/.zshrc.local`.
+- `zsh/.zshrc` is the source of truth for shared interactive zsh configuration.
+- Ghostty is managed via the XDG config path: `~/.config/ghostty/config.ghostty`.
+- Cursor hooks are managed at the user level under `~/.cursor/`.
+- Removed setup/helper snippets from this conflict resolution are preserved in `archive/setup-and-local-config-20260603.md`.
 
 ## License
 

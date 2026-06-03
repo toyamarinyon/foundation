@@ -1,6 +1,6 @@
 #!/bin/bash
 # Setup script for foundation dotfiles
-# Creates symlink: ~/.zshrc → foundation/zsh/.zshrc
+# Creates symlinks for shell, terminal, and editor configuration.
 
 set -euo pipefail
 
@@ -34,6 +34,11 @@ fi
 
 if [[ ! -f "$REPO_ROOT/zsh/.zshrc" ]]; then
     error "zsh/.zshrc not found in repository"
+    exit 1
+fi
+
+if [[ -d "$REPO_ROOT/ghostty" ]] && [[ ! -f "$REPO_ROOT/ghostty/config.ghostty" ]]; then
+    error "ghostty/config.ghostty not found in repository"
     exit 1
 fi
 
@@ -79,6 +84,12 @@ info "Setting up symlink..."
 # ~/.zshrc → foundation/zsh/.zshrc
 create_symlink "$REPO_ROOT/zsh/.zshrc" "$HOME/.zshrc"
 create_symlink "$REPO_ROOT/zsh/.zprofile" "$HOME/.zprofile"
+
+# Ghostty config:
+# ~/.config/ghostty/config.ghostty → foundation/ghostty/config.ghostty
+if [[ -f "$REPO_ROOT/ghostty/config.ghostty" ]]; then
+    create_symlink "$REPO_ROOT/ghostty/config.ghostty" "$HOME/.config/ghostty/config.ghostty"
+fi
 
 # Cursor user-level hooks:
 # ~/.cursor/hooks.json → foundation/cursor/hooks.json

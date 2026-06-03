@@ -1,139 +1,74 @@
 ## CONTINUITY.md
 
 ### Goal (incl. success criteria):
-- Manage personal dotfiles in this repo (primarily zsh) and Cursor user-level hooks.
-- Commit current local zsh override changes, create a pull request, and merge it.
-- Discuss whether `zsh/.zprofile` differences can be managed per environment before making changes.
-- Improve Cursor `beforeShellExecution` hook so mise shims are initialized once per conversation (via marker file), avoiding repeated manual `eval "$(mise activate zsh --shims)"` prefixes.
-- Update hook so marker creation happens inside the hook when the command itself is `eval "$(mise activate zsh --shims)"` (marker not in response).
-- Success:
-  - Running `./setup.sh` sets up user-level symlinks for:
-    - `~/.zshrc` → `foundation/zsh/.zshrc`
-    - `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
-    - `~/.cursor/hooks.json` → `foundation/cursor/hooks.json`
-    - `~/.cursor/hooks/` → `foundation/cursor/hooks/`
-  - Zsh starts cleanly (`zsh -i -c 'echo ok'`).
-  - Cursor hook runs without path mismatches (expects `.cursor/hooks/...`).
+- Commit and push the resolved Ghostty/setup changes to `main`.
+- Resolve conflicts from `git pull` and leave the worktree clean of conflict markers.
+- User clarified `setup.sh` should not be broadly simplified; only add Ghostty config copy/link behavior.
+- Preserve removed/non-kept setup and machine-local config logic in-repo for safety.
+- Keep repo-managed zsh portable and free of user-specific absolute paths.
+- Keep Ghostty config managed from this repo via `ghostty/config.ghostty`.
 
 ### Constraints/Assumptions:
-- Repo is personal shell dotfiles, mainly zsh.
-- Source of truth is `zsh/`.
-- Avoid embedding absolute paths; prefer `$HOME`, `command -v`, etc.
-- Zsh config is managed in a single file: `zsh/.zshrc` (no fragment system).
-- Do not write outside this repository (no direct edits in the user's home dir).
-- Mise handles tool versions, environments, and PATH management.
+- Repo contains personal shell dotfiles, mainly zsh; current source of truth is `zsh/`.
+- Do not embed absolute paths; use `$HOME`, `command -v`, or local override files.
+- Keep zsh config single-file: `zsh/.zshrc`.
+- Do not write directly into the user's home directory.
+- User said `setup.sh`/Ghostty behavior other than setting-file copy/linking can be removed if backed up.
 
 ### Key decisions:
-- Represent "current state" from on-repo files only; mark anything about the user's machine/symlinks as `UNCONFIRMED` unless observed in-repo.
-- Treat `mise` as first-class for tool versions/env/tasks.
-- Prefer `mise` for tool versions/env/tasks; keep zsh glue minimal.
-- Install Cursor hooks at the user level under `~/.cursor/` by symlinking `hooks.json` and `hooks/`.
-- For environment-specific `.zprofile` differences, use an optional local file outside the repo (`$HOME/.zprofile.local`) sourced by the repo-managed `zsh/.zprofile`.
-- Homebrew `shellenv` is considered environment-specific and should live in `$HOME/.zprofile.local` when needed.
+- Restore `setup.sh`'s original backup-aware symlink helper behavior and add only the Ghostty config link.
+- Use optional `$HOME/.zprofile.local` and `$HOME/.zshrc.local` for machine-specific Homebrew, OrbStack, Google Cloud SDK, and similar settings.
+- Keep `ghostty/config.ghostty` as the source-managed Ghostty config.
+- Add `archive/setup-and-local-config-20260603.md` as the in-repo retreat/backup note for removed setup helper behavior and machine-local snippets.
+- Resolve `zsh/.zprofile` conflict by keeping mise activation plus optional `$HOME/.zprofile.local`.
+- Resolve `zsh/.zshrc` conflict by keeping guarded `jj` completion plus optional `$HOME/.zshrc.local`.
 
 ### State:
-- User requested commit, PR creation, and merge.
-- Worktree is currently detached HEAD with modified `.gitignore`, `CONTINUITY.md`, `README.md`, `zsh/.zprofile`, and `zsh/.zshrc`.
-- User clarified the intended fix: create actual `$HOME/.zprofile.local` containing the previous OrbStack and Homebrew settings, not add fallback logic in common `zsh/.zprofile`.
-- User also requested a `.local` mechanism for Google Cloud settings currently in `.zshrc`.
-- Found current user-level settings:
-  - `$HOME/.zprofile`: `eval "$(/opt/homebrew/bin/brew shellenv)"` and OrbStack `source ~/.orbstack/shell/init.zsh 2>/dev/null || :`
-  - `$HOME/.zshrc`: Google Cloud SDK path/completion using `/Users/toyamarinyon/google-cloud-sdk/...`
-- Plan: create `$HOME/.zprofile.local` and `$HOME/.zshrc.local` with environment-specific settings; update repo `zsh/.zshrc` to source `$HOME/.zshrc.local`; keep repo `zsh/.zprofile` sourcing `$HOME/.zprofile.local`.
-- Removed aborted-turn `setup.sh` change that would have created `$HOME/.zprofile.local` during setup.
-- `zsh/.zshrc` now sources `$HOME/.zshrc.local` when present/readable.
-- `README.md` now documents both `$HOME/.zprofile.local` and `$HOME/.zshrc.local` with Homebrew/OrbStack and Google Cloud examples.
-- Created actual `$HOME/.zprofile.local` with:
-  - `eval "$(/opt/homebrew/bin/brew shellenv)"`
-  - OrbStack shell init via `$HOME/.orbstack/shell/init.zsh`
-- Created actual `$HOME/.zshrc.local` with Google Cloud SDK path/completion sources using `$HOME/google-cloud-sdk/...`.
-- Smoke tests passed after local file creation:
-  - `env ZDOTDIR=/Users/toyamarinyon/.codex/worktrees/b99f/foundation/zsh zsh -l -c 'echo login-ok'`
-  - `env ZDOTDIR=/Users/toyamarinyon/.codex/worktrees/b99f/foundation/zsh zsh -i -c 'echo interactive-ok'`
-- User asked what `zsh/.zcompdump` is; it is a generated zsh `compinit` completion dump/cache and should not be treated as hand-authored config.
-- `zsh/.zcompdump` can be regenerated by shell smoke tests and should be removed/ignored as a generated artifact.
-- `.gitignore` now ignores `zsh/.zcompdump*`.
-- User chose option 2 for per-environment `.zprofile` differences: repo-managed common profile sources a local `$HOME/.zprofile.local` when present.
-- User confirmed the `brew shellenv` block should be written in `.zprofile.local`.
-- `zsh/.zprofile` now sources `$HOME/.zprofile.local` when that file exists and is readable.
-- `zsh/.zprofile` no longer initializes Homebrew; Homebrew setup belongs in `$HOME/.zprofile.local` if needed.
-- `zsh/.zshrc` now loads `jj` completion only when `jj` is available on `PATH`.
-- `README.md` now documents current symlinks, single-file zsh config, `$HOME/.zprofile.local` for local environment overrides, and a Homebrew local override example.
-- Smoke tests passed with repo-local `ZDOTDIR`:
-  - `env ZDOTDIR=/Users/toyamarinyon/.codex/worktrees/b99f/foundation/zsh zsh -l -c 'echo login-ok'`
-  - `env ZDOTDIR=/Users/toyamarinyon/.codex/worktrees/b99f/foundation/zsh zsh -i -c 'echo interactive-ok'`
-- After adding `.gitignore`, regenerated `zsh/.zcompdump` no longer appears in `git status --short`.
-- Current `zsh/.zshrc` is small and self-contained: compinit, `jj` completion, colors, prompt.
-- `cursor/hooks.json` exists and references `.cursor/hooks/ensure-mise-execution.sh` (implies install path `~/.cursor/...`).
-- `zsh/.zshrc` is a self-contained configuration file (mise init + basic completion/colors/prompt).
-- `zsh/.zshrc` initializes mise quietly:
-  - If `mise` is on `PATH`, it runs `eval "$(mise activate zsh)"`.
-  - Else, if `$HOME/.local/bin/mise` exists and is executable, it activates via that path.
-- `zsh/.zshrc` currently autoloads `compinit` but does not call it (so completion may not be initialized).
-- `zsh/.zshrc.d/` fragment directory is not used.
-- `setup.sh` will symlink Cursor hook config at user level: `~/.cursor/hooks.json` and `~/.cursor/hooks/`.
-- User added `agent-browser` to guarded command list in `cursor/hooks/ensure-mise-execution.sh`.
-- `cursor/hooks/ensure-mise-execution.sh` denies combined `eval "$(mise activate zsh --shims)" && <cmd>` and provides English 2-step guidance; if already initialized, it denies with "init not needed, run only the remaining command."
+- User requested commit and push.
+- `git pull --ff-only` succeeded; `git stash pop` produced conflicts in `CONTINUITY.md`, `README.md`, `zsh/.zprofile`, and `zsh/.zshrc`.
+- `setup.sh` is staged from stash and still needs simplification/review.
+- `setup.sh` was restored to the original backup-aware symlink helper flow; only Ghostty config linking was added.
+- `setup.sh` executable bit is restored.
+- `archive/` and `ghostty/` are untracked from the stash restore.
+- Verification passed: `bash -n setup.sh`, `env ZDOTDIR=/Users/toyamarinyon/repo/t-repo/foundation/zsh zsh -i -c 'echo ok'`, and `git diff --cached --check`.
+- Remaining staged changes are `CONTINUITY.md`, `README.md`, `archive/setup-and-local-config-20260603.md`, `ghostty/config.ghostty`, and `setup.sh`.
+- Stash entry `stash@{0}: On main: codex-conflict-resolution-backup` remains because Git kept it after conflict during pop.
+- `zsh/.zprofile` conflict is resolved in the working tree.
+- `zsh/.zshrc` conflict is resolved in the working tree.
+- `CONTINUITY.md` conflict was resolved by replacing it with this concise ledger.
+- `README.md` conflict is resolved and documents Ghostty/Cursor links plus local override files.
 
 ### Done:
-- Created `$HOME/.zprofile.local` with previous Homebrew and OrbStack settings.
-- Created `$HOME/.zshrc.local` with previous Google Cloud SDK settings.
-- Updated `README.md` to document `.zprofile.local` and `.zshrc.local`.
-- Updated `zsh/.zshrc` to source `$HOME/.zshrc.local`.
-- Removed unintended setup-time `$HOME/.zprofile.local` creation logic from `setup.sh`.
-- Removed regenerated `zsh/.zcompdump` test artifact from the worktree.
-- Added `zsh/.zcompdump*` to `.gitignore`.
-- Added compatibility Homebrew fallback to `zsh/.zprofile` for environments that have not created `$HOME/.zprofile.local` yet.
-- Documented the Homebrew compatibility fallback in `README.md`.
-- Updated `zsh/.zprofile` to support optional per-environment local profile content via `$HOME/.zprofile.local`.
-- Updated `zsh/.zprofile` to avoid the hard-coded Homebrew path.
-- Removed common `brew shellenv` initialization from `zsh/.zprofile`.
-- Added README example showing `brew shellenv` in `$HOME/.zprofile.local`.
-- Updated `zsh/.zshrc` to guard `jj` completion when `jj` is not installed.
-- Updated `README.md` to remove stale fragment-based `.zshrc.d` docs and document `.zprofile.local`.
-- Removed generated `zsh/.zcompdump` test artifact from the worktree.
-- Created `CONTINUITY.md`.
-- Updated `AGENTS.md` to assume "use mise full power".
-- Removed "Never commit secrets" section from `AGENTS.md` (human-facing guidance, not agent rules).
-- Created `setup.sh`: setup script that creates symlinks with backup handling for existing files.
-- Updated `AGENTS.md` "Setup assumptions" section to reflect that `setup.sh` is included in the repository.
-- Created `README.md`: user-facing documentation covering quick start, structure, mise tooling, and how to add configuration.
-- Updated `README.md`: removed `00-secret.zsh` reference; clarified that secrets are managed via mise, not zsh fragments.
-- Deleted deprecated `v1/` directory.
-- Updated `README.md`: removed `v1/` reference from structure diagram.
-- Added Cursor hook config under `cursor/`:
-  - `cursor/hooks.json`
-  - `cursor/hooks/ensure-mise-execution.sh`
-- Updated `cursor/hooks/ensure-mise-execution.sh` to gate mise initialization per conversation:
-  - Extracts `conversation_id` from hook input and uses marker file under `$HOME/.local/state/cursor/init-mise/<conversation_id>`.
-  - If marker is missing, denies guarded commands and instructs a one-time bootstrap command: `eval "$(mise activate zsh --shims)"` then re-run the original command.
-  - If marker exists, allows immediately (no need to prefix every time).
-  - Fixed hook JSON output to always emit a single valid JSON object (no multi-line / trailing comma output).
-  - Ensured the suggested bootstrap command uses `$HOME/...` (not an expanded absolute path) to avoid embedding user-specific paths.
-- Updated hook so marker creation is done only when the command itself is `eval "$(mise activate zsh --shims)"` (not via deny response).
-- Sanity-tested marker creation via eval command (marker created, hook returned allow).
-- Reverted zsh fragment approach back to a single-file `zsh/.zshrc`.
-- Updated `AGENTS.md` to reflect single-file zsh config (no fragments).
-- Updated `cursor/hooks/ensure-mise-execution.sh` to detect combined mise-init commands and deny with English 2-step guidance (init/no-init depending on marker).
+- Stashed local changes as `codex-conflict-resolution-backup`.
+- Fast-forward pulled `origin/main`.
+- Popped the stash; stash entry was kept by Git because conflicts occurred.
+- Created `archive/setup-and-local-config-20260603.md` before simplifying conflicted files.
+- Resolved `zsh/.zprofile` merge conflict in favor of local override sourcing.
+- Resolved `CONTINUITY.md` merge conflict by rebuilding the ledger.
+- Resolved `zsh/.zshrc` merge conflict in favor of guarded shared config plus local override sourcing.
+- Resolved `README.md` merge conflict by combining Ghostty/Cursor docs with local override guidance.
+- Restored `setup.sh` after user clarification; it now keeps old backup/color/validation helper behavior and adds only Ghostty config linking.
+- Restored executable bit on `setup.sh` after restoration.
+- Ran verification: setup syntax, zsh interactive startup with repo `ZDOTDIR`, and cached diff whitespace check all passed.
 
 ### Now:
-- Creating a branch, committing changes, pushing, opening a PR, and merging it.
+- Running final checks, then committing and pushing staged changes.
 
 ### Next:
-- After each file edit in this repo, update `CONTINUITY.md` immediately with what changed.
-- If desired, sanity-test by piping representative JSON into the hook script and confirming JSON output (`allow` vs `deny`) is correct.
+- Report commit hash/push result and note remaining stash entry if still present.
 
 ### Open questions (UNCONFIRMED if needed):
-- What should count as an "environment": OS/architecture, host machine, work/personal context, secret/local config, or all of these?
-- Confirm Cursor reads user-level hook config from `~/.cursor/hooks.json` and resolves hook script paths relative to `$HOME` (assumed by `.cursor/hooks/...`).
-- User asked why zsh config was changed; confirm whether to keep fragment-based reintroduction or revert and focus only on Cursor hooks.
+- Whether the user wants the retained stash entry dropped after confirming the resolved files.
 
 ### Working set (files/ids/commands):
 - Files:
+  - `CONTINUITY.md`
   - `README.md`
   - `setup.sh`
-  - `AGENTS.md`
-  - `CONTINUITY.md`
+  - `zsh/.zprofile`
   - `zsh/.zshrc`
-  - `cursor/hooks.json`
-  - `cursor/hooks/ensure-mise-execution.sh`
+  - `ghostty/config.ghostty`
+  - `archive/setup-and-local-config-20260603.md`
+- Commands:
+  - `git pull --ff-only`
+  - `git stash pop`
