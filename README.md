@@ -13,7 +13,7 @@ cd foundation
 This will create symlinks in your home directory:
 
 - `~/.zshrc` → `foundation/zsh/.zshrc`
-- `~/.zshrc.d/` → `foundation/zsh/.zshrc.d/`
+- `~/.zprofile` → `foundation/zsh/.zprofile`
 
 Existing files are automatically backed up before creating symlinks.
 
@@ -23,23 +23,40 @@ Existing files are automatically backed up before creating symlinks.
 foundation/
 ├── setup.sh              # Symlink setup script
 └── zsh/
-    ├── .zshrc            # Thin loader that sources fragments
-    └── .zshrc.d/         # Configuration fragments (sourced in order)
-        ├── 01-env.zsh    # Environment variables
-        ├── 02-path.zsh   # PATH configuration
-        ├── 10-mise.zsh   # mise activation
-        └── 90-prompt.zsh # Prompt and completion
+    ├── .zprofile         # Login shell setup
+    └── .zshrc            # Interactive shell setup
 ```
 
-### Fragment Ordering
+## Local Environment
 
-Fragments in `.zshrc.d/` are sourced in alphabetical order. The naming convention:
+Machine-specific settings live outside this repository:
 
-- `01-09`: Core environment variables
-- `10-89`: Tools and integrations (e.g., mise)
-- `90-99`: Prompt and final setup
+- `~/.zprofile.local` for login shell setup, such as Homebrew or OrbStack
+- `~/.zshrc.local` for interactive shell setup, such as local completions
 
-> **Note:** Secrets and environment variables for projects are managed via mise (`.mise.toml`), not zsh fragments.
+If these files exist, `zsh/.zprofile` and `zsh/.zshrc` source them after common setup. Keep secrets and machine-local paths there, not in this repository.
+
+Examples:
+
+```zsh
+# ~/.zprofile.local
+if command -v brew >/dev/null 2>&1; then
+  eval "$(brew shellenv)"
+fi
+
+source "$HOME/.orbstack/shell/init.zsh" 2>/dev/null || :
+```
+
+```zsh
+# ~/.zshrc.local
+if [[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]]; then
+  source "$HOME/google-cloud-sdk/path.zsh.inc"
+fi
+
+if [[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]]; then
+  source "$HOME/google-cloud-sdk/completion.zsh.inc"
+fi
+```
 
 ## Tooling: mise
 
@@ -49,20 +66,11 @@ This configuration uses [mise](https://mise.jdx.dev/) for:
 - **Environment switching** – can replace `direnv`
 - **Task running** – can replace `make` or npm scripts
 
-If mise is installed, it's automatically activated via `10-mise.zsh`.
+If mise is installed, it's automatically activated from `zsh/.zprofile`.
 
 ## Adding Configuration
 
-1. Create a new `.zsh` file in `zsh/.zshrc.d/` with an appropriate prefix
-2. The file will be automatically sourced on shell startup
-
-Example:
-
-```bash
-# zsh/.zshrc.d/20-aliases.zsh
-alias ll='ls -la'
-alias gs='git status'
-```
+Edit `zsh/.zshrc` for shared interactive shell configuration. For machine-specific setup, use `~/.zprofile.local` or `~/.zshrc.local`.
 
 ## License
 
