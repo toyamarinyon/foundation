@@ -5,4 +5,6 @@ elif [[ -x "$HOME/.local/bin/mise" ]]; then
   eval "$("$HOME/.local/bin/mise" activate zsh)"
 fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -r "$HOME/.zprofile.local" ]]; then
+  source "$HOME/.zprofile.local"
+fi
