@@ -1,6 +1,10 @@
 # Ghostty configuration
 
+# Repeating font-family specifies preferred fallback fonts when a codepoint is
+# not available in the primary font:
+# https://ghostty.org/docs/config/reference#font-family
 font-family = MonoLisa Slashed Zero
+font-family = Hiragino Sans W4
 font-feature = -dlig
 
 window-padding-x = 10
