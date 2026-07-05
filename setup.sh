@@ -42,6 +42,16 @@ if [[ -d "$REPO_ROOT/ghostty" ]] && [[ ! -f "$REPO_ROOT/ghostty/config.ghostty" 
     exit 1
 fi
 
+if [[ ! -f "$REPO_ROOT/apm.yml" ]]; then
+    error "apm.yml not found in repository"
+    exit 1
+fi
+
+if [[ ! -f "$REPO_ROOT/apm.lock.yaml" ]]; then
+    error "apm.lock.yaml not found in repository"
+    exit 1
+fi
+
 # Function to create symlink with backup if needed
 create_symlink() {
     local target="$1"
@@ -108,6 +118,12 @@ fi
 if [[ -d "$REPO_ROOT/cursor/hooks" ]]; then
     create_symlink "$REPO_ROOT/cursor/hooks" "$HOME/.cursor/hooks"
 fi
+
+# APM user-scope manifest:
+# ~/.apm/apm.yml       → foundation/apm.yml
+# ~/.apm/apm.lock.yaml → foundation/apm.lock.yaml
+create_symlink "$REPO_ROOT/apm.yml" "$HOME/.apm/apm.yml"
+create_symlink "$REPO_ROOT/apm.lock.yaml" "$HOME/.apm/apm.lock.yaml"
 
 info "Setup complete!"
 info "You may need to restart your shell or run: source ~/.zshrc"
