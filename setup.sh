@@ -58,12 +58,19 @@ create_symlink() {
                 warn "$link_name exists as a symlink pointing to: $current_target"
             fi
         else
-            warn "$link_name already exists (not a symlink)"
+            if [[ -f "$link_path" ]] && [[ -f "$target" ]] && cmp -s "$link_path" "$target"; then
+                info "$link_name already has the same content; replacing it with a symlink"
+                rm "$link_path"
+            else
+                warn "$link_name already exists (not a symlink)"
+            fi
         fi
 
-        local backup="${link_path}.backup.$(date +%Y%m%d_%H%M%S)"
-        warn "Backing up existing $link_name to $backup"
-        mv "$link_path" "$backup"
+        if [[ -e "$link_path" ]] || [[ -L "$link_path" ]]; then
+            local backup="${link_path}.backup.$(date +%Y%m%d_%H%M%S)"
+            warn "Backing up existing $link_name to $backup"
+            mv "$link_path" "$backup"
+        fi
     fi
 
     # Create parent directory if needed
