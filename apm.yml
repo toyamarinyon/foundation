@@ -1,0 +1,13 @@
+name: foundation
+version: 0.1.0
+description: APM project for foundation
+author: toyamarinyon
+targets:
+- claude
+- codex
+dependencies:
+  apm:
+  - toyamarinyon/create-next-app-with-raula#1434abd40dd406dc801eb575b0815b755a7702f4
+  mcp: []
+includes: auto
+scripts: {}

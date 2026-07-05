@@ -4,4 +4,5 @@
 # zsh generated completion cache
 zsh/.zcompdump*
 
-llms-furl/
+# APM dependencies
+apm_modules/

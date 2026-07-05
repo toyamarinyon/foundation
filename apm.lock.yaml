@@ -1,0 +1,20 @@
+lockfile_version: '1'
+generated_at: '2026-07-05T08:00:12.564664+00:00'
+apm_version: 0.23.1
+dependencies:
+- repo_url: toyamarinyon/create-next-app-with-raula
+  name: create-next-app-with-raula
+  host: github.com
+  resolved_commit: 1434abd40dd406dc801eb575b0815b755a7702f4
+  resolved_ref: 1434abd40dd406dc801eb575b0815b755a7702f4
+  version: unknown
+  package_type: skill_bundle
+  deployed_files:
+  - .agents/skills/create-next-app-with-raula
+  - .agents/skills/create-next-app-with-raula/SKILL.md
+  - .claude/skills/create-next-app-with-raula
+  - .claude/skills/create-next-app-with-raula/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/create-next-app-with-raula/SKILL.md: sha256:84bf913072ee10ebe316b57c955d9e862b0b991202104ec1bb5010781809e9b9
+    .claude/skills/create-next-app-with-raula/SKILL.md: sha256:84bf913072ee10ebe316b57c955d9e862b0b991202104ec1bb5010781809e9b9
+  content_hash: sha256:15df9e2fb9f1f0e383dfaffab72f1ffe7e6267d2fe322efd4b2bedae35c4410f
