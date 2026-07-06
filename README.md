@@ -15,6 +15,7 @@ This sets up links in your home directory:
 - `~/.zshrc` -> `foundation/zsh/.zshrc`
 - `~/.zprofile` -> `foundation/zsh/.zprofile`
 - `~/.config/ghostty/config.ghostty` -> `foundation/ghostty/config.ghostty`
+- `~/.config/herdr/config.toml` -> `foundation/herdr/config.toml`
 - `~/.cursor/hooks.json` -> `foundation/cursor/hooks.json`
 - `~/.cursor/hooks/` -> `foundation/cursor/hooks/`
 
@@ -28,6 +29,8 @@ foundation/
 │   └── hooks/
 ├── ghostty/
 │   └── config.ghostty
+├── herdr/
+│   └── config.toml
 ├── setup.sh
 └── zsh/
     ├── .zprofile
@@ -79,6 +82,7 @@ If mise is installed, it is activated from `zsh/.zprofile`.
 
 - `zsh/.zshrc` is the source of truth for shared interactive zsh configuration.
 - Ghostty is managed via the XDG config path: `~/.config/ghostty/config.ghostty`.
+- herdr is managed via the XDG config path: `~/.config/herdr/config.toml`.
 - Cursor hooks are managed at the user level under `~/.cursor/`.
 - Removed setup/helper snippets from this conflict resolution are preserved in `archive/setup-and-local-config-20260603.md`.
 

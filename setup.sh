@@ -42,6 +42,11 @@ if [[ -d "$REPO_ROOT/ghostty" ]] && [[ ! -f "$REPO_ROOT/ghostty/config.ghostty" 
     exit 1
 fi
 
+if [[ -d "$REPO_ROOT/herdr" ]] && [[ ! -f "$REPO_ROOT/herdr/config.toml" ]]; then
+    error "herdr/config.toml not found in repository"
+    exit 1
+fi
+
 if [[ ! -f "$REPO_ROOT/apm.yml" ]]; then
     error "apm.yml not found in repository"
     exit 1
@@ -106,6 +111,12 @@ create_symlink "$REPO_ROOT/zsh/.zprofile" "$HOME/.zprofile"
 # ~/.config/ghostty/config.ghostty → foundation/ghostty/config.ghostty
 if [[ -f "$REPO_ROOT/ghostty/config.ghostty" ]]; then
     create_symlink "$REPO_ROOT/ghostty/config.ghostty" "$HOME/.config/ghostty/config.ghostty"
+fi
+
+# herdr config:
+# ~/.config/herdr/config.toml → foundation/herdr/config.toml
+if [[ -f "$REPO_ROOT/herdr/config.toml" ]]; then
+    create_symlink "$REPO_ROOT/herdr/config.toml" "$HOME/.config/herdr/config.toml"
 fi
 
 # Cursor user-level hooks:
