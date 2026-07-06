@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-07-06T06:24:48.989619+00:00'
+generated_at: '2026-07-06T09:32:31.833987+00:00'
 apm_version: 0.23.1
 dependencies:
 - repo_url: ogulcancelik/herdr
@@ -7,7 +7,7 @@ dependencies:
   host: github.com
   resolved_commit: 6cbdba434fd15fc3818302a5843593da47db2eb4
   resolved_ref: 6cbdba434fd15fc3818302a5843593da47db2eb4
-  version: 1.0.0
+  version: unknown
   package_type: claude_skill
   deployed_files:
   - .agents/skills/herdr
@@ -5781,9 +5781,9 @@ dependencies:
 - repo_url: toyamarinyon/create-next-app-with-raula
   name: create-next-app-with-raula
   host: github.com
-  resolved_commit: 1434abd40dd406dc801eb575b0815b755a7702f4
-  resolved_ref: 1434abd40dd406dc801eb575b0815b755a7702f4
-  version: unknown
+  resolved_commit: 558d7ea41a425500fe7ff45869c4337c735296f8
+  resolved_ref: 558d7ea41a425500fe7ff45869c4337c735296f8
+  version: 0.0.0
   package_type: skill_bundle
   deployed_files:
   - .agents/skills/create-next-app-with-raula
@@ -5791,6 +5791,6 @@ dependencies:
   - .claude/skills/create-next-app-with-raula
   - .claude/skills/create-next-app-with-raula/SKILL.md
   deployed_file_hashes:
-    .agents/skills/create-next-app-with-raula/SKILL.md: sha256:84bf913072ee10ebe316b57c955d9e862b0b991202104ec1bb5010781809e9b9
-    .claude/skills/create-next-app-with-raula/SKILL.md: sha256:84bf913072ee10ebe316b57c955d9e862b0b991202104ec1bb5010781809e9b9
-  content_hash: sha256:15df9e2fb9f1f0e383dfaffab72f1ffe7e6267d2fe322efd4b2bedae35c4410f
+    .agents/skills/create-next-app-with-raula/SKILL.md: sha256:f9f0edc34998529e233741e9692ab40290738e27ca74c07d3d432c162e48a58b
+    .claude/skills/create-next-app-with-raula/SKILL.md: sha256:f9f0edc34998529e233741e9692ab40290738e27ca74c07d3d432c162e48a58b
+  content_hash: sha256:617a70f18c1d0501100fee7dbcb27c026a1618d2cd5f1520a70bf7e8698cbba3

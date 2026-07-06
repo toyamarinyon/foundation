@@ -7,7 +7,7 @@ targets:
   - codex
 dependencies:
   apm:
-    - toyamarinyon/create-next-app-with-raula#1434abd40dd406dc801eb575b0815b755a7702f4
+    - toyamarinyon/create-next-app-with-raula#558d7ea41a425500fe7ff45869c4337c735296f8
     - ogulcancelik/herdr#6cbdba434fd15fc3818302a5843593da47db2eb4
   mcp: []
 includes: auto
