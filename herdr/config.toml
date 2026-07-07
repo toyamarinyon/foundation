@@ -2,6 +2,10 @@
 prefix = "ctrl+q"
 navigate_workspace_up = "k"
 navigate_workspace_down = "j"
+next_agent = "prefix+shift+j"
+previous_agent = "prefix+shift+k"
+
 
 [ui]
 agent_panel_sort = "spaces"
+prompt_new_tab_name = false
