@@ -47,6 +47,11 @@ if [[ -d "$REPO_ROOT/herdr" ]] && [[ ! -f "$REPO_ROOT/herdr/config.toml" ]]; the
     exit 1
 fi
 
+if [[ -d "$REPO_ROOT/enka" ]] && [[ ! -f "$REPO_ROOT/enka/config.json" ]]; then
+    error "enka/config.json not found in repository"
+    exit 1
+fi
+
 if [[ ! -f "$REPO_ROOT/apm.yml" ]]; then
     error "apm.yml not found in repository"
     exit 1
@@ -117,6 +122,12 @@ fi
 # ~/.config/herdr/config.toml → foundation/herdr/config.toml
 if [[ -f "$REPO_ROOT/herdr/config.toml" ]]; then
     create_symlink "$REPO_ROOT/herdr/config.toml" "$HOME/.config/herdr/config.toml"
+fi
+
+# enka config:
+# ~/.config/enka/config.json → foundation/enka/config.json
+if [[ -f "$REPO_ROOT/enka/config.json" ]]; then
+    create_symlink "$REPO_ROOT/enka/config.json" "$HOME/.config/enka/config.json"
 fi
 
 # Cursor user-level hooks:

@@ -1,0 +1,5 @@
+{
+  "asciiInputRules": [
+    { "process": "herdr", "key": "ctrl+q" }
+  ]
+}
