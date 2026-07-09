@@ -9,3 +9,6 @@ previous_agent = "prefix+shift+k"
 [ui]
 agent_panel_sort = "spaces"
 prompt_new_tab_name = false
+
+[ui.toast]
+delivery = "terminal"
