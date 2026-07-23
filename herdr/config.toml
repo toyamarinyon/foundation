@@ -1,3 +1,5 @@
+onboarding = false
+
 [terminal]
 new_cwd = "home"
 
@@ -7,11 +9,27 @@ navigate_workspace_up = "k"
 navigate_workspace_down = "j"
 next_agent = "prefix+shift+j"
 previous_agent = "prefix+shift+k"
+# Disable the default zoom keybinding (prefix+z) since we don't use pane
+# zoom; empty string unsets a default binding. See:
+# https://herdr.dev/docs/configuration/#keybindings
+zoom = ""
 
+[[keys.command]]
+key = "prefix+f"
+type = "shell"
+command = "open ."
+description = "open cwd in Finder"
+
+[[keys.command]]
+key = "prefix+z"
+type = "shell"
+command = "zed ."
+description = "open cwd in Zed"
 
 [ui]
 agent_panel_sort = "spaces"
 prompt_new_tab_name = false
 
+show_agent_labels_on_pane_borders = true
 [ui.toast]
 delivery = "terminal"
