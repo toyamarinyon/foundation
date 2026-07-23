@@ -1,3 +1,6 @@
+[terminal]
+new_cwd = "home"
+
 [keys]
 prefix = "ctrl+q"
 navigate_workspace_up = "k"
