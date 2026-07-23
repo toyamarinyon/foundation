@@ -10,3 +10,4 @@ font-feature = -dlig
 window-padding-x = 10
 window-padding-y = 10
 theme = One Half Dark
+window-decoration = none
