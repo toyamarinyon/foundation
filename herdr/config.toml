@@ -1,8 +1,5 @@
 onboarding = false
 
-[terminal]
-new_cwd = "home"
-
 [keys]
 prefix = "ctrl+q"
 navigate_workspace_up = "k"
@@ -25,6 +22,12 @@ key = "prefix+z"
 type = "shell"
 command = "zed ."
 description = "open cwd in Zed"
+
+[[keys.command]]
+key = "prefix+y"
+type = "shell"
+command = "pwd | pbcopy"
+description = "copy cwd to clipboard"
 
 [ui]
 agent_panel_sort = "spaces"
