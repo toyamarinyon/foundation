@@ -16,7 +16,7 @@ This sets up links in your home directory:
 - `~/.zprofile` -> `foundation/zsh/.zprofile`
 - `~/.config/ghostty/config.ghostty` -> `foundation/ghostty/config.ghostty`
 - `~/.config/herdr/config.toml` -> `foundation/herdr/config.toml`
-- `~/.config/enka/config.json` -> `foundation/enka/config.json`
+- `~/.config/kanae/config.json` -> `foundation/kanae/config.json`
 - `~/.cursor/hooks.json` -> `foundation/cursor/hooks.json`
 - `~/.cursor/hooks/` -> `foundation/cursor/hooks/`
 
@@ -28,12 +28,12 @@ foundation/
 ├── cursor/
 │   ├── hooks.json
 │   └── hooks/
-├── enka/
-│   └── config.json
 ├── ghostty/
 │   └── config.ghostty
 ├── herdr/
 │   └── config.toml
+├── kanae/
+│   └── config.json
 ├── setup.sh
 └── zsh/
     ├── .zprofile
@@ -86,7 +86,7 @@ If mise is installed, it is activated from `zsh/.zprofile`.
 - `zsh/.zshrc` is the source of truth for shared interactive zsh configuration.
 - Ghostty is managed via the XDG config path: `~/.config/ghostty/config.ghostty`.
 - herdr is managed via the XDG config path: `~/.config/herdr/config.toml`.
-- enka is managed via the XDG config path: `~/.config/enka/config.json`.
+- kanae is managed via the XDG config path: `~/.config/kanae/config.json`.
 - Cursor hooks are managed at the user level under `~/.cursor/`.
 - Removed setup/helper snippets from this conflict resolution are preserved in `archive/setup-and-local-config-20260603.md`.
 

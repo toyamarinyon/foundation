@@ -47,8 +47,8 @@ if [[ -d "$REPO_ROOT/herdr" ]] && [[ ! -f "$REPO_ROOT/herdr/config.toml" ]]; the
     exit 1
 fi
 
-if [[ -d "$REPO_ROOT/enka" ]] && [[ ! -f "$REPO_ROOT/enka/config.json" ]]; then
-    error "enka/config.json not found in repository"
+if [[ -d "$REPO_ROOT/kanae" ]] && [[ ! -f "$REPO_ROOT/kanae/config.json" ]]; then
+    error "kanae/config.json not found in repository"
     exit 1
 fi
 
@@ -124,10 +124,10 @@ if [[ -f "$REPO_ROOT/herdr/config.toml" ]]; then
     create_symlink "$REPO_ROOT/herdr/config.toml" "$HOME/.config/herdr/config.toml"
 fi
 
-# enka config:
-# ~/.config/enka/config.json → foundation/enka/config.json
-if [[ -f "$REPO_ROOT/enka/config.json" ]]; then
-    create_symlink "$REPO_ROOT/enka/config.json" "$HOME/.config/enka/config.json"
+# kanae config:
+# ~/.config/kanae/config.json → foundation/kanae/config.json
+if [[ -f "$REPO_ROOT/kanae/config.json" ]]; then
+    create_symlink "$REPO_ROOT/kanae/config.json" "$HOME/.config/kanae/config.json"
 fi
 
 # Cursor user-level hooks:

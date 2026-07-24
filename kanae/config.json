@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "trigger": {
+        "gesture": "tap",
+        "key": "left_cmd"
+      },
+      "action": "ascii"
+    },
+    {
+      "trigger": {
+        "gesture": "tap",
+        "key": "right_cmd"
+      },
+      "action": "kana"
+    },
+    {
+      "trigger": {
+        "gesture": "press",
+        "key": "q",
+        "modifiers": ["ctrl"]
+      },
+      "action": "ascii",
+      "process": "herdr"
+    }
+  ]
+}
